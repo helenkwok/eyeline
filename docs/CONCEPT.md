@@ -52,13 +52,15 @@ High-reliability cinematic workflows require strict boundaries between determini
   - Pixel-difference thresholding and bounding-box candidate clustering.
   - Prevents hallucination and keeps large models from running continuously across redundant high-framerate frames.
 
-- **Multimodal AI Layer (Gemini on Google Cloud)**:
-  - Evaluates isolated candidate regions.
+- **Agent Orchestration (Google ADK & Google Cloud Agent Builder)**:
+  - Built using the **Google Agent Development Kit (`google-adk`)**, defining a code-first `ContinuityAgent` (`google.adk.agents.Agent`) driven by Gemini 2.5 on Vertex AI.
+  - Registers deterministic tools directly via Google ADK (`align_setup_frames`, `extract_candidate_regions`, `measure_structural_ssim`, `generate_veo_pickup`).
+  - Deployable to **Google Cloud Agent Builder** / Vertex AI Agent Engine for enterprise runtime orchestration, session state management, and Cloud IAM security.
   - Distinguishes intentional cinematic variation (lighting setup changes, camera angle adjustments, focus shifts, natural actor performance nuances) from continuity defects (displaced props, wardrobe shifts, altered liquid levels).
   - Emits structured classifications: error category, confidence score, localized coordinates, and concise explanatory rationale.
 
 - **Human Adjudication Gate**:
-  - The model never auto-passes or silences anomalies. All candidate flags are presented to the script supervisor for final sign-off.
+  - The agent never auto-passes or silences anomalies. All candidate flags are presented to the script supervisor in the UI dashboard for final sign-off.
 
 ---
 

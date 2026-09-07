@@ -55,12 +55,13 @@ BOBSHELL_API_KEY=$(cat ~/.bob/apikey) bob run \
   - Compute spatial difference masks and cluster candidate bounding boxes for multimodal inspection.
   - Filter out uniform high-frequency sensor noise and minor lighting flicker deterministically.
 
-### Task 4: Gemini Multimodal Continuity Classifier
-- **Objective**: Connect candidate visual regions to Google Cloud Gemini models via official SDKs (`google-genai` / `google-cloud-aiplatform`).
+### Task 4: Google ADK Continuity Agent & Gemini Reasoner
+- **Objective**: Implement the `ContinuityAgent` using the **Google Agent Development Kit (`google-adk`)**, registering deterministic CV tools and executing multimodal reasoning on Gemini 2.5 on Vertex AI (deployable to Google Cloud Agent Builder).
 - **Requirements**:
-  - Pass cropped reference and target frame regions along with camera setup metadata.
-  - Query Gemini with structured system instructions to classify whether the change is intentional cinematic variation (lighting, lens, posture) or an accidental continuity error.
-  - Output structured JSON: `is_continuity_error` (boolean), `category`, `confidence`, and `reasoning`.
+  - Instantiate `google.adk.agents.Agent` with `Gemini(model="gemini-2.5-flash")`.
+  - Expose deterministic candidate extraction and CV tools directly to the agent.
+  - Query Gemini with structured instructions to classify whether candidate deltas represent intentional variation or accidental defects.
+  - Output structured JSON: `is_continuity_error`, `category`, `confidence`, and `reasoning`.
 
 ### Task 5: Empirical Benchmark Scoring Harness
 - **Objective**: Automated calculation of benchmark performance without human intervention.
@@ -69,9 +70,10 @@ BOBSHELL_API_KEY=$(cat ~/.bob/apikey) bob run \
   - Calculate Recall, Bounding Box IoU Localisation, Control False-Positive Rate, and False Passes.
   - Emit machine-readable scorecard and print the canonical headline verification statement.
 
-### Task 6: Veo Generative Cutaway Generator
-- **Objective**: Emergency pickup generator for continuity defects discovered after the set is struck.
+### Task 6: Veo Generative Cutaway Tool (Google ADK)
+- **Objective**: Emergency pickup generator for continuity defects discovered after the set is struck, registered as a **Google ADK tool** callable by the Agent.
 - **Requirements**:
-  - Automated integration with Google Cloud Veo on Vertex AI.
+  - Automated integration with Google Cloud Veo on Vertex AI via `google-genai` / Vertex AI SDK.
+  - Expose `generate_veo_pickup` as a tool to the Google ADK Agent.
   - Generate a ~2-second contextual insert shot (e.g., tight macro insert of a prop, cutaway to clock or environment) to bridge continuity mismatches in the edit timeline.
   - Inject mandatory "SYNTHETIC ASSET" visual bug and metadata watermark on all generated media.
