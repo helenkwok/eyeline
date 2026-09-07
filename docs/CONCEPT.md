@@ -64,8 +64,8 @@ High-reliability cinematic workflows require strict boundaries between determini
 
 ## Integrity & Limitations
 
-- **Footage Provenance**: Demo and benchmark footage is synthetically generated via Google Cloud Veo on Vertex AI to establish mathematically exact ground truth. All synthetic assets are explicitly marked as synthetic in the interface, code, and documentation.
-- **Empirical Transparency**: A continuity detector that flags every minor variance is unusable on set. Eyeline reports false-positive rates on control setups alongside raw detection rates.
+- **Footage Provenance & Strategy**: Quantitative benchmark clips are programmatically generated via HyperFrames to establish verifiable annotations and controlled variations without cloud quota bottlenecks. Qualitative film setups are synthesized using Google Cloud Veo on Vertex AI for demonstration. All synthetic media is explicitly declared as synthetic across code, UI, and documentation.
+- **Empirical Transparency**: A continuity detector that flags every minor variance is unusable on set. Eyeline evaluates across negative control setups alongside positive defects, reporting false passes and false-alarm rates.
 - **Unverified Figures**: No unverified industry cost statistics (e.g., speculative reshoot costs) will be cited in product copy, documentation, or video presentations without primary source verification.
 
 ---
