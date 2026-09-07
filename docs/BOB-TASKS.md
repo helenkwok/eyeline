@@ -8,6 +8,8 @@ Every discrete subsystem in Eyeline is implemented in focused, cost-controlled t
 
 ### Execution Command Pattern:
 ```bash
+# Wrap in wall-clock alarm (600s) to prevent silent hangs on network drop
+perl -e 'alarm shift; exec @ARGV' 600 \
 bob run \
   --workspace /Users/helen/workspace/eyeline \
   --trust \
@@ -25,7 +27,7 @@ bob run \
 | Task # | Subsystem Description | Cost Cap | Actual Spend | Status |
 |---|---|---|---|---|
 | **1** | Visual Diff UI Shell & Fixture Player | 3.0 | 1.61 | **Complete** |
-| **2** | Ground-Truth Schema & Benchmark Loader | 2.0 | — | Queued |
+| **2** | Ground-Truth Schema & Benchmark Loader | 2.0 | 1.56 | **Complete** |
 | **3** | Deterministic Frame Alignment & Diff Engine | 4.0 | — | Queued |
 | **4** | Gemini Multimodal Continuity Classifier | 4.0 | — | Queued |
 | **5** | Empirical Evaluation & Scoring Harness | 2.0 | — | Queued |

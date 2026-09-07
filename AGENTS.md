@@ -40,3 +40,4 @@ Eyeline operates under a strict **3-Pillar Ceiling**:
 - Never write credentials or hardcoded keys into code. Never read `.env` or secret files.
 - Tests are executed only when explicitly requested.
 - When running IBM Bob in headless mode, always specify `--workspace <path> --trust --mode continuity-supervisor --format json < /dev/null`.
+- **Wall-Clock Timeout Mandate**: Wrap all headless Bob runs in a wall-clock timeout (e.g. `perl -e 'alarm shift; exec @ARGV' 600 bob run ...`) because network stalls can cause Bob to hang indefinitely without CPU or coin expenditure.

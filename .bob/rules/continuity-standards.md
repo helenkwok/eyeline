@@ -17,3 +17,4 @@
 
 ## 4. Headless & Non-Interactive Safety
 - Automated pipelines must run non-interactively. Avoid TTY prompts or interactive input requests.
+- All headless agent commands must be wrapped in a wall-clock timeout (e.g. `perl -e 'alarm shift; exec @ARGV' 600 ...`) to guard against unrecoverable network stalls that hang at 0% CPU.
