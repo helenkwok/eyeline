@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eyeline — On-Set Continuity Review</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Monospace font for timecodes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ═══════════════════════════════════════ HEADER ═══════════════════════ -->
+  <header class="app-header">
+    <div class="brand">
+      <!-- Eyeline logo mark -->
+      <svg class="brand-logo" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="15" cy="15" r="14" stroke="#f59e0b" stroke-width="1.5"/>
+        <ellipse cx="15" cy="15" rx="10" ry="5.5" stroke="#f59e0b" stroke-width="1.2"/>
+        <circle cx="15" cy="15" r="3.5" fill="#f59e0b" opacity="0.9"/>
+        <line x1="1" y1="15" x2="5" y2="15" stroke="#f59e0b" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="25" y1="15" x2="29" y2="15" stroke="#f59e0b" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <div class="brand-name">Eyeline</div>
+        <div class="brand-tagline">Continuity Intelligence</div>
+      </div>
+    </div>
+
+    <div class="take-identifier">
+      <div class="take-label" id="take-label">Scene 42 · Angle A · Take 3 vs Reference Take 1</div>
+      <div class="take-scene" id="take-scene">Loading fixture…</div>
+    </div>
+
+    <div class="telemetry-banner" aria-label="Benchmark integrity metrics">
+      <div class="telemetry-label">Benchmark Integrity</div>
+      <div class="telemetry-value">18/20 breaks caught (17 localized) &nbsp;|&nbsp; 1 false alarm / 20 control takes</div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════ META BAR ═════════════════════ -->
+  <div class="meta-bar" role="toolbar" aria-label="Session metadata and view toggles">
+    <div class="meta-chip">
+      <span class="label">Setup</span>
+      <span class="value" id="meta-timecode">00:00:00:00</span>
+    </div>
+    <div class="meta-sep"></div>
+    <div class="meta-chip">
+      <span class="label">FPS</span>
+      <span class="value" id="meta-fps">24</span>
+    </div>
+    <div class="meta-sep"></div>
+    <div class="meta-chip">
+      <span class="label">Duration</span>
+      <span class="value" id="meta-duration">—</span>
+    </div>
+    <div class="meta-sep"></div>
+    <div class="meta-chip">
+      <span class="label">Camera</span>
+      <span class="value" id="meta-camera">A-CAM</span>
+    </div>
+    <div class="meta-sep"></div>
+    <div class="meta-chip">
+      <span class="label">Sync</span>
+      <span class="value live" id="meta-sync">LOCKED</span>
+    </div>
+
+    <div class="toggle-group" role="group" aria-label="View toggles">
+      <button class="toggle-btn active" id="toggle-overlay" aria-pressed="true" title="Toggle bounding box overlay">
+        <span class="dot"></span> Overlay
+      </button>
+      <button class="toggle-btn active" id="toggle-filter-incidents" aria-pressed="true" title="Filter: flagged incidents">
+        <span class="dot"></span> Incidents
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ VIDEO STAGE ══════════════════ -->
+  <main class="video-stage" aria-label="Video comparison stage">
+
+    <!-- LEFT — Reference video -->
+    <div class="video-well" id="well-ref">
+      <div class="video-well-label" id="label-ref">Reference Take 1</div>
+      <video id="video-ref"
+             preload="metadata"
+             crossorigin="anonymous"
+             aria-label="Reference take video">
+      </video>
+      <!-- Placeholder shown when no video src is set -->
+      <div class="video-placeholder" id="placeholder-ref" aria-hidden="true">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <rect x="4" y="10" width="40" height="28" rx="3" stroke="#9ba3b2" stroke-width="2"/>
+          <polygon points="19,17 34,24 19,31" fill="#9ba3b2"/>
+        </svg>
+        <span>Reference Video</span>
+        <span style="font-size:10px;color:#3a3f4e">No source loaded</span>
+      </div>
+    </div>
+
+    <!-- RIGHT — Current take video + overlay canvas -->
+    <div class="video-well" id="well-cur">
+      <div class="video-well-label" id="label-cur">Current Take 4</div>
+      <video id="video-cur"
+             preload="metadata"
+             crossorigin="anonymous"
+             aria-label="Current take video">
+      </video>
+      <canvas id="overlay-canvas" class="overlay-canvas" aria-hidden="true"></canvas>
+      <!-- Placeholder shown when no video src is set -->
+      <div class="video-placeholder" id="placeholder-cur" aria-hidden="true">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <rect x="4" y="10" width="40" height="28" rx="3" stroke="#9ba3b2" stroke-width="2"/>
+          <polygon points="19,17 34,24 19,31" fill="#9ba3b2"/>
+        </svg>
+        <span>Current Take</span>
+        <span style="font-size:10px;color:#3a3f4e">No source loaded</span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════ SIDEBAR ══════════════════════ -->
+  <aside class="sidebar" aria-label="Continuity incidents">
+    <div class="sidebar-header">
+      <span class="sidebar-title">Continuity Incidents</span>
+      <span class="incident-count" id="incident-count">0</span>
+    </div>
+
+    <div class="sidebar-filter" role="tablist" aria-label="Incident filter">
+      <button class="filter-tab active" id="tab-incidents" role="tab" aria-selected="true" aria-controls="incident-list">
+        Flagged
+      </button>
+      <button class="filter-tab emerald" id="tab-passes" role="tab" aria-selected="false" aria-controls="incident-list">
+        Verified
+      </button>
+    </div>
+
+    <div class="incident-list" id="incident-list" role="listbox" aria-label="Incident list" aria-live="polite">
+      <!-- Populated by app.js -->
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════ PLAYBACK CONTROLS ════════════ -->
+  <footer class="playback-controls" aria-label="Playback controls">
+
+    <!-- Nudge back -->
+    <button class="btn-icon" id="btn-prev-frame" title="Previous frame (−1 frame @ 24fps)" aria-label="Step back one frame">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+        <rect x="2" y="3" width="2.5" height="10" rx="1"/>
+        <path d="M13 3.5 L6.5 8 L13 12.5 Z"/>
+      </svg>
+    </button>
+
+    <!-- Play / Pause -->
+    <button class="btn-icon btn-play-pause" id="btn-play-pause" aria-label="Play / Pause" aria-pressed="false">
+      <!-- Play icon (default) -->
+      <svg id="icon-play" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path d="M5 3.5l11 6.5-11 6.5V3.5z"/>
+      </svg>
+      <!-- Pause icon (hidden by default) -->
+      <svg id="icon-pause" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" style="display:none" aria-hidden="true">
+        <rect x="4" y="3" width="4" height="14" rx="1.5"/>
+        <rect x="12" y="3" width="4" height="14" rx="1.5"/>
+      </svg>
+    </button>
+
+    <!-- Nudge forward -->
+    <button class="btn-icon" id="btn-next-frame" title="Next frame (+1 frame @ 24fps)" aria-label="Step forward one frame">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+        <rect x="11.5" y="3" width="2.5" height="10" rx="1"/>
+        <path d="M3 3.5 L9.5 8 L3 12.5 Z"/>
+      </svg>
+    </button>
+
+    <!-- Scrub bar + incident markers -->
+    <div class="scrub-wrap" aria-label="Scrubber">
+      <input type="range" class="scrub-bar" id="scrub-bar"
+             min="0" max="1000" value="0" step="1"
+             aria-label="Playback position" />
+      <div class="scrub-incident-markers" id="incident-markers" aria-hidden="true"></div>
+    </div>
+
+    <!-- Timecode readout -->
+    <div class="timecode-display" id="timecode-display" role="timer" aria-live="off"
+         aria-label="Current timecode">
+      00:00:00:00
+    </div>
+
+    <!-- Sync indicator -->
+    <div class="sync-status" aria-label="Sync status: locked">
+      <div class="sync-dot"></div>
+      <span>SYNC</span>
+    </div>
+
+  </footer>
+
+</div><!-- /.app-shell -->
+
+<script src="app.js" type="module"></script>
+</body>
+</html>

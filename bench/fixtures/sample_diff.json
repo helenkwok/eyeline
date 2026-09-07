@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "scene": "Scene 28 - INT. CAFE",
+    "reference_take": "Take 1",
+    "target_take": "Take 4",
+    "framerate": 24,
+    "duration_seconds": 12.5,
+    "camera": "A-CAM",
+    "director": "A. Reeves",
+    "script_supervisor": "M. Chen",
+    "date": "2024-07-15"
+  },
+  "incidents": [
+    {
+      "id": "inc_001",
+      "timestamp_sec": 2.417,
+      "timecode": "00:00:02:10",
+      "category": "Prop State",
+      "confidence": 0.94,
+      "bounding_box": [0.58, 0.38, 0.78, 0.62],
+      "summary": "Actor coffee mug fill level increased by ~40% between takes. Reference shows mug approx. half-full; current take shows mug nearly full.",
+      "severity": "high"
+    },
+    {
+      "id": "inc_002",
+      "timestamp_sec": 5.083,
+      "timecode": "00:00:05:02",
+      "category": "Wardrobe",
+      "confidence": 0.97,
+      "bounding_box": [0.22, 0.12, 0.55, 0.38],
+      "summary": "Wristwatch absent in Take 4. Reference take clearly shows a silver watch on actor's left wrist; watch is not present in current take.",
+      "severity": "critical"
+    },
+    {
+      "id": "inc_003",
+      "timestamp_sec": 7.750,
+      "timecode": "00:00:07:18",
+      "category": "Prop Position",
+      "confidence": 0.88,
+      "bounding_box": [0.65, 0.55, 0.85, 0.80],
+      "summary": "Notebook on table shifted approximately 15 cm to the right. Spine alignment relative to table edge changed between takes.",
+      "severity": "medium"
+    },
+    {
+      "id": "inc_004",
+      "timestamp_sec": 9.333,
+      "timecode": "00:00:09:08",
+      "category": "Blocking",
+      "confidence": 0.81,
+      "bounding_box": [0.10, 0.42, 0.72, 0.68],
+      "summary": "Actor's eyeline direction inconsistent. In reference take actor looks toward camera-left; in current take gaze is directed slightly downward.",
+      "severity": "medium"
+    },
+    {
+      "id": "inc_005",
+      "timestamp_sec": 11.167,
+      "timecode": "00:00:11:04",
+      "category": "Set Dressing",
+      "confidence": 0.76,
+      "bounding_box": [0.05, 0.70, 0.30, 0.95],
+      "summary": "Background chalkboard menu item erased between takes. 'Oat Latte $5' entry visible in reference, missing in current take.",
+      "severity": "low"
+    }
+  ],
+  "verified_passes": [
+    {
+      "id": "pass_001",
+      "timestamp_sec": 1.000,
+      "timecode": "00:00:01:00",
+      "category": "Wardrobe",
+      "summary": "Jacket lapel position consistent across takes."
+    },
+    {
+      "id": "pass_002",
+      "timestamp_sec": 4.500,
+      "timecode": "00:00:04:12",
+      "category": "Prop Position",
+      "summary": "Espresso cup on bar counter position verified consistent."
+    }
+  ]
+}

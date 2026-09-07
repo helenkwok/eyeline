@@ -1,0 +1,22 @@
+# Environments & dependencies
+.venv/
+node_modules/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local secrets & credentials (strictly avoided)
+.env
+*.key
+*.pem
+.bob/
+
+# Media binaries (test/benchmark footage)
+bench/media/*.mp4
+bench/media/*.png
+!bench/media/.gitkeep
+
+# System & transcripts
+.DS_Store
+.bob-transcripts/*.raw
