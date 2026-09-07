@@ -10,7 +10,11 @@ __pycache__/
 .env
 *.key
 *.pem
-.bob/
+
+# Bob local state / cache (keep tracked configuration)
+.bob/*.db
+.bob/logs/
+.bob/*.tmp
 
 # Media binaries (test/benchmark footage)
 bench/media/*.mp4

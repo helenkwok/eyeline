@@ -1,0 +1,76 @@
+{
+  "$schema": "https://cloud.google.com/vertex-ai/docs/agent-builder/schema.json",
+  "agentBuilder": {
+    "displayName": "Eyeline Continuity Supervisor",
+    "description": "Autonomous on-set film continuity verification copilot built with Google ADK and Vertex AI.",
+    "reasoningEngine": {
+      "runtime": "google-adk-python3.10",
+      "model": "projects/{project_id}/locations/{location}/publishers/google/models/gemini-2.5-flash",
+      "entrypoint": "eyeline.agent:build_continuity_agent"
+    },
+    "tools": [
+      {
+        "name": "cv_spatial_diff",
+        "description": "Deterministic classical CV alignment and difference mask generator.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "ref_frame_path": { "type": "string" },
+            "target_frame_path": { "type": "string" }
+          },
+          "required": ["ref_frame_path", "target_frame_path"]
+        }
+      },
+      {
+        "name": "candidate_crop_inspect",
+        "description": "Inspects localized bounding box crops for multimodal evaluation.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "take_pair_id": { "type": "string" },
+            "candidate_box": {
+              "type": "array",
+              "items": { "type": "number" },
+              "description": "Normalized [ymin, xmin, ymax, xmax]"
+            }
+          },
+          "required": ["take_pair_id", "candidate_box"]
+        }
+      },
+      {
+        "name": "adjudicate_incident",
+        "description": "Finalizes incident determination and returns verified verdict.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "category": { "type": "string" },
+            "confidence": { "type": "number" },
+            "summary": { "type": "string" },
+            "remediation": { "type": "string" }
+          },
+          "required": ["category", "confidence", "summary"]
+        }
+      },
+      {
+        "name": "generate_veo_pickup",
+        "description": "Google Cloud Veo generative cutaway tool on Vertex AI.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "scene_context": { "type": "string" },
+            "defect_description": { "type": "string" },
+            "shot_type": { "type": "string" },
+            "duration_sec": { "type": "number" }
+          },
+          "required": ["scene_context", "defect_description"]
+        }
+      }
+    ],
+    "compliance": {
+      "rule7b_status": "COMPLIANT",
+      "ai_models": ["gemini-2.5-flash", "veo-2.0"],
+      "provider": "Google Cloud Vertex AI",
+      "prohibited_models": ["YOLO", "GroundingDINO", "SAM", "MobileNet"]
+    }
+  }
+}

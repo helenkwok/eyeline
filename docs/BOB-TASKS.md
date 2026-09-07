@@ -8,12 +8,16 @@ Every discrete subsystem in Eyeline is implemented in focused, cost-controlled t
 
 ### Execution Command Pattern:
 ```bash
-BOBSHELL_API_KEY=$(cat ~/.bob/apikey) bob run \
+bob run \
+  --workspace /Users/helen/workspace/eyeline \
+  --trust \
+  --mode continuity-supervisor \
   --max-turns <N> \
   --max-cost <M> \
   --format json \
   --log-level error \
-  "<task_specification>"
+  "<task_specification>" \
+  < /dev/null > .bob-transcripts/<task_name>.json 2>&1
 ```
 
 ### Allocation & Accounting (Total Budget: 50 Bobcoins):

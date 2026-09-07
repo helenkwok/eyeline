@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "eyeline-inspector": {
+      "command": "python3",
+      "args": [
+        "src/eyeline/mcp_server.py"
+      ]
+    }
+  }
+}

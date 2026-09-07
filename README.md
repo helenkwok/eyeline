@@ -41,9 +41,13 @@ Eyeline enforces a strict three-part architecture ceiling to prevent feature blo
 
 ## 🦾 Built with IBM Bob (IBM Partner Track)
 
-All core subsystems in Eyeline are designed and implemented in structured, cost-capped tasks using **IBM Bob**:
+Eyeline leverages **IBM Bob** not just as a one-off code generator, but as a fully tailored, project-specific development and inspection environment:
 
-- **Provenance Records**: Non-interactive command transcripts and turn logs are preserved in [`.bob-transcripts/`](.bob-transcripts/).
+- **Custom Project Mode** ([`.bob/custom_modes.yaml`](.bob/custom_modes.yaml)): Configures the dedicated `continuity-supervisor` persona equipped with tool groups (`read`, `edit`, `execute`, `mcp`, `skill`, `todo`, `subagent`) and script supervisor domain knowledge.
+- **Anthropic-Format Project Skill** ([`.bob/skills/continuity-reviewer/SKILL.md`](.bob/skills/continuity-reviewer/SKILL.md)): Embeds domain-specific inspection procedures, coordinate normalization (`[ymin, xmin, ymax, xmax]`), and negative-control verification rules.
+- **Project Rules & Instructions** ([`AGENTS.md`](AGENTS.md), [`.bob/rules/continuity-standards.md`](.bob/rules/continuity-standards.md), [`.bob/rules-continuity-supervisor/workflow.md`](.bob/rules-continuity-supervisor/workflow.md)): Enforces strict Hackathon Rule 7.B compliance (Google Cloud AI only, no third-party object detectors) and negative control invariance across all agent interactions.
+- **Model Context Protocol (MCP) Server** ([`.bob/mcp.json`](.bob/mcp.json) & [`src/eyeline/mcp_server.py`](src/eyeline/mcp_server.py)): Exposes native `eyeline-inspector` tools (`get_take_telemetry`, `inspect_discrepancies`, `verify_negative_control`) directly to Bob and external agents over stdio.
+- **Provenance Records**: Full non-interactive command transcripts and turn logs are preserved in [`.bob-transcripts/`](.bob-transcripts/).
 - **Task Queue & Budgets**: Detailed task breakdowns and Bobcoin cost caps are tracked in [`docs/BOB-TASKS.md`](docs/BOB-TASKS.md).
 - **Task 1 Milestone**: Root commit [`1cbff58`](file:///Users/helen/workspace/eyeline) authored by IBM Bob delivering the visual diff UI inspection dashboard (`ui/`) for **1.61 Bobcoins** across 10 tool calls (see [`.bob-transcripts/task1-ui.json`](.bob-transcripts/task1-ui.json)).
 
@@ -82,7 +86,7 @@ continuity_agent = Agent(
 )
 ```
 
-The agent is deployable directly to **Google Cloud Agent Builder** / Vertex AI Agent Engine for enterprise production serving.
+The agent is deployable directly to **Google Cloud Agent Builder** / Vertex AI Agent Engine for enterprise production serving. The concrete exported manifest is tracked in [`src/eyeline/agent_builder_spec.json`](src/eyeline/agent_builder_spec.json), detailing reasoning engine configuration, tool schemas, and Rule 7.B compliance metadata. Full architectural specifications can be found in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 ---
 

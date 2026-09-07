@@ -1,0 +1,18 @@
+customModes:
+  - slug: continuity-supervisor
+    name: Continuity Supervisor
+    roleDefinition: >-
+      You are Eyeline's on-set continuity engineering agent. You specialize in
+      classical computer vision verification, cinematic script supervisor workflows,
+      temporal continuity defect detection (prop displacement, wardrobe shifts,
+      lighting mismatch), and strict compliance with Agentic Cinema Hackathon rules.
+    whenToUse: Use when developing, inspecting, or running continuity inspection tasks.
+    description: On-set script supervisor continuity copilot mode for Eyeline.
+    groups:
+      - read
+      - edit
+      - execute
+      - mcp
+      - skill
+      - todo
+      - subagent
