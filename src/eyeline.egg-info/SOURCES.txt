@@ -1,0 +1,12 @@
+LICENSE
+README.md
+pyproject.toml
+src/eyeline/__init__.py
+src/eyeline/agent.py
+src/eyeline/mcp_server.py
+src/eyeline/vision.py
+src/eyeline.egg-info/PKG-INFO
+src/eyeline.egg-info/SOURCES.txt
+src/eyeline.egg-info/dependency_links.txt
+src/eyeline.egg-info/requires.txt
+src/eyeline.egg-info/top_level.txt

@@ -1,8 +1,32 @@
+Metadata-Version: 2.4
+Name: eyeline
+Version: 0.1.0
+Summary: Autonomous on-set continuity copilot for live film sets.
+License: Apache-2.0
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: google-adk>=0.1.0
+Requires-Dist: google-genai>=0.1.1
+Requires-Dist: google-cloud-aiplatform>=1.70.0
+Requires-Dist: opencv-python-headless>=4.9.0
+Requires-Dist: scenedetect[opencv]>=0.7.1
+Requires-Dist: scikit-image>=0.22.0
+Requires-Dist: imagehash>=4.3.1
+Requires-Dist: fastapi>=0.110.0
+Requires-Dist: uvicorn>=0.28.0
+Requires-Dist: pydantic>=2.6.0
+Requires-Dist: python-multipart>=0.0.9
+Requires-Dist: jinja2>=3.1.3
+Provides-Extra: dev
+Requires-Dist: pytest>=8.0.0; extra == "dev"
+Dynamic: license-file
+
 # Eyeline: Autonomous Continuity Copilot for Live Sets
 
 > **Eyeline watches continuity while the set is still standing, so a break costs one more take instead of a reshoot.**
 
-Built for the **Agentic Cinema Hackathon** (IBM Partner Track) combining **IBM Bob**, **Google ADK (`google-adk`)**, **Google Cloud Agent Builder**, and **Vertex AI** (Gemini 3.8 Flash & Veo).
+Built for the **Agentic Cinema Hackathon** (IBM Partner Track) combining **IBM Bob**, **Google ADK (`google-adk`)**, **Google Cloud Agent Builder**, and **Vertex AI** (Gemini 2.5 & Veo).
 
 ---
 
@@ -33,7 +57,7 @@ Eyeline enforces a strict three-part architecture ceiling to prevent feature blo
 | **IBM Bob** | Autonomous Development | Authors core modules across cost-capped tasks; non-interactive turn logs and provenance preserved in [`.bob-transcripts/`](.bob-transcripts/). | **IBM Partner Track Mandate**: Complete transcripts recorded and linked. |
 | **Google ADK (`google-adk`)** | Agent Architecture & Orchestration | Implements `ContinuityAgent` via `google.adk.agents.Agent`, binding classical CV tools and driving the multi-step verification loop. | **Google Cloud Ecosystem**: Runtime package imported and executed. |
 | **Google Cloud Agent Builder** | Enterprise Agent Hosting | Enterprise deployment target providing managed agent execution, Cloud IAM security, and session state. | **Google Cloud Ecosystem**: Production agent runtime platform. |
-| **Gemini 3.8 Flash on Vertex AI** | Multimodal Reasoning | Evaluates candidate regions to distinguish legitimate cinematographic variation from accidental defects. | **Sole AI Model Vendor**: 100% compliant with Rule 7.B. |
+| **Gemini 2.5 on Vertex AI** | Multimodal Reasoning | Evaluates candidate regions to distinguish legitimate cinematographic variation from accidental defects. | **Sole AI Model Vendor**: 100% compliant with Rule 7.B. |
 | **Veo on Vertex AI** | Generative Cutaway Bridge | Generates ~2s contextual insert pickups for late-caught continuity errors. | **Google Cloud Generative Media**: Integrated via Vertex AI. |
 | **Classical CV Stack** | Deterministic Preprocessing | `scenedetect` (take boundaries), `opencv-python-headless` (homography/alignment), `scikit-image` (SSIM diff), `imagehash` (filtering). | **Permissive Open Source**: Apache-2.0 / BSD, zero non-Google AI models. |
 
@@ -71,7 +95,7 @@ from eyeline.tools import (
 continuity_agent = Agent(
     name="eyeline_continuity_agent",
     description="Inspects film takes against reference setups to identify physical continuity errors.",
-    model=Gemini(model="gemini-3.8-flash"),
+    model=Gemini(model="gemini-2.5-flash"),
     tools=[
         align_setup_frames,
         extract_candidate_regions,

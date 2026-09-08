@@ -5,7 +5,7 @@
     "description": "Autonomous on-set film continuity verification copilot built with Google ADK and Vertex AI.",
     "reasoningEngine": {
       "runtime": "google-adk-python3.10",
-      "model": "projects/{project_id}/locations/{location}/publishers/google/models/gemini-2.5-flash",
+      "model": "projects/{project_id}/locations/{location}/publishers/google/models/gemini-3.8-flash",
       "entrypoint": "eyeline.agent:build_continuity_agent"
     },
     "tools": [
@@ -68,7 +68,7 @@
     ],
     "compliance": {
       "rule7b_status": "COMPLIANT",
-      "ai_models": ["gemini-2.5-flash", "veo-2.0"],
+      "ai_models": ["gemini-3.8-flash", "veo-2.0-generate-001"],
       "provider": "Google Cloud Vertex AI",
       "prohibited_models": ["YOLO", "GroundingDINO", "SAM", "MobileNet"]
     }

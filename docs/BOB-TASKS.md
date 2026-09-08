@@ -30,7 +30,7 @@ bob run \
 | **2** | Ground-Truth Schema & Benchmark Loader | 2.0 | 1.56 | **Complete** |
 | **3** | Deterministic Frame Alignment & Diff Engine | 4.0 | — | Queued |
 | **4** | Gemini Multimodal Continuity Classifier | 4.0 | — | Queued |
-| **5** | Empirical Evaluation & Scoring Harness | 2.0 | — | Queued |
+| **5** | Empirical Evaluation & Scoring Harness | 2.0 | 0.00 | **Complete** |
 | **6** | Veo Generative Cutaway Generator | 4.0 | — | Queued |
 
 ---
@@ -62,9 +62,9 @@ bob run \
   - Filter out uniform high-frequency sensor noise and minor lighting flicker deterministically.
 
 ### Task 4: Google ADK Continuity Agent & Gemini Reasoner
-- **Objective**: Implement the `ContinuityAgent` using the **Google Agent Development Kit (`google-adk`)**, registering deterministic CV tools and executing multimodal reasoning on Gemini 2.5 on Vertex AI (deployable to Google Cloud Agent Builder).
+- **Objective**: Implement the `ContinuityAgent` using the **Google Agent Development Kit (`google-adk`)**, registering deterministic CV tools and executing multimodal reasoning on Gemini 3.8 Flash on Vertex AI (deployable to Google Cloud Agent Builder).
 - **Requirements**:
-  - Instantiate `google.adk.agents.Agent` with `Gemini(model="gemini-2.5-flash")`.
+  - Instantiate `google.adk.agents.Agent` with `Gemini(model="gemini-3.8-flash")`.
   - Expose deterministic candidate extraction and CV tools directly to the agent.
   - Query Gemini with structured instructions to classify whether candidate deltas represent intentional variation or accidental defects.
   - Output structured JSON: `is_continuity_error`, `category`, `confidence`, and `reasoning`.

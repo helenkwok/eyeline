@@ -88,7 +88,7 @@ def generate_veo_pickup(
     """Google Cloud Veo generative cutaway tool: synthesizes a 2-second B-roll pickup shot on Vertex AI."""
     return {
         "status": "synthesized",
-        "engine": "google-cloud-veo-2.0",
+        "engine": "veo-2.0-generate-001",
         "duration_sec": duration_sec,
         "shot_type": shot_type,
         "watermark": "SYNTHETIC_CONTINUITY_INSERT",
@@ -107,7 +107,7 @@ def get_default_tools() -> List[Any]:
 
 
 def build_continuity_agent(
-    model_name: str = "gemini-2.5-flash",
+    model_name: str = "gemini-3.8-flash",
     instruction: Optional[str] = None,
     tools: Optional[List[Any]] = None,
 ) -> Any:
@@ -155,7 +155,7 @@ def export_agent_builder_spec() -> Dict[str, Any]:
             "description": "Autonomous on-set film continuity verification copilot built with Google ADK and Vertex AI.",
             "reasoningEngine": {
                 "runtime": "google-adk-python3.10",
-                "model": "projects/{project_id}/locations/{location}/publishers/google/models/gemini-2.5-flash",
+                "model": "projects/{project_id}/locations/{location}/publishers/google/models/gemini-3.8-flash",
                 "entrypoint": "eyeline.agent:build_continuity_agent",
             },
             "tools": [
@@ -218,7 +218,7 @@ def export_agent_builder_spec() -> Dict[str, Any]:
             ],
             "compliance": {
                 "rule7b_status": "COMPLIANT",
-                "ai_models": ["gemini-2.5-flash", "veo-2.0"],
+                "ai_models": ["gemini-3.8-flash", "veo-2.0-generate-001"],
                 "provider": "Google Cloud Vertex AI",
                 "prohibited_models": ["YOLO", "GroundingDINO", "SAM", "MobileNet"]
             }

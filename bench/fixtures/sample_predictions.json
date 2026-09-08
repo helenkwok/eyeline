@@ -1,0 +1,322 @@
+[
+  {
+    "pair_id": "pair_001",
+    "detected": true,
+    "category": "prop_state",
+    "timestamp_sec": 2.437,
+    "bounding_box": [
+      0.56,
+      0.36,
+      0.77,
+      0.61
+    ],
+    "confidence": 0.92,
+    "reasoning": "Detected continuity discrepancy: Coffee mug fill level increased ~40% between reference and target take. Referenc..."
+  },
+  {
+    "pair_id": "pair_002",
+    "detected": true,
+    "category": "wardrobe",
+    "timestamp_sec": 5.103,
+    "bounding_box": [
+      0.23,
+      0.13,
+      0.54,
+      0.37
+    ],
+    "confidence": 0.93,
+    "reasoning": "Detected continuity discrepancy: Silver wristwatch absent in target take. Reference clearly shows watch on actor'..."
+  },
+  {
+    "pair_id": "pair_003",
+    "detected": true,
+    "category": "prop_position",
+    "timestamp_sec": 7.77,
+    "bounding_box": [
+      0.63,
+      0.53,
+      0.83,
+      0.77
+    ],
+    "confidence": 0.86,
+    "reasoning": "Detected continuity discrepancy: Spiral notebook shifted ~15 cm to the right on the diner table. Spine alignment ..."
+  },
+  {
+    "pair_id": "pair_004",
+    "detected": true,
+    "category": "blocking",
+    "timestamp_sec": 9.353,
+    "bounding_box": [
+      0.11,
+      0.43,
+      0.64,
+      0.67
+    ],
+    "confidence": 0.87,
+    "reasoning": "Detected continuity discrepancy: Actor's eyeline direction inconsistent across the cut. Reference shows gaze to c..."
+  },
+  {
+    "pair_id": "pair_005",
+    "detected": true,
+    "category": "prop_state",
+    "timestamp_sec": 3.145,
+    "bounding_box": [
+      0.61,
+      0.21,
+      0.79,
+      0.44
+    ],
+    "confidence": 0.92,
+    "reasoning": "Detected continuity discrepancy: Cigarette in actor's hand burned down by ~30% between consecutive takes within t..."
+  },
+  {
+    "pair_id": "pair_006",
+    "detected": true,
+    "category": "wardrobe",
+    "timestamp_sec": 6.52,
+    "bounding_box": [
+      0.19,
+      0.31,
+      0.59,
+      0.54
+    ],
+    "confidence": 0.86,
+    "reasoning": "Detected continuity discrepancy: Suit jacket lapel has flipped from correct position in reference to folded inwar..."
+  },
+  {
+    "pair_id": "pair_007",
+    "detected": true,
+    "category": "hair_makeup",
+    "timestamp_sec": 4.228,
+    "bounding_box": [
+      0.06,
+      0.36,
+      0.37,
+      0.64
+    ],
+    "confidence": 0.9,
+    "reasoning": "Detected continuity discrepancy: Hair part switched from right to left between reference and target. No scripted ..."
+  },
+  {
+    "pair_id": "pair_008",
+    "detected": true,
+    "category": "set_dressing",
+    "timestamp_sec": 11.937,
+    "bounding_box": [
+      0.06,
+      0.69,
+      0.29,
+      0.94
+    ],
+    "confidence": 0.85,
+    "reasoning": "Detected continuity discrepancy: Background whiteboard equation partially erased between takes. 'E=mc\u00b2' notation ..."
+  },
+  {
+    "pair_id": "pair_009",
+    "detected": true,
+    "category": "prop_position",
+    "timestamp_sec": 1.895,
+    "bounding_box": [
+      0.51,
+      0.61,
+      0.71,
+      0.87
+    ],
+    "confidence": 0.95,
+    "reasoning": "Detected continuity discrepancy: Chef's knife moved from cutting board to countertop between reference and target..."
+  },
+  {
+    "pair_id": "pair_010",
+    "detected": true,
+    "category": "prop_state",
+    "timestamp_sec": 8.062,
+    "bounding_box": [
+      0.36,
+      0.26,
+      0.64,
+      0.54
+    ],
+    "confidence": 0.86,
+    "reasoning": "Detected continuity discrepancy: Pot on stove lid is ajar in reference (steam escaping) but fully closed in targe..."
+  },
+  {
+    "pair_id": "pair_011",
+    "detected": true,
+    "category": "wardrobe",
+    "timestamp_sec": 5.687,
+    "bounding_box": [
+      0.21,
+      0.16,
+      0.54,
+      0.44
+    ],
+    "confidence": 0.85,
+    "reasoning": "Detected continuity discrepancy: Apron strap fallen off left shoulder in target take; both straps properly seated..."
+  },
+  {
+    "pair_id": "pair_012",
+    "detected": true,
+    "category": "eyeline_axis",
+    "timestamp_sec": 13.312,
+    "bounding_box": [
+      0.09,
+      0.39,
+      0.69,
+      0.61
+    ],
+    "confidence": 0.87,
+    "reasoning": "Detected continuity discrepancy: 180-degree axis violated between reference OTS and target reaction insert. Actor..."
+  },
+  {
+    "pair_id": "pair_013",
+    "detected": true,
+    "category": "blocking",
+    "timestamp_sec": 4.77,
+    "bounding_box": [
+      0.13,
+      0.29,
+      0.79,
+      0.71
+    ],
+    "confidence": 0.86,
+    "reasoning": "Detected continuity discrepancy: Detective actor standing in reference but seated in target at the same story mom..."
+  },
+  {
+    "pair_id": "pair_014",
+    "detected": true,
+    "category": "prop_position",
+    "timestamp_sec": 7.187,
+    "bounding_box": [
+      0.59,
+      0.41,
+      0.79,
+      0.69
+    ],
+    "confidence": 0.96,
+    "reasoning": "Detected continuity discrepancy: Evidence folder moved from far edge of interrogation table to center. Reference ..."
+  },
+  {
+    "pair_id": "pair_015",
+    "detected": true,
+    "category": "hair_makeup",
+    "timestamp_sec": 10.478,
+    "bounding_box": [
+      0.55,
+      0.7,
+      0.9,
+      0.95
+    ],
+    "confidence": 0.79,
+    "reasoning": "Detected facial prosthetic shift, coarse localization."
+  },
+  {
+    "pair_id": "pair_016",
+    "detected": false,
+    "confidence": 0.28,
+    "reasoning": "Delta below spatial significance threshold (missed practical lamp removal)."
+  },
+  {
+    "pair_id": "pair_017",
+    "detected": true,
+    "category": "control_camera_angle",
+    "timestamp_sec": 3.01,
+    "bounding_box": [
+      0.4,
+      0.3,
+      0.8,
+      0.7
+    ],
+    "confidence": 0.64,
+    "reasoning": "Camera angle shift and key illumination drop misclassified as prop shadowing."
+  },
+  {
+    "pair_id": "pair_018",
+    "detected": false,
+    "confidence": 0.08,
+    "reasoning": "Clean control pass: Intentional key-light dim from 5600K to 3200K to convey dusk transition. Warm co..."
+  },
+  {
+    "pair_id": "pair_019",
+    "detected": false,
+    "confidence": 0.17,
+    "reasoning": "Clean control pass: Lens change from 50mm to 85mm telephoto for close-up coverage. Bokeh increase an..."
+  },
+  {
+    "pair_id": "pair_020",
+    "detected": false,
+    "confidence": 0.15,
+    "reasoning": "Clean control pass: Actor delivered a more subdued performance in target take by director's choice. ..."
+  },
+  {
+    "pair_id": "pair_021",
+    "detected": false,
+    "confidence": 0.15,
+    "reasoning": "Clean control pass: DIT applied a -0.5 stop exposure pull in-camera on target take at DP's request. ..."
+  },
+  {
+    "pair_id": "pair_022",
+    "detected": false,
+    "confidence": 0.16,
+    "reasoning": "Clean control pass: B-camera covering a low-angle insert at 18\u00b0 tilt while A-camera holds master. Ge..."
+  },
+  {
+    "pair_id": "pair_023",
+    "detected": false,
+    "confidence": 0.17,
+    "reasoning": "Clean control pass: Switched to 135mm prime for tight insert on hands. Compressed depth of field cau..."
+  },
+  {
+    "pair_id": "pair_024",
+    "detected": false,
+    "confidence": 0.15,
+    "reasoning": "Clean control pass: Actor chose different emotional register in target take \u2014 slight smile versus ne..."
+  },
+  {
+    "pair_id": "pair_025",
+    "detected": false,
+    "confidence": 0.08,
+    "reasoning": "Clean control pass: Overhead practicals dimmed to 70% on second pass to reduce specular reflections ..."
+  },
+  {
+    "pair_id": "pair_026",
+    "detected": false,
+    "confidence": 0.11,
+    "reasoning": "Clean control pass: Bird's-eye overhead angle used in target to show food prep; reference is eye-lev..."
+  },
+  {
+    "pair_id": "pair_027",
+    "detected": false,
+    "confidence": 0.13,
+    "reasoning": "Clean control pass: Saturation boosted +15 in target to pop food colors for the 'reveal' beat. Delib..."
+  },
+  {
+    "pair_id": "pair_028",
+    "detected": false,
+    "confidence": 0.14,
+    "reasoning": "Clean control pass: Actor improvised a head tilt and brief pause in target take. Head position varia..."
+  },
+  {
+    "pair_id": "pair_029",
+    "detected": false,
+    "confidence": 0.08,
+    "reasoning": "Clean control pass: Grip added a half-CTO gel to the key light for target take to deepen the oppress..."
+  },
+  {
+    "pair_id": "pair_030",
+    "detected": false,
+    "confidence": 0.09,
+    "reasoning": "Clean control pass: Dutch-angle insert (15\u00b0 roll) used in target for psychological tension. Tilted f..."
+  },
+  {
+    "pair_id": "pair_031",
+    "detected": false,
+    "confidence": 0.1,
+    "reasoning": "Clean control pass: Switched from 35mm wide to 24mm for a slightly wider two-shot. Additional foregr..."
+  },
+  {
+    "pair_id": "pair_032",
+    "detected": false,
+    "confidence": 0.16,
+    "reasoning": "Clean control pass: Contrast lifted in target take via in-camera picture profile to accentuate shado..."
+  }
+]

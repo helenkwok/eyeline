@@ -24,7 +24,7 @@ Judges frequently evaluate submissions from clean machines or virtual environmen
 - [ ] **Originality**: Zero code ported or recycled from prior internal projects; development begins from first commit.
 - [ ] **IBM Bob Provenance Evidenced**: Substantive subsystems authored via IBM Bob, transcripts archived under `.bob-transcripts/`, and prominently linked in `README.md`.
 - [ ] **Google ADK Runtime Integration**: `google-adk` package imported and executed in code to define the `ContinuityAgent` and register tools.
-- [ ] **Google Cloud Agent Builder & Gemini Exclusivity**: All AI interactions execute via Google Cloud Agent Builder and official Google Cloud SDKs (`google-adk`, `google-genai`, `google-cloud-aiplatform`) utilizing Gemini 2.5 and Veo models on Vertex AI. Zero third-party LLMs or unauthorized agent frameworks.
+- [ ] **Google Cloud Agent Builder & Gemini Exclusivity**: All AI interactions execute via Google Cloud Agent Builder and official Google Cloud SDKs (`google-adk`, `google-genai`, `google-cloud-aiplatform`) utilizing Gemini 3.8 Flash and Veo models on Vertex AI. Zero third-party LLMs or unauthorized agent frameworks.
 - [ ] **Devpost Form Partner Selection**: "IBM Track" explicitly selected on the Devpost submission portal.
 
 ---

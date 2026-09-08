@@ -53,7 +53,7 @@ High-reliability cinematic workflows require strict boundaries between determini
   - Prevents hallucination and keeps large models from running continuously across redundant high-framerate frames.
 
 - **Agent Orchestration (Google ADK & Google Cloud Agent Builder)**:
-  - Built using the **Google Agent Development Kit (`google-adk`)**, defining a code-first `ContinuityAgent` (`google.adk.agents.Agent`) driven by Gemini 2.5 on Vertex AI.
+  - Built using the **Google Agent Development Kit (`google-adk`)**, defining a code-first `ContinuityAgent` (`google.adk.agents.Agent`) driven by Gemini 3.8 Flash on Vertex AI.
   - Registers deterministic tools directly via Google ADK (`align_setup_frames`, `extract_candidate_regions`, `measure_structural_ssim`, `generate_veo_pickup`).
   - Deployable to **Google Cloud Agent Builder** / Vertex AI Agent Engine for enterprise runtime orchestration, session state management, and Cloud IAM security.
   - Distinguishes intentional cinematic variation (lighting setup changes, camera angle adjustments, focus shifts, natural actor performance nuances) from continuity defects (displaced props, wardrobe shifts, altered liquid levels).

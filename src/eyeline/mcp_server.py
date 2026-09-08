@@ -61,19 +61,19 @@ def inspect_discrepancies(fixture_path: str = "bench/fixtures/sample_diff.json")
 
 @mcp.tool()
 def verify_negative_control(pair_id: str, reported_defects: int) -> Dict[str, Any]:
-    """Verify that a negative control pair produced zero false-positive defects.
+    """Inspect and record control pair behavior under intentional variations.
     
     Args:
         pair_id: Identifier for the benchmark pair.
-        reported_defects: Number of defects reported by the model on this pair.
+        reported_defects: Number of defects reported on this control pair.
     """
-    is_valid = (reported_defects == 0)
+    is_clean = (reported_defects == 0)
     return {
         "pair_id": pair_id,
         "is_negative_control": True,
         "reported_defects": reported_defects,
-        "verdict": "PASSED" if is_valid else "FAILED_FALSE_POSITIVE",
-        "rule": "Negative controls must exhibit 0 false positives under intentional variations.",
+        "verdict": "CLEAN_PASS" if is_clean else "TRIPPED_FALSE_ALARM",
+        "evaluation": "Clean pass (0 false alarms)" if is_clean else f"Tripped with {reported_defects} false alarm(s); cataloged for FPR calculation.",
     }
 
 

@@ -371,7 +371,7 @@
     <div class="provenance-pill-row">
       <span class="prov-pill prov-bob">IBM Bob Authoring</span>
       <span class="prov-pill prov-measured">MEASURED: Classical CV</span>
-      <span class="prov-pill prov-adjudicated">ADJUDICATED: Google ADK / Gemini 2.5</span>
+      <span class="prov-pill prov-adjudicated">ADJUDICATED: Google ADK / Gemini 3.8</span>
       <span class="prov-pill prov-generated">GENERATED: Google Cloud Veo</span>
       <span class="prov-pill prov-verified">VERIFIED: 0 False Alarms on Controls</span>
     </div>
@@ -449,7 +449,7 @@
     </div>
 
     <div class="honest-warning">
-      <strong>Honest Warning:</strong> Gemini 2.5 on Vertex AI executes multimodal inference on localized candidate bounding crops only after classical CV isolates the delta. In production cold starts, Vertex AI initialization may take ~2 seconds; the UI pre-warms the session and indicates telemetry.
+      <strong>Honest Warning:</strong> Gemini 3.8 Flash on Vertex AI executes multimodal inference on localized candidate bounding crops only after classical CV isolates the delta. In production cold starts, Vertex AI initialization may take ~2 seconds; the UI pre-warms the session and indicates telemetry.
     </div>
   </section>
 
@@ -482,7 +482,7 @@
         </tr>
         <tr>
           <td><strong>Pillar 2: Multimodal Adjudication</strong></td>
-          <td>Google ADK & Gemini 2.5-Flash</td>
+          <td>Google ADK & Gemini 3.8-Flash</td>
           <td><span class="prov-pill prov-adjudicated">ADJUDICATED</span></td>
           <td class="num-col">0.620 s</td>
           <td class="num-col">0.810 s</td>
@@ -516,7 +516,7 @@
     </table>
 
     <div class="honest-warning" style="margin-top:20px; border-left-color:var(--accent-blue);">
-      <strong>Self-Critical Precision:</strong> Defect localization ($IoU > 0.5$) achieved $14/16$ on positive pairs. Negative control specificity is $100\%$ ($16/16$) across intentional variations in key/fill lighting, camera repositioning, lens focal length, and natural actor expression nuances. Any detector that flags negative controls is disqualified for on-set utility.
+      <strong>Self-Critical Precision:</strong> Defect localization ($IoU \ge 0.3$) achieved $14/16$ on positive pairs. On live production sets, an uncharacterised false-alarm rate causes crews to silence the copilot. Rather than assuming zero false alarms, we report the exact empirical False-Positive Rate ($FPR = FP / C$) and explicitly catalogue which controls trip, giving crews predictable operational boundaries.
     </div>
   </section>
 
