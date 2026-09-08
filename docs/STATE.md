@@ -65,7 +65,14 @@ Eyeline is an autonomous on-set continuity copilot for film script supervisors c
 <!-- END EMPIRICAL SCOREBOARD -->
 
 ### Honest Precision & Control Calibration Rationale:
-In pure classical CV (Pillar 1), camera angle rotations and focal length zooms cause perspective and parallax scale shifts that trip spatial difference masks. **We do NOT tune thresholds or fabricate a 0.0 FPR.** Characterizing this exact 50.0% empirical control rate is the scientific baseline that demonstrates why **Pillar 2 (Google ADK & Gemini 3.8 Flash Multimodal Adjudication)** is essential to distinguish intentional camera work from actual prop/wardrobe continuity defects.
+In pure classical CV (Pillar 1), camera angle rotations and focal length zooms cause perspective and parallax scale shifts that trip spatial difference masks. **We do NOT tune thresholds or fabricate a 0.0 FPR.** Characterizing this exact 43.8% empirical control rate is the scientific baseline that demonstrates why **Pillar 2 (Google ADK & Gemini 3.8 Flash Multimodal Adjudication)** is essential to distinguish intentional camera work from actual prop/wardrobe continuity defects.
+
+### Spatial Localisation ($IoU \ge 0.3$) Containment Analysis:
+Localisation accuracy is 37.5% (6 / 16 localized at $IoU \ge 0.3$). Pixel-containment analysis reveals the exact mechanism:
+- In **10 of 16 defect pairs**, the detector box is **93.1% to 100% contained** inside the ground-truth box (`Inter / Pred_Area` $\approx 1.0$).
+- Ground-truth boxes in `bench/truth.json` annotate the **entire semantic entity** (e.g. full actor body for blocking, full face for makeup, full wall for set dressing). Classical CV isolates the **exact pixel-delta sliver** (displaced shoulder, makeup line, wall clock). Because $\text{Area}_{\text{delta}} \ll \text{Area}_{\text{entity}}$, standard IoU mathematically falls below 0.3 despite zero spatial false alarm.
+- In **3 pairs** (`pair_001`, `pair_006`, `pair_016`), component merging expanded the candidate box to the frame borders (`Inter / GT_Area > 80%`).
+- Only **1 pair** escaped detection (`pair_007`, hair/makeup), and **1 pair** flagged a disjoint border artifact (`pair_010`).
 
 ---
 
@@ -109,13 +116,23 @@ All transcripts preserved in `.bob-transcripts/` as verifiable proof of developm
 5. **Benchmark Evaluation Runner (`bench/run_benchmark.py`)**:
    - Authored by IBM Bob (1.55 Bobcoins).
    - CLI harness executing `inspect_take_pair` across all 64 real video files, saving measured predictions and generating the empirical scorecard.
-6. **Interactive On-Set Review Station (`ui/index.html`, `ui/app.js`, `ui/style.css`)**:
+6. **Anti-Circularity Forcing Functions (`bench/loader.py`, `bench/scorer.py`, `bench/sync_state.py`)**:
+   - Authored by IBM Bob (1.88 Bobcoins, Task 8).
+   - Mandatory media file existence checks in `load_benchmark_dataset(verify_media=True)`.
+   - Compulsory `--predictions` CLI flag and strict `detector_provenance` enforcement in `score_predictions`.
+   - Standalone `sync_state.py` script keeping `docs/STATE.md` scoreboard synchronized directly from `scorecard.json`.
+7. **Pillar 2 Multimodal Adjudicator & Evaluation Runner (`src/eyeline/adjudicator.py`, `bench/run_adjudication.py`)**:
+   - Authored by IBM Bob (2.46 Bobcoins, Task 4).
+   - Multi-frame and candidate crop extraction via OpenCV; structured Pydantic schema (`ContinuityAdjudication`).
+   - CLI runner comparing Pillar 1 alone vs Pillar 1 + Pillar 2 with full before/after ablation metrics.
+   - Graceful API error handling when running in dry-run mode without credentials.
+8. **Interactive On-Set Review Station (`ui/index.html`, `ui/app.js`, `ui/style.css`)**:
    - Side-by-side synchronized HTML5 video players (`#video-ref`, `#video-cur`).
    - Take Pair dropdown selector previewing all 32 benchmark pairs.
    - Canvas overlay rendering detected bounding boxes at accurate timecodes.
    - Frame stepping, scrub bar, incident cards with confidence and category tags.
-   - Zero-dependency client logic with graceful fallback to `sample_diff.json`.
-7. **Judge Portal (`ui/judge.html`, `ui/judge.js`)**:
+   - Zero-dependency client logic with fallback to `measured_predictions.json` and `sample_diff.json`.
+9. **Judge Portal (`ui/judge.html`, `ui/judge.js`)**:
    - 30-second path with 3 live presets (Defect, Control Pass, Resample).
    - Provenance pills and verified AI model identifiers (`gemini-3.8-flash`, `veo-3.1-generate-preview`).
    - Empirical Receipt Table and Honest Limitations disclosure.
@@ -124,13 +141,16 @@ All transcripts preserved in `.bob-transcripts/` as verifiable proof of developm
 
 ## 5. What's In Flight & Next Up
 
-1. **Pillar 2 Live Vertex Inference (`src/eyeline/agent.py`)**:
-   - Multimodal crop adjudication using Google ADK & Gemini 3.8 Flash on candidate crops from `measured_predictions.json` to filter the 8 false alarms on camera angles and zooms.
-2. **Pillar 3 Veo Generative Pickup Integration**:
-   - Verify sample 2-second B-roll pickup insert generated via `veo-3.1-generate-preview` on Vertex AI with visible watermark `SYNTHETIC_CONTINUITY_INSERT`.
+1. **Execute Live Pillar 2 Adjudication**:
+   - Run `GEMINI_API_KEY=$(cat ~/.google/apikey) python3 -m bench.run_adjudication` once the user writes their AI Studio API key to `~/.google/apikey`.
+   - Measure the exact empirical reduction in Control False-Positive Rate (filtering the 7 false alarms on camera angles and focal length).
+   - Programmatically sync new scorecard to `STATE.md`.
+2. **Pillar 3 Veo Generative Cutaways**:
+   - Check live Vertex model ID for Veo 3.1 (`veo-3.1-generate` / `veo-3.1`).
+   - Generate photorealistic hero pairs and ~2-second B-roll insert (`SYNTHETIC_CONTINUITY_INSERT`).
 3. **Demo Video Recording**:
    - Record 2-minute walkthrough showing:
      - 30-second judge path on live UI
      - Switching take pairs on real MP4 footage
-     - Terminal verification with `python3 -m bench.run_benchmark`
+     - Terminal verification with `python3 -m bench.run_benchmark` and `bench.run_adjudication`
      - Veo generative cutaway bridge
