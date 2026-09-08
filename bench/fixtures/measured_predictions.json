@@ -1,0 +1,830 @@
+[
+  {
+    "pair_id": "pair_001",
+    "template_id": "template_01_diner",
+    "ground_truth_label": "defect",
+    "category": "prop_state",
+    "detected": true,
+    "timestamp_sec": 2.417,
+    "timecode": "00:00:02:10",
+    "bounding_box": [
+      0.5583333333333333,
+      0.0,
+      1.0,
+      1.0
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.5583333333333333,
+        0.0,
+        1.0,
+        1.0
+      ],
+      [
+        0.3,
+        0.4515625,
+        0.475,
+        0.5515625
+      ],
+      [
+        0.13333333333333333,
+        0.7203125,
+        0.20555555555555555,
+        0.8515625
+      ]
+    ],
+    "alignment_error": 0.379,
+    "latency_ms": 101.1,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_01_diner at 2.42s"
+  },
+  {
+    "pair_id": "pair_002",
+    "template_id": "template_01_diner",
+    "ground_truth_label": "defect",
+    "category": "wardrobe",
+    "detected": true,
+    "timestamp_sec": 5.083,
+    "timecode": "00:00:05:02",
+    "bounding_box": [
+      0.23055555555555557,
+      0.125,
+      0.5416666666666666,
+      0.375
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.30277777777777776,
+        0.4515625,
+        0.46944444444444444,
+        0.5484375
+      ],
+      [
+        0.23055555555555557,
+        0.125,
+        0.5416666666666666,
+        0.375
+      ]
+    ],
+    "alignment_error": 0.199,
+    "latency_ms": 22.8,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_01_diner at 5.08s"
+  },
+  {
+    "pair_id": "pair_003",
+    "template_id": "template_01_diner",
+    "ground_truth_label": "defect",
+    "category": "prop_position",
+    "detected": true,
+    "timestamp_sec": 7.75,
+    "timecode": "00:00:07:18",
+    "bounding_box": [
+      0.625,
+      0.6875,
+      0.8333333333333334,
+      0.7828125
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.6277777777777778,
+        0.5171875,
+        0.8333333333333334,
+        0.6125
+      ],
+      [
+        0.625,
+        0.6875,
+        0.8333333333333334,
+        0.7828125
+      ]
+    ],
+    "alignment_error": 0.247,
+    "latency_ms": 24.1,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_01_diner at 7.75s"
+  },
+  {
+    "pair_id": "pair_004",
+    "template_id": "template_01_diner",
+    "ground_truth_label": "defect",
+    "category": "blocking",
+    "detected": true,
+    "timestamp_sec": 9.333,
+    "timecode": "00:00:09:08",
+    "bounding_box": [
+      0.29444444444444445,
+      0.50625,
+      0.41388888888888886,
+      0.5765625
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.29444444444444445,
+        0.50625,
+        0.41388888888888886,
+        0.5765625
+      ]
+    ],
+    "alignment_error": 0.288,
+    "latency_ms": 26.0,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_01_diner at 9.33s"
+  },
+  {
+    "pair_id": "pair_005",
+    "template_id": "template_02_office",
+    "ground_truth_label": "defect",
+    "category": "prop_state",
+    "detected": true,
+    "timestamp_sec": 3.125,
+    "timecode": "00:00:03:03",
+    "bounding_box": [
+      0.058333333333333334,
+      0.9609375,
+      0.35,
+      0.975
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.6861111111111111,
+        0.3375,
+        0.7166666666666667,
+        0.4515625
+      ],
+      [
+        0.058333333333333334,
+        0.9609375,
+        0.35,
+        0.975
+      ]
+    ],
+    "alignment_error": 0.38,
+    "latency_ms": 18.5,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_02_office at 3.12s"
+  },
+  {
+    "pair_id": "pair_006",
+    "template_id": "template_02_office",
+    "ground_truth_label": "defect",
+    "category": "wardrobe",
+    "detected": true,
+    "timestamp_sec": 6.5,
+    "timecode": "00:00:06:12",
+    "bounding_box": [
+      0.05277777777777778,
+      0.046875,
+      0.5555555555555556,
+      0.525
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.05555555555555555,
+        0.65625,
+        0.3638888888888889,
+        0.971875
+      ],
+      [
+        0.05277777777777778,
+        0.046875,
+        0.5555555555555556,
+        0.525
+      ]
+    ],
+    "alignment_error": 0.627,
+    "latency_ms": 22.4,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_02_office at 6.50s"
+  },
+  {
+    "pair_id": "pair_007",
+    "template_id": "template_02_office",
+    "ground_truth_label": "defect",
+    "category": "hair_makeup",
+    "detected": false,
+    "timestamp_sec": 4.208,
+    "timecode": "00:00:04:05",
+    "bounding_box": null,
+    "candidate_bounding_boxes": [],
+    "alignment_error": 0.195,
+    "latency_ms": 19.6,
+    "confidence": 0.1,
+    "reasoning": "Pillar-1 CV delta isolation on template_02_office at 4.21s"
+  },
+  {
+    "pair_id": "pair_008",
+    "template_id": "template_02_office",
+    "ground_truth_label": "defect",
+    "category": "set_dressing",
+    "detected": true,
+    "timestamp_sec": 11.917,
+    "timecode": "00:00:11:22",
+    "bounding_box": [
+      0.1527777777777778,
+      0.6984375,
+      0.2,
+      0.8
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.1527777777777778,
+        0.6984375,
+        0.2,
+        0.8
+      ]
+    ],
+    "alignment_error": 0.257,
+    "latency_ms": 17.5,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_02_office at 11.92s"
+  },
+  {
+    "pair_id": "pair_009",
+    "template_id": "template_03_kitchen",
+    "ground_truth_label": "defect",
+    "category": "prop_position",
+    "detected": true,
+    "timestamp_sec": 1.875,
+    "timecode": "00:00:01:21",
+    "bounding_box": [
+      0.5083333333333333,
+      0.6046875,
+      0.7138888888888889,
+      0.840625
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.5083333333333333,
+        0.6046875,
+        0.7138888888888889,
+        0.840625
+      ]
+    ],
+    "alignment_error": 0.321,
+    "latency_ms": 20.0,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_03_kitchen at 1.88s"
+  },
+  {
+    "pair_id": "pair_010",
+    "template_id": "template_03_kitchen",
+    "ground_truth_label": "defect",
+    "category": "prop_state",
+    "detected": true,
+    "timestamp_sec": 8.042,
+    "timecode": "00:00:08:01",
+    "bounding_box": [
+      0.013888888888888888,
+      0.74375,
+      0.9861111111111112,
+      1.0
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.4111111111111111,
+        0.009375,
+        0.65,
+        0.55
+      ],
+      [
+        0.013888888888888888,
+        0.74375,
+        0.9861111111111112,
+        1.0
+      ]
+    ],
+    "alignment_error": 0.8,
+    "latency_ms": 27.2,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_03_kitchen at 8.04s"
+  },
+  {
+    "pair_id": "pair_011",
+    "template_id": "template_03_kitchen",
+    "ground_truth_label": "defect",
+    "category": "wardrobe",
+    "detected": true,
+    "timestamp_sec": 5.667,
+    "timecode": "00:00:05:16",
+    "bounding_box": [
+      0.20277777777777778,
+      0.1578125,
+      0.55,
+      0.4421875
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.20277777777777778,
+        0.1578125,
+        0.55,
+        0.4421875
+      ]
+    ],
+    "alignment_error": 0.253,
+    "latency_ms": 23.7,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_03_kitchen at 5.67s"
+  },
+  {
+    "pair_id": "pair_012",
+    "template_id": "template_03_kitchen",
+    "ground_truth_label": "defect",
+    "category": "eyeline_axis",
+    "detected": true,
+    "timestamp_sec": 13.292,
+    "timecode": "00:00:13:07",
+    "bounding_box": [
+      0.16944444444444445,
+      0.3703125,
+      0.575,
+      0.628125
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.16944444444444445,
+        0.3703125,
+        0.575,
+        0.628125
+      ]
+    ],
+    "alignment_error": 0.269,
+    "latency_ms": 21.4,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_03_kitchen at 13.29s"
+  },
+  {
+    "pair_id": "pair_013",
+    "template_id": "template_04_interrogation",
+    "ground_truth_label": "defect",
+    "category": "blocking",
+    "detected": true,
+    "timestamp_sec": 4.75,
+    "timecode": "00:00:04:18",
+    "bounding_box": [
+      0.24444444444444444,
+      0.43125,
+      0.49166666666666664,
+      0.565625
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.24444444444444444,
+        0.43125,
+        0.49166666666666664,
+        0.565625
+      ],
+      [
+        0.09444444444444444,
+        0.078125,
+        0.26944444444444443,
+        0.2359375
+      ]
+    ],
+    "alignment_error": 0.568,
+    "latency_ms": 24.6,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_04_interrogation at 4.75s"
+  },
+  {
+    "pair_id": "pair_014",
+    "template_id": "template_04_interrogation",
+    "ground_truth_label": "defect",
+    "category": "prop_position",
+    "detected": true,
+    "timestamp_sec": 7.167,
+    "timecode": "00:00:07:04",
+    "bounding_box": [
+      0.5888888888888889,
+      0.4046875,
+      0.7916666666666666,
+      0.696875
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.5888888888888889,
+        0.4046875,
+        0.7916666666666666,
+        0.696875
+      ]
+    ],
+    "alignment_error": 0.111,
+    "latency_ms": 22.8,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_04_interrogation at 7.17s"
+  },
+  {
+    "pair_id": "pair_015",
+    "template_id": "template_04_interrogation",
+    "ground_truth_label": "defect",
+    "category": "hair_makeup",
+    "detected": true,
+    "timestamp_sec": 10.458,
+    "timecode": "00:00:10:11",
+    "bounding_box": [
+      0.2111111111111111,
+      0.4625,
+      0.2916666666666667,
+      0.5078125
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.2111111111111111,
+        0.4625,
+        0.2916666666666667,
+        0.5078125
+      ]
+    ],
+    "alignment_error": 0.187,
+    "latency_ms": 26.3,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_04_interrogation at 10.46s"
+  },
+  {
+    "pair_id": "pair_016",
+    "template_id": "template_04_interrogation",
+    "ground_truth_label": "defect",
+    "category": "set_dressing",
+    "detected": true,
+    "timestamp_sec": 14.583,
+    "timecode": "00:00:14:14",
+    "bounding_box": [
+      0.019444444444444445,
+      0.0078125,
+      0.7277777777777777,
+      0.9921875
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.019444444444444445,
+        0.0078125,
+        0.7277777777777777,
+        0.9921875
+      ]
+    ],
+    "alignment_error": 0.373,
+    "latency_ms": 23.4,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_04_interrogation at 14.58s"
+  },
+  {
+    "pair_id": "pair_017",
+    "template_id": "template_01_diner",
+    "ground_truth_label": "control",
+    "category": "control_camera_angle",
+    "detected": false,
+    "timestamp_sec": 3.0,
+    "timecode": "00:00:03:00",
+    "bounding_box": null,
+    "candidate_bounding_boxes": [],
+    "alignment_error": 0.974,
+    "latency_ms": 20.0,
+    "confidence": 0.1,
+    "reasoning": "Pillar-1 CV delta isolation on template_01_diner at 3.00s"
+  },
+  {
+    "pair_id": "pair_018",
+    "template_id": "template_01_diner",
+    "ground_truth_label": "control",
+    "category": "control_lighting",
+    "detected": true,
+    "timestamp_sec": 6.25,
+    "timecode": "00:00:06:06",
+    "bounding_box": [
+      0.1388888888888889,
+      0.721875,
+      0.19444444444444445,
+      0.8484375
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.1388888888888889,
+        0.721875,
+        0.19444444444444445,
+        0.8484375
+      ]
+    ],
+    "alignment_error": 0.191,
+    "latency_ms": 21.7,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_01_diner at 6.25s"
+  },
+  {
+    "pair_id": "pair_019",
+    "template_id": "template_01_diner",
+    "ground_truth_label": "control",
+    "category": "control_focal_length",
+    "detected": true,
+    "timestamp_sec": 9.0,
+    "timecode": "00:00:09:00",
+    "bounding_box": [
+      0.019444444444444445,
+      0.9765625,
+      0.9833333333333333,
+      0.99375
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.019444444444444445,
+        0.9765625,
+        0.9833333333333333,
+        0.99375
+      ]
+    ],
+    "alignment_error": 0.871,
+    "latency_ms": 24.6,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_01_diner at 9.00s"
+  },
+  {
+    "pair_id": "pair_020",
+    "template_id": "template_01_diner",
+    "ground_truth_label": "control",
+    "category": "control_actor_expression",
+    "detected": false,
+    "timestamp_sec": 11.5,
+    "timecode": "00:00:11:12",
+    "bounding_box": null,
+    "candidate_bounding_boxes": [],
+    "alignment_error": 0.181,
+    "latency_ms": 17.8,
+    "confidence": 0.1,
+    "reasoning": "Pillar-1 CV delta isolation on template_01_diner at 11.50s"
+  },
+  {
+    "pair_id": "pair_021",
+    "template_id": "template_02_office",
+    "ground_truth_label": "control",
+    "category": "control_grade",
+    "detected": true,
+    "timestamp_sec": 2.0,
+    "timecode": "00:00:02:00",
+    "bounding_box": [
+      0.06388888888888888,
+      0.95,
+      0.225,
+      0.9734375
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.06388888888888888,
+        0.95,
+        0.225,
+        0.9734375
+      ]
+    ],
+    "alignment_error": 0.187,
+    "latency_ms": 17.3,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_02_office at 2.00s"
+  },
+  {
+    "pair_id": "pair_022",
+    "template_id": "template_02_office",
+    "ground_truth_label": "control",
+    "category": "control_camera_angle",
+    "detected": true,
+    "timestamp_sec": 5.5,
+    "timecode": "00:00:05:12",
+    "bounding_box": [
+      0.05555555555555555,
+      0.046875,
+      0.49166666666666664,
+      0.1703125
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.05555555555555555,
+        0.046875,
+        0.49166666666666664,
+        0.1703125
+      ],
+      [
+        0.05,
+        0.840625,
+        0.35833333333333334,
+        0.9765625
+      ]
+    ],
+    "alignment_error": 1.195,
+    "latency_ms": 21.0,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_02_office at 5.50s"
+  },
+  {
+    "pair_id": "pair_023",
+    "template_id": "template_02_office",
+    "ground_truth_label": "control",
+    "category": "control_focal_length",
+    "detected": true,
+    "timestamp_sec": 8.75,
+    "timecode": "00:00:08:18",
+    "bounding_box": [
+      0.016666666666666666,
+      0.6578125,
+      0.9833333333333333,
+      0.9921875
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.016666666666666666,
+        0.009375,
+        0.8,
+        0.3140625
+      ],
+      [
+        0.3416666666666667,
+        0.45,
+        0.46111111111111114,
+        0.4875
+      ],
+      [
+        0.016666666666666666,
+        0.6578125,
+        0.9833333333333333,
+        0.9921875
+      ]
+    ],
+    "alignment_error": 1.272,
+    "latency_ms": 22.9,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_02_office at 8.75s"
+  },
+  {
+    "pair_id": "pair_024",
+    "template_id": "template_02_office",
+    "ground_truth_label": "control",
+    "category": "control_actor_expression",
+    "detected": false,
+    "timestamp_sec": 14.0,
+    "timecode": "00:00:14:00",
+    "bounding_box": null,
+    "candidate_bounding_boxes": [],
+    "alignment_error": 0.096,
+    "latency_ms": 21.5,
+    "confidence": 0.1,
+    "reasoning": "Pillar-1 CV delta isolation on template_02_office at 14.00s"
+  },
+  {
+    "pair_id": "pair_025",
+    "template_id": "template_03_kitchen",
+    "ground_truth_label": "control",
+    "category": "control_lighting",
+    "detected": false,
+    "timestamp_sec": 1.25,
+    "timecode": "00:00:01:06",
+    "bounding_box": null,
+    "candidate_bounding_boxes": [],
+    "alignment_error": 0.094,
+    "latency_ms": 19.0,
+    "confidence": 0.1,
+    "reasoning": "Pillar-1 CV delta isolation on template_03_kitchen at 1.25s"
+  },
+  {
+    "pair_id": "pair_026",
+    "template_id": "template_03_kitchen",
+    "ground_truth_label": "control",
+    "category": "control_camera_angle",
+    "detected": true,
+    "timestamp_sec": 6.083,
+    "timecode": "00:00:06:02",
+    "bounding_box": [
+      0.9694444444444444,
+      0.0078125,
+      1.0,
+      0.2015625
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.9694444444444444,
+        0.0078125,
+        1.0,
+        0.2015625
+      ]
+    ],
+    "alignment_error": 1.113,
+    "latency_ms": 24.0,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_03_kitchen at 6.08s"
+  },
+  {
+    "pair_id": "pair_027",
+    "template_id": "template_03_kitchen",
+    "ground_truth_label": "control",
+    "category": "control_grade",
+    "detected": false,
+    "timestamp_sec": 10.333,
+    "timecode": "00:00:10:08",
+    "bounding_box": null,
+    "candidate_bounding_boxes": [],
+    "alignment_error": 0.097,
+    "latency_ms": 28.5,
+    "confidence": 0.1,
+    "reasoning": "Pillar-1 CV delta isolation on template_03_kitchen at 10.33s"
+  },
+  {
+    "pair_id": "pair_028",
+    "template_id": "template_03_kitchen",
+    "ground_truth_label": "control",
+    "category": "control_actor_expression",
+    "detected": false,
+    "timestamp_sec": 15.75,
+    "timecode": "00:00:15:18",
+    "bounding_box": null,
+    "candidate_bounding_boxes": [],
+    "alignment_error": 0.089,
+    "latency_ms": 24.2,
+    "confidence": 0.1,
+    "reasoning": "Pillar-1 CV delta isolation on template_03_kitchen at 15.75s"
+  },
+  {
+    "pair_id": "pair_029",
+    "template_id": "template_04_interrogation",
+    "ground_truth_label": "control",
+    "category": "control_lighting",
+    "detected": false,
+    "timestamp_sec": 2.5,
+    "timecode": "00:00:02:12",
+    "bounding_box": null,
+    "candidate_bounding_boxes": [],
+    "alignment_error": 0.146,
+    "latency_ms": 18.6,
+    "confidence": 0.1,
+    "reasoning": "Pillar-1 CV delta isolation on template_04_interrogation at 2.50s"
+  },
+  {
+    "pair_id": "pair_030",
+    "template_id": "template_04_interrogation",
+    "ground_truth_label": "control",
+    "category": "control_camera_angle",
+    "detected": true,
+    "timestamp_sec": 7.75,
+    "timecode": "00:00:07:18",
+    "bounding_box": [
+      0.019444444444444445,
+      0.9734375,
+      0.8416666666666667,
+      0.990625
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.019444444444444445,
+        0.9734375,
+        0.8416666666666667,
+        0.990625
+      ]
+    ],
+    "alignment_error": 1.062,
+    "latency_ms": 23.9,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_04_interrogation at 7.75s"
+  },
+  {
+    "pair_id": "pair_031",
+    "template_id": "template_04_interrogation",
+    "ground_truth_label": "control",
+    "category": "control_focal_length",
+    "detected": true,
+    "timestamp_sec": 11.042,
+    "timecode": "00:00:11:01",
+    "bounding_box": [
+      0.019444444444444445,
+      0.009375,
+      0.25833333333333336,
+      0.240625
+    ],
+    "candidate_bounding_boxes": [
+      [
+        0.019444444444444445,
+        0.009375,
+        0.25833333333333336,
+        0.240625
+      ],
+      [
+        0.019444444444444445,
+        0.9546875,
+        0.2861111111111111,
+        0.990625
+      ]
+    ],
+    "alignment_error": 0.975,
+    "latency_ms": 26.4,
+    "confidence": 0.9,
+    "reasoning": "Pillar-1 CV delta isolation on template_04_interrogation at 11.04s"
+  },
+  {
+    "pair_id": "pair_032",
+    "template_id": "template_04_interrogation",
+    "ground_truth_label": "control",
+    "category": "control_grade",
+    "detected": false,
+    "timestamp_sec": 16.167,
+    "timecode": "00:00:16:04",
+    "bounding_box": null,
+    "candidate_bounding_boxes": [],
+    "alignment_error": 0.218,
+    "latency_ms": 22.7,
+    "confidence": 0.1,
+    "reasoning": "Pillar-1 CV delta isolation on template_04_interrogation at 16.17s"
+  }
+]

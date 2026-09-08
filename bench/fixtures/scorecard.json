@@ -1,0 +1,86 @@
+{
+  "total_pairs": 32,
+  "defect_pairs_total": 16,
+  "control_pairs_total": 16,
+  "true_positives": 15,
+  "localized_true_positives": 7,
+  "spatial_defects_total": 16,
+  "false_positives": 8,
+  "false_passes": 1,
+  "recall": 0.9375,
+  "localisation_accuracy": 0.4375,
+  "control_false_positive_rate": 0.5,
+  "tripped_controls": [
+    {
+      "pair_id": "pair_018",
+      "template_id": "template_01_diner",
+      "category": "control_lighting",
+      "predicted_category": "control_lighting",
+      "confidence": 0.9,
+      "reasoning": "Pillar-1 CV delta isolation on template_01_diner at 6.25s"
+    },
+    {
+      "pair_id": "pair_019",
+      "template_id": "template_01_diner",
+      "category": "control_focal_length",
+      "predicted_category": "control_focal_length",
+      "confidence": 0.9,
+      "reasoning": "Pillar-1 CV delta isolation on template_01_diner at 9.00s"
+    },
+    {
+      "pair_id": "pair_021",
+      "template_id": "template_02_office",
+      "category": "control_grade",
+      "predicted_category": "control_grade",
+      "confidence": 0.9,
+      "reasoning": "Pillar-1 CV delta isolation on template_02_office at 2.00s"
+    },
+    {
+      "pair_id": "pair_022",
+      "template_id": "template_02_office",
+      "category": "control_camera_angle",
+      "predicted_category": "control_camera_angle",
+      "confidence": 0.9,
+      "reasoning": "Pillar-1 CV delta isolation on template_02_office at 5.50s"
+    },
+    {
+      "pair_id": "pair_023",
+      "template_id": "template_02_office",
+      "category": "control_focal_length",
+      "predicted_category": "control_focal_length",
+      "confidence": 0.9,
+      "reasoning": "Pillar-1 CV delta isolation on template_02_office at 8.75s"
+    },
+    {
+      "pair_id": "pair_026",
+      "template_id": "template_03_kitchen",
+      "category": "control_camera_angle",
+      "predicted_category": "control_camera_angle",
+      "confidence": 0.9,
+      "reasoning": "Pillar-1 CV delta isolation on template_03_kitchen at 6.08s"
+    },
+    {
+      "pair_id": "pair_030",
+      "template_id": "template_04_interrogation",
+      "category": "control_camera_angle",
+      "predicted_category": "control_camera_angle",
+      "confidence": 0.9,
+      "reasoning": "Pillar-1 CV delta isolation on template_04_interrogation at 7.75s"
+    },
+    {
+      "pair_id": "pair_031",
+      "template_id": "template_04_interrogation",
+      "category": "control_focal_length",
+      "predicted_category": "control_focal_length",
+      "confidence": 0.9,
+      "reasoning": "Pillar-1 CV delta isolation on template_04_interrogation at 11.04s"
+    }
+  ],
+  "missed_defects": [
+    "pair_007"
+  ],
+  "headline_statement": "Detected 15 of 16 seeded continuity breaks (7 localized), with 8 false alarm(s) across 16 control pairs containing legitimate variation (FPR = 50.0%). Tripped controls: `pair_018` (control_lighting), `pair_019` (control_focal_length), `pair_021` (control_grade), `pair_022` (control_camera_angle), `pair_023` (control_focal_length), `pair_026` (control_camera_angle), `pair_030` (control_camera_angle), `pair_031` (control_focal_length).",
+  "recall_percent": 93.8,
+  "localisation_percent": 43.8,
+  "fpr_percent": 50.0
+}

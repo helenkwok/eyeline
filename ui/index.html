@@ -32,8 +32,14 @@
     </div>
 
     <div class="take-identifier">
-      <div class="take-label" id="take-label">Scene 42 · Angle A · Take 3 vs Reference Take 1</div>
-      <div class="take-scene" id="take-scene">Loading fixture…</div>
+      <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:2px;">
+        <label for="pair-select" style="font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); font-family:var(--font-mono);">Take Pair:</label>
+        <select id="pair-select" class="pair-select" aria-label="Select benchmark take pair">
+          <option value="pair_001">pair_001 · Diner: Coffee Mug Fill Level</option>
+        </select>
+      </div>
+      <div class="take-label" id="take-label" style="display:none;"></div>
+      <div class="take-scene" id="take-scene">Loading media…</div>
     </div>
 
     <div style="display:flex; align-items:center; gap:12px;">
@@ -41,8 +47,8 @@
         Judge Index & Receipts ↗
       </a>
       <div class="telemetry-banner" aria-label="Benchmark integrity metrics">
-        <div class="telemetry-label">Benchmark Integrity</div>
-        <div class="telemetry-value">15/16 breaks caught &nbsp;|&nbsp; 0 false alarms / 16 controls</div>
+        <div class="telemetry-label">Benchmark Empirical Integrity</div>
+        <div class="telemetry-value">15/16 breaks (93.8%) &nbsp;|&nbsp; 8/16 control FPR (Pillar 1 CV)</div>
       </div>
     </div>
   </header>

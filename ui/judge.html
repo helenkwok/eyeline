@@ -372,8 +372,8 @@
       <span class="prov-pill prov-bob">IBM Bob Authoring</span>
       <span class="prov-pill prov-measured">MEASURED: Classical CV</span>
       <span class="prov-pill prov-adjudicated">ADJUDICATED: Google ADK / Gemini 3.8</span>
-      <span class="prov-pill prov-generated">GENERATED: Google Cloud Veo</span>
-      <span class="prov-pill prov-verified">VERIFIED: 0 False Alarms on Controls</span>
+      <span class="prov-pill prov-generated">GENERATED: Google Cloud Veo 3.1</span>
+      <span class="prov-pill prov-verified">EMPIRICAL: 15/16 Breaks (93.8%) · 8/16 Control FPR</span>
     </div>
     <h1 class="hero-title">Catch continuity breaks before the set is struck.</h1>
     <p class="hero-subtitle">
@@ -489,16 +489,16 @@
           <td>15/16 Defect Recall (93.8%)</td>
         </tr>
         <tr>
-          <td><strong>Negative Control Invariance</strong></td>
-          <td>Dual Threshold Classifier</td>
-          <td><span class="prov-pill prov-verified">VERIFIED</span></td>
-          <td class="num-col">0.075 s</td>
-          <td class="num-col">0.098 s</td>
-          <td><strong>16/16 Controls Clean (0 False Positives)</strong></td>
+          <td><strong>Negative Control Evaluation</strong></td>
+          <td>Pillar-1 CV (Zero AI / Zero Gaming)</td>
+          <td><span class="prov-pill prov-measured">MEASURED</span></td>
+          <td class="num-col">0.024 s</td>
+          <td class="num-col">0.031 s</td>
+          <td><strong>8/16 Control FPR (50.0%) — Tripped Controls Cataloged</strong></td>
         </tr>
         <tr>
           <td><strong>Pillar 3: Generative Pickup</strong></td>
-          <td>Google Cloud Veo 2.0 (Vertex AI)</td>
+          <td>Google Cloud Veo 3.1 (Vertex AI)</td>
           <td><span class="prov-pill prov-generated">GENERATED</span></td>
           <td class="num-col">2.100 s</td>
           <td class="num-col">2.850 s</td>
@@ -510,13 +510,13 @@
           <td><span class="prov-pill prov-bob">IBM BOB</span></td>
           <td class="num-col">N/A</td>
           <td class="num-col">N/A</td>
-          <td>3.17 Bobcoins spent across 23 turns</td>
+          <td>8.36 Bobcoins spent across 5 tasks</td>
         </tr>
       </tbody>
     </table>
 
     <div class="honest-warning" style="margin-top:20px; border-left-color:var(--accent-blue);">
-      <strong>Self-Critical Precision:</strong> Defect localization ($IoU \ge 0.3$) achieved $14/16$ on positive pairs. On live production sets, an uncharacterised false-alarm rate causes crews to silence the copilot. Rather than assuming zero false alarms, we report the exact empirical False-Positive Rate ($FPR = FP / C$) and explicitly catalogue which controls trip, giving crews predictable operational boundaries.
+      <strong>Empirical Baseline & Control Calibration:</strong> On 64 synthesized MP4 clips across 32 pairs, Pillar 1 isolates 15/16 defect breaks (93.8% recall, 43.8% spatial IoU &ge; 0.3) with ~25ms inference latency. On negative controls, lighting and color grading yield 0% false alarms (histogram invariance), while camera angle shifts (4/4) and zoom crops (3/4) trip classical difference masking before Pillar 2 multimodal adjudication. Rather than tuning thresholds to fabricate a 0.0 FPR, we report the empirical 50.0% control rate and catalogue every tripped control pair in <code>bench/fixtures/scorecard.json</code>.
     </div>
   </section>
 

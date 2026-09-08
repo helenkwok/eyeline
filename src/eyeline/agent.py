@@ -88,7 +88,7 @@ def generate_veo_pickup(
     """Google Cloud Veo generative cutaway tool: synthesizes a 2-second B-roll pickup shot on Vertex AI."""
     return {
         "status": "synthesized",
-        "engine": "veo-2.0-generate-001",
+        "engine": "veo-3.1-generate-preview",
         "duration_sec": duration_sec,
         "shot_type": shot_type,
         "watermark": "SYNTHETIC_CONTINUITY_INSERT",
@@ -218,7 +218,7 @@ def export_agent_builder_spec() -> Dict[str, Any]:
             ],
             "compliance": {
                 "rule7b_status": "COMPLIANT",
-                "ai_models": ["gemini-3.8-flash", "veo-2.0-generate-001"],
+                "ai_models": ["gemini-3.8-flash", "veo-3.1-generate-preview"],
                 "provider": "Google Cloud Vertex AI",
                 "prohibited_models": ["YOLO", "GroundingDINO", "SAM", "MobileNet"]
             }

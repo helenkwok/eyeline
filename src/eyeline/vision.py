@@ -147,24 +147,30 @@ def align_frames_homography(
 def compute_spatial_difference_mask(
     aligned_frame: np.ndarray,
     reference_frame: np.ndarray,
-    threshold: int = 30,
+    threshold: int = 28,
 ) -> np.ndarray:
-    """Compute a binary mask of significant luminance differences between frames.
+    """Compute a binary mask of significant differences between frames.
 
     Processing steps:
-      1. Convert both frames to grayscale.
-      2. Absolute luminance difference.
+      1. Absolute difference across all BGR channels, taking channel-wise maximum
+         so that both luminance and chrominance shifts (e.g. liquid level, wardrobe)
+         are captured without color cancellation.
+      2. Zero out border margin (6 px) to suppress homography / camera warp edge ringing.
       3. Gaussian blur (5×5) to suppress high-frequency sensor noise.
       4. Binary threshold at *threshold* (0–255).
-      5. Morphological closing (11×11 kernel) to fill small holes.
+      5. Morphological closing (11×11 kernel) to fill small holes and join split contours.
       6. Morphological opening (5×5 kernel) to discard isolated speckle noise.
 
     Returns a uint8 binary mask (0 or 255) with the same H×W as inputs.
     """
-    gray_aligned = cv2.cvtColor(aligned_frame, cv2.COLOR_BGR2GRAY)
-    gray_ref = cv2.cvtColor(reference_frame, cv2.COLOR_BGR2GRAY)
+    diff_bgr = cv2.absdiff(aligned_frame, reference_frame)
+    diff = np.max(diff_bgr, axis=2)
 
-    diff = cv2.absdiff(gray_aligned, gray_ref)
+    # Suppress border edge artifacts from perspective warping
+    diff[:6, :] = 0
+    diff[-6:, :] = 0
+    diff[:, :6] = 0
+    diff[:, -6:] = 0
 
     # Suppress sensor noise with a small Gaussian blur before thresholding
     blurred = cv2.GaussianBlur(diff, (5, 5), sigmaX=1.5)
@@ -186,10 +192,50 @@ def compute_spatial_difference_mask(
 # 5. Candidate bounding box extraction
 # ---------------------------------------------------------------------------
 
+def merge_candidate_bounding_boxes(
+    boxes: List[List[float]],
+    proximity: float = 0.05,
+) -> List[List[float]]:
+    """Merge spatially proximate candidate boxes (e.g. shifted props or multi-part deltas)."""
+    if not boxes:
+        return []
+
+    merged = list(boxes)
+    changed = True
+    while changed:
+        changed = False
+        new_merged: List[List[float]] = []
+        skip = set()
+        for i in range(len(merged)):
+            if i in skip:
+                continue
+            b1 = merged[i]
+            for j in range(i + 1, len(merged)):
+                if j in skip:
+                    continue
+                b2 = merged[j]
+                y1_a, x1_a, y2_a, x2_a = b1
+                y1_b, x1_b, y2_b, x2_b = b2
+                # Check proximity: expand by proximity threshold
+                if not (x2_a + proximity < x1_b or x2_b + proximity < x1_a or
+                        y2_a + proximity < y1_b or y2_b + proximity < y1_a):
+                    b1 = [
+                        min(y1_a, y1_b),
+                        min(x1_a, x1_b),
+                        max(y2_a, y2_b),
+                        max(x2_a, x2_b),
+                    ]
+                    skip.add(j)
+                    changed = True
+            new_merged.append(b1)
+        merged = new_merged
+    return merged
+
+
 def extract_candidate_bounding_boxes(
     diff_mask: np.ndarray,
-    min_area_ratio: float = 0.002,
-    max_area_ratio: float = 0.45,
+    min_area_ratio: float = 0.001,
+    max_area_ratio: float = 0.55,
 ) -> List[List[float]]:
     """Extract normalized bounding boxes from *diff_mask* contours.
 
@@ -197,9 +243,7 @@ def extract_candidate_bounding_boxes(
     per the Eyeline coordinate convention (top-left = (0.0, 0.0)).
 
     Contour areas outside [min_area_ratio, max_area_ratio] × total frame area
-    are discarded:
-      - Below min: sensor speckle and sub-pixel edge ringing.
-      - Above max: global camera movement masquerading as a prop change.
+    are discarded. Nearby boxes are unified.
     """
     h, w = diff_mask.shape[:2]
     total_area = float(h * w)
@@ -208,7 +252,7 @@ def extract_candidate_bounding_boxes(
         diff_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
     )
 
-    boxes: List[List[float]] = []
+    raw_boxes: List[List[float]] = []
     for cnt in contours:
         area = cv2.contourArea(cnt)
         ratio = area / total_area
@@ -222,14 +266,14 @@ def extract_candidate_bounding_boxes(
         xmax = float(x + bw) / w
 
         # Clamp to [0, 1] for safety (warpPerspective edge artefacts)
-        boxes.append([
+        raw_boxes.append([
             max(0.0, min(1.0, ymin)),
             max(0.0, min(1.0, xmin)),
             max(0.0, min(1.0, ymax)),
             max(0.0, min(1.0, xmax)),
         ])
 
-    return boxes
+    return merge_candidate_bounding_boxes(raw_boxes, proximity=0.05)
 
 
 # ---------------------------------------------------------------------------
@@ -312,6 +356,10 @@ def inspect_take_pair(
         max_area_ratio=max_area_ratio,
     )
 
+    primary_box = None
+    if boxes:
+        primary_box = max(boxes, key=lambda b: (b[2] - b[0]) * (b[3] - b[1]))
+
     latency_ms = (time.perf_counter() - t0) * 1000.0
 
     return {
@@ -321,6 +369,8 @@ def inspect_take_pair(
         "frame_shape": list(ref_frame.shape[:2]),
         "alignment_error": round(alignment_error, 3),
         "homography_available": homography is not None,
+        "detected": len(boxes) > 0,
+        "primary_bounding_box": primary_box,
         "candidate_bounding_boxes": boxes,
         "latency_ms": round(latency_ms, 1),
         "error": None,
@@ -339,16 +389,26 @@ if __name__ == "__main__":
     print("Synthetic prop-shift: small rectangle moved in lower-right quadrant")
     print("=" * 60)
 
-    # Build two 480×640 BGR frames that are identical except for a 60×80
-    # prop-shaped white rectangle that shifts by ~100 px horizontally.
+    # Build two 480×640 BGR frames with realistic static background texture
+    # (table, walls, door lines) so ORB matches the static environment,
+    # leaving the shifted prop in the lower-right quadrant as an isolated delta.
     H, W = 480, 640
-    base = np.full((H, W, 3), 80, dtype=np.uint8)          # mid-grey background
+    np.random.seed(42)
+    # Textured wall and floor background
+    base = np.full((H, W, 3), 90, dtype=np.uint8)
+    for gy in range(0, H, 40):
+        cv2.line(base, (0, gy), (W, gy), (75, 75, 75), 1)
+    for gx in range(0, W, 40):
+        cv2.line(base, (gx, 0), (gx, H), (75, 75, 75), 1)
+    # Add static background furniture / visual landmarks
+    cv2.rectangle(base, (40, 60), (220, 240), (140, 120, 110), -1)  # Cabinet Left
+    cv2.rectangle(base, (0, 320), (W, 480), (60, 50, 45), -1)        # Floor/Table surface
 
     ref_frame = base.copy()
-    cv2.rectangle(ref_frame, (380, 300), (460, 380), (220, 220, 220), -1)  # prop @ left pos
+    cv2.rectangle(ref_frame, (380, 340), (460, 420), (230, 230, 230), -1)  # prop @ pos A
 
     cur_frame = base.copy()
-    cv2.rectangle(cur_frame, (490, 300), (570, 380), (220, 220, 220), -1)  # prop @ right pos (shifted)
+    cv2.rectangle(cur_frame, (490, 340), (570, 420), (230, 230, 230), -1)  # prop @ pos B (shifted)
 
     # Persist as PNG so inspect_take_pair can load them via cv2.imread
     with tempfile.TemporaryDirectory() as tmpdir:

@@ -3,12 +3,14 @@
     "scene": "Scene 28 - INT. CAFE",
     "reference_take": "Take 1",
     "target_take": "Take 4",
+    "reference_clip": "../bench/clips/t01/ref_001.mp4",
+    "target_clip": "../bench/clips/t01/tgt_001.mp4",
     "framerate": 24,
-    "duration_seconds": 12.5,
+    "duration_seconds": 3.5,
     "camera": "A-CAM",
     "director": "A. Reeves",
     "script_supervisor": "M. Chen",
-    "date": "2024-07-15"
+    "date": "2026-09-08"
   },
   "incidents": [
     {

@@ -279,8 +279,29 @@ html, body {
   font-size: 12px;
 }
 
+.video-placeholder.hidden {
+  display: none !important;
+}
+
 .video-placeholder svg {
   opacity: 0.3;
+}
+
+.pair-select {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  outline: none;
+  cursor: pointer;
+  max-width: 320px;
+}
+
+.pair-select:focus {
+  border-color: var(--accent-amber);
 }
 
 /* ─── Playback Controls ──────────────────────────────────────────────── */
