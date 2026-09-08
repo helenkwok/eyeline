@@ -486,19 +486,19 @@
           <td><span class="prov-pill prov-adjudicated">ADJUDICATED</span></td>
           <td class="num-col">0.620 s</td>
           <td class="num-col">0.810 s</td>
-          <td>15/16 Defect Recall (93.8%)</td>
+          <td><strong>15/16 Recall (93.8%) · 3/16 Control FPR (18.8%)</strong></td>
         </tr>
         <tr>
-          <td><strong>Negative Control Evaluation</strong></td>
-          <td>Pillar-1 CV (Zero AI / Zero Gaming)</td>
+          <td><strong>Negative Control Evaluation (P1 Alone)</strong></td>
+          <td>Pillar-1 CV Delta Isolation</td>
           <td><span class="prov-pill prov-measured">MEASURED</span></td>
           <td class="num-col">0.024 s</td>
           <td class="num-col">0.031 s</td>
-          <td><strong>8/16 Control FPR (50.0%) — Tripped Controls Cataloged</strong></td>
+          <td><strong>7/16 Control FPR (43.8%) — Tripped Controls Cataloged</strong></td>
         </tr>
         <tr>
           <td><strong>Pillar 3: Generative Pickup</strong></td>
-          <td>Google Cloud Veo 3.1 (Vertex AI)</td>
+          <td>Google Cloud Veo 3.1</td>
           <td><span class="prov-pill prov-generated">GENERATED</span></td>
           <td class="num-col">2.100 s</td>
           <td class="num-col">2.850 s</td>
@@ -510,13 +510,13 @@
           <td><span class="prov-pill prov-bob">IBM BOB</span></td>
           <td class="num-col">N/A</td>
           <td class="num-col">N/A</td>
-          <td>8.36 Bobcoins spent across 5 tasks</td>
+          <td>12.70 Bobcoins spent across 7 tasks (.bob-transcripts/)</td>
         </tr>
       </tbody>
     </table>
 
     <div class="honest-warning" style="margin-top:20px; border-left-color:var(--accent-blue);">
-      <strong>Empirical Baseline & Control Calibration:</strong> On 64 synthesized MP4 clips across 32 pairs, Pillar 1 isolates 15/16 defect breaks (93.8% recall, 43.8% spatial IoU &ge; 0.3) with ~25ms inference latency. On negative controls, lighting and color grading yield 0% false alarms (histogram invariance), while camera angle shifts (4/4) and zoom crops (3/4) trip classical difference masking before Pillar 2 multimodal adjudication. Rather than tuning thresholds to fabricate a 0.0 FPR, we report the empirical 50.0% control rate and catalogue every tripped control pair in <code>bench/fixtures/scorecard.json</code>.
+      <strong>Empirical Baseline & Ablation:</strong> Evaluated on 64 rendered MP4 clips across 32 pairs. In Pillar 1 (Classical CV), lighting and color grading yield 0% false alarms, while camera angle and focal zoom shifts produce an empirical 43.8% control FPR (7/16). In Pillar 2 (Gemini 3.8 Flash), multimodal adjudication retracts false alarms on lighting dims, focal length zooms, and camera angles, reducing the Control FPR to <strong>18.8% (3/16)</strong> while maintaining <strong>93.8% Recall (15/16)</strong>.
     </div>
   </section>
 

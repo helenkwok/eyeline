@@ -76,31 +76,30 @@ Your task is to determine whether a visual delta between the reference frame and
 the target frame constitutes a GENUINE CONTINUITY DEFECT or an INTENTIONAL
 CINEMATIC VARIATION.
 
-INTENTIONAL VARIATIONS (must NOT be flagged as defects):
-- Camera angle or position change (OTS → MCU, overhead, Dutch tilt, etc.)
-- Focal length / lens change (bokeh, compression, FOV change)
-- Deliberate lighting grade change (key light dim, CTB/CTO gel, DP stop pull)
-- Natural actor performance nuance (expression, micro-gesture, improvisation)
-- Color grade or saturation applied in-camera
+CRITICAL DISCRIMINATIVE PRINCIPLE:
+1. GLOBAL VS LOCAL:
+   - If the difference involves a global camera rotation, pan, tilt, perspective shift, focal length / zoom change, or global exposure/color grading across the entire frame, this is an INTENTIONAL CINEMATIC VARIATION (set is_continuity_defect=False, category='intentional_variation').
+   - Legitimate continuity defects are LOCALIZED to an isolated element (e.g. a specific prop moved while the table stays stationary, a liquid level jumped, a jacket unbuttoned, an actor posture changed while background stays identical).
+   - If candidate bounding boxes arise because the camera moved or the lens zoomed, do NOT flag them as blocking or prop defects.
 
-GENUINE CONTINUITY DEFECTS (MUST be flagged):
-- prop_state: Object consumption or state changed impossibly within a scene beat
-  (e.g. glass refilled, cigarette length jumped, candle taller).
-- prop_position: Object physically moved to a different location on set
-  (e.g. notebook shifted, knife moved from board to counter).
-- wardrobe: Garment inconsistency (collar flipped, jacket unbuttoned, watch absent,
-  apron strap fallen, tie loosened without scripted reason).
-- blocking: Actor's physical position, stance, or seated/standing state differs
-  at the same script beat without a covered transition.
-- hair_makeup: Hair part changed, prosthetic/wound lighter or absent, makeup smudge
-  inconsistency.
-- set_dressing: Background dressing changed — artwork erased, prop added/removed
-  from the environment without scripted reason.
-- eyeline_axis: 180-degree rule violated — actor gazes in inconsistent screen
-  direction across the cut.
+INTENTIONAL VARIATIONS (must NOT be flagged as defects — set is_continuity_defect=False, category='intentional_variation'):
+- Camera angle, pan, tilt, or position change
+- Focal length, lens, or zoom change
+- Deliberate lighting grade change or exposure dim
+- Natural actor performance nuance (subtle mouth/eye dialogue timing)
+- Color grade, saturation, or LUT change
+
+GENUINE CONTINUITY DEFECTS (MUST be flagged — set is_continuity_defect=True):
+- prop_state: Object consumption or fill level jumped impossibly within a scene beat (e.g. cup refilled).
+- prop_position: An isolated prop physically moved to a different spot while the rest of the scene remains consistent.
+- wardrobe: Garment inconsistency (collar flipped, jacket unbuttoned, watch absent, apron strap fallen).
+- blocking: Actor physically seated vs standing, or positioned at a different mark with stationary camera/background.
+- hair_makeup: Hair part changed, prosthetic/wound lighter or absent, makeup smudge inconsistency.
+- set_dressing: Background dressing changed — artwork erased, prop added/removed from the wall/table without scripted reason.
+- eyeline_axis: 180-degree rule violated — actor gazes in opposite screen direction.
 
 Respond with valid JSON matching the ContinuityAdjudication schema exactly.
-Be conservative: prefer 'intentional_variation' when the evidence is ambiguous.
+Be conservative: prefer 'intentional_variation' when shifts are consistent with camera movement or global changes.
 """.strip()
 
 
@@ -168,7 +167,7 @@ def adjudicate_pair_delta(
     bounding_box: Optional[list[float]] = None,
     template_id: str = "",
     client=None,
-    model: str = "gemini-2.0-flash",
+    model: str = "gemini-3.8-flash",
 ) -> ContinuityAdjudication:
     """Adjudicate whether the delta between a reference and target clip frame is a
     genuine continuity defect or an intentional cinematic variation.

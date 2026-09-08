@@ -72,7 +72,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--model",
-        default="gemini-2.0-flash",
+        default="gemini-3.8-flash",
         help="Gemini model identifier for Pillar-2 adjudication.",
     )
     parser.add_argument(

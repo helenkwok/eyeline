@@ -1,0 +1,54 @@
+{
+  "total_pairs": 32,
+  "defect_pairs_total": 16,
+  "control_pairs_total": 16,
+  "true_positives": 15,
+  "localized_true_positives": 6,
+  "spatial_defects_total": 16,
+  "false_positives": 3,
+  "false_passes": 1,
+  "recall": 0.9375,
+  "localisation_accuracy": 0.375,
+  "control_false_positive_rate": 0.1875,
+  "tripped_controls": [
+    {
+      "pair_id": "pair_017",
+      "template_id": "template_01_diner",
+      "category": "control_camera_angle",
+      "predicted_category": "prop_position",
+      "confidence": 0.72,
+      "reasoning": "The diner wall sign has shifted vertically downward relative to the brick mortar lines while the camera position and background geometry remain stationary."
+    },
+    {
+      "pair_id": "pair_022",
+      "template_id": "template_02_office",
+      "category": "control_camera_angle",
+      "predicted_category": "set_dressing",
+      "confidence": 0.72,
+      "reasoning": "The left whiteboard on the background wall has shifted downward relative to the wall seams and the rest of the stationary set."
+    },
+    {
+      "pair_id": "pair_023",
+      "template_id": "template_02_office",
+      "category": "control_focal_length",
+      "predicted_category": "set_dressing",
+      "confidence": 0.72,
+      "reasoning": "The left wall-mounted panel shifted horizontally toward the frame's left boundary, while the character and right panel remained stationary."
+    }
+  ],
+  "missed_defects": [
+    "pair_007"
+  ],
+  "headline_statement": "Detected 15 of 16 seeded continuity breaks (6 localized), with 3 false alarm(s) across 16 control pairs containing legitimate variation (FPR = 18.8%). Tripped controls: `pair_017` (control_camera_angle), `pair_022` (control_camera_angle), `pair_023` (control_focal_length).",
+  "detector_provenance": {
+    "detector": "src.eyeline.adjudicator:adjudicate_pair_delta",
+    "model": "gemini-3.8-flash",
+    "run_timestamp": "2026-09-08T10:08:31.428044+00:00",
+    "pipeline_stage": "Pillar-1 CV + Pillar-2 Gemini Multimodal Adjudication",
+    "media_format": "H.264 MP4 (CRF 18)",
+    "total_pairs_evaluated": 32
+  },
+  "recall_percent": 93.8,
+  "localisation_percent": 37.5,
+  "fpr_percent": 18.8
+}

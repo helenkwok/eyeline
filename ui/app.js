@@ -643,6 +643,9 @@ const TRUTH_PATHS = [
 ];
 
 const PREDICTION_PATHS = [
+  '../bench/fixtures/adjudicated_predictions.json',
+  'bench/fixtures/adjudicated_predictions.json',
+  './bench/fixtures/adjudicated_predictions.json',
   '../bench/fixtures/measured_predictions.json',
   'bench/fixtures/measured_predictions.json',
   './bench/fixtures/measured_predictions.json',
