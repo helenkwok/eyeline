@@ -120,8 +120,9 @@ python3 -m http.server 8080 -d ui/
 
 ---
 
-## 7. Links & Resources
-
+## 7. Links & Live Deployment
+- **Live Google Cloud Run Review Station**: [https://eyeline-akewulk3vq-uc.a.run.app/](https://eyeline-akewulk3vq-uc.a.run.app/)
+- **Live Judge Portal (30-Second Path)**: [https://eyeline-akewulk3vq-uc.a.run.app/judge.html](https://eyeline-akewulk3vq-uc.a.run.app/judge.html)
 - **GitHub Repository**: [helenkwok/eyeline](https://github.com/helenkwok/eyeline)
 - **Live Demo Video (2-min)**: `docs/demo/eyeline_walkthrough.mp4` (also playable in UI)
 - **Docker Image**: `eyeline:latest` (built on `nginx:alpine` for Google Cloud Run)

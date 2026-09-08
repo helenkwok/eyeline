@@ -151,17 +151,22 @@ All transcripts preserved in `.bob-transcripts/` as verifiable proof of developm
 13. **Fresh-Clone Rehearsal Verified**:
    - Executed clean clone in `/tmp/eyeline-rehearsal`.
    - Verified `python3 -m bench.loader` and `python3 -m bench.run_benchmark` pass with zero errors, zero missing files, and 100% functionality without any credentials.
-14. **Devpost Submission Packaging (`docs/DEVPOST.md`, `README.md`)**:
-   - Authored complete submission package in `docs/DEVPOST.md` covering the 2-minute on-set window, IBM Bob provenance accounting, Rule 7.B compliance statement, McNemar paired testing disclosure, and localisation analysis.
-   - Full `README.md` overhaul with video link, empirical scoreboard, and quickstart.
+15. **Live Google Cloud Run Deployment & Browser MCP Verification**:
+   - Deployed live service to Google Cloud Run in `us-central1`:
+     - **On-Set Review Station**: `https://eyeline-akewulk3vq-uc.a.run.app/`
+     - **Judge Portal**: `https://eyeline-akewulk3vq-uc.a.run.app/judge.html`
+   - Verified via Chrome DevTools MCP from clean browser profile:
+     - All 4 judge presets executed with zero errors and zero warnings in console.
+     - Pair switching validated across 32 benchmark pairs with real H.264 MP4 HTTP 206 byte-range streaming.
+     - Lighthouse Audit on live Cloud Run: **Best Practices: 100**, **Accessibility: 85**. Zero 404 network requests.
 
 ---
 
 ## 5. What's In Flight & Next Up
 
-1. **Deploy to Google Cloud Run (User Action / Live Deploy)**:
-   - Run `./deploy/deploy_cloud_run.sh` with the user's GCP project ID to obtain the final public live URL for Devpost submission.
+1. **Submission Video Upload**:
+   - Upload `docs/demo/eyeline_walkthrough.mp4` to YouTube/Vimeo/Devpost video field.
 2. **Final Devpost Form Submission**:
    - Copy fields from `docs/DEVPOST.md` to the Devpost submission portal before the hackathon deadline.
-3. **Submission Video Upload**:
-   - Upload `docs/demo/eyeline_walkthrough.mp4` to YouTube/Vimeo/Devpost video field.
+3. **Repository Sync**:
+   - Push final verified commits to remote GitHub origin.

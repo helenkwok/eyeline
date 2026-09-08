@@ -6,8 +6,18 @@ Built for the **Agentic Cinema Hackathon** (**IBM Partner Track**) combining **I
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Hackathon](https://img.shields.io/badge/Agentic_Cinema_Hackathon-IBM_Partner_Track-purple.svg)](https://devpost.com)
+[![Live Cloud Run](https://img.shields.io/badge/Live_Demo-Cloud_Run-34A853.svg)](https://eyeline-akewulk3vq-uc.a.run.app/)
+[![Judge Portal](https://img.shields.io/badge/Judge_Portal-Live_Receipts-F59E0B.svg)](https://eyeline-akewulk3vq-uc.a.run.app/judge.html)
 [![Models](https://img.shields.io/badge/Models-Gemini_3.8_Flash_%2B_Veo_3.1-4285F4.svg)](docs/ARCHITECTURE.md)
 [![IBM Bob Provenance](https://img.shields.io/badge/IBM_Bob-14.84_Coins_Spent-052FAD.svg)](.bob-transcripts/)
+
+---
+
+## 🌐 Live Zero-Install Deployment (Google Cloud Run)
+
+Hackathon judges can immediately test Eyeline directly in the browser with **zero installation, zero API keys, and zero setup**:
+- **On-Set Review Station**: [https://eyeline-akewulk3vq-uc.a.run.app/](https://eyeline-akewulk3vq-uc.a.run.app/)
+- **Judge Portal & Empirical Receipts (30-Second Path)**: [https://eyeline-akewulk3vq-uc.a.run.app/judge.html](https://eyeline-akewulk3vq-uc.a.run.app/judge.html)
 
 ---
 
