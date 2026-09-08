@@ -166,15 +166,14 @@ All transcripts preserved in `.bob-transcripts/` as verifiable proof of developm
    - Preserved clear methodological distinction in UI between qualitative photorealistic UI illustration and the empirical 32-pair quantitative benchmark.
    - Integrated verified industry crew labour figures ($18,000–$30,000/day lean crew; ~$500,000 studio day).
    - Added SVG data-URI favicons eliminating browser 404s.
-   - Remote origin configured to `https://github.com/helenkwok/eyeline.git`.
+   - Remote origin configured to `https://github.com/helenkwok/eyeline.git` and fully synchronized on `main`.
+   - Redeployed live container to Cloud Run revision `eyeline-00003-9n4` serving 100% of traffic. Verified via Chrome DevTools MCP: zero console errors, zero 404s, full photorealistic asset loading.
 
 ---
 
 ## 5. What's In Flight & Next Up
 
-1. **Remote Git Push**:
-   - Push verified branch to `https://github.com/helenkwok/eyeline.git`.
-2. **Cloud Run Redeploy**:
-   - Redeploy updated container with photorealistic stills to `https://eyeline-akewulk3vq-uc.a.run.app/`.
-3. **Final Devpost Form Submission**:
-   - Submit Devpost form with live Cloud Run URLs and video demo link.
+1. **Submission Video Upload**:
+   - Upload `docs/demo/eyeline_walkthrough.mp4` to YouTube/Vimeo/Devpost video link field.
+2. **Final Devpost Form Submission**:
+   - Copy fields from `docs/DEVPOST.md` to Devpost submission portal before the hackathon deadline.
