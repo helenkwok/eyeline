@@ -39,7 +39,16 @@ Eyeline operates under a strict **3-Pillar Ceiling**:
 - Python 3.10+ with type hints and Pydantic models for structured contracts.
 - Never write credentials or hardcoded keys into code. Never read `.env` or secret files.
 - Automated Verification: Tests and the benchmark scorer run automatically on changes to produce empirical proof.
-- When running IBM Bob in headless mode, always specify `--workspace <path> --trust --mode continuity-supervisor --format json < /dev/null`.
+- **Canonical IBM Bob Headless Invocation**:
+  Always invoke Bob using shell-level credential substitution (never read/echo the key directly into context) alongside the wall-clock alarm and cost-reduction flags (`--disable-mcp --disable-subagents` saves ~4x on cost):
+  ```bash
+  BOBSHELL_API_KEY=$(cat ~/.bob/apikey) BOB_API_KEY=$(cat ~/.bob/apikey) \
+  perl -e 'alarm shift; exec @ARGV' 600 \
+  bob run --workspace /Users/helen/workspace/eyeline --trust \
+    --mode continuity-supervisor --disable-mcp --disable-subagents \
+    --max-turns <N> --max-cost <M> --format json --log-level error \
+    "<task_spec>" < /dev/null > .bob-transcripts/<task_name>.json 2>&1
+  ```
 - **Wall-Clock Timeout Mandate**: Wrap all headless Bob runs in a wall-clock timeout (e.g. `perl -e 'alarm shift; exec @ARGV' 600 bob run ...`) because network stalls can cause Bob to hang indefinitely without CPU or coin expenditure.
 - **Standing Instruction — State Synchronization (`docs/STATE.md`)**:
   - Maintain `docs/STATE.md` and update it before finishing ANY task: what's done, what's in flight, what's next, current spend, and current measured numbers.

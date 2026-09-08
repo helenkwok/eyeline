@@ -8,12 +8,15 @@ Every discrete subsystem in Eyeline is implemented in focused, cost-controlled t
 
 ### Execution Command Pattern:
 ```bash
-# Wrap in wall-clock alarm (600s) to prevent silent hangs on network drop
+# Wrap in wall-clock alarm (600s); pass credentials via shell expansion; disable unneeded tools for ~4x cost reduction
+BOBSHELL_API_KEY=$(cat ~/.bob/apikey) BOB_API_KEY=$(cat ~/.bob/apikey) \
 perl -e 'alarm shift; exec @ARGV' 600 \
 bob run \
   --workspace /Users/helen/workspace/eyeline \
   --trust \
   --mode continuity-supervisor \
+  --disable-mcp \
+  --disable-subagents \
   --max-turns <N> \
   --max-cost <M> \
   --format json \

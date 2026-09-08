@@ -26,22 +26,24 @@ Eyeline is an autonomous on-set continuity copilot for film script supervisors c
 
 ---
 
-## 2. Current Numbers & Empirical Baseline
+## 2. Benchmark Numbers & Status
 
-Evaluated across the 32-pair held-out benchmark suite (`bench/truth.json`) across 4 scene templates (Diner, Office, Kitchen, Warehouse):
+> [!WARNING]
+> **FIXTURE-DERIVED PLACEHOLDER — NOT AN EMPIRICAL MEASUREMENT OF FOOTAGE**  
+> The scorecard numbers below are computed by scoring the baseline test fixture (`bench/fixtures/sample_predictions.json`) against `bench/truth.json`. They validate the scoring engine, IoU calculations, and CLI contract.  
+> **They do NOT yet represent empirical detector performance over video frames.** Currently, no media files exist under `bench/clips/`, and `vision.py` is not yet wired to run across real footage. Media generation (the 32 take pairs) is the immediate critical path. Once real frames are rendered and processed by the detector, this section will record real, measured detector output.
 
-| Metric | Measured Value | Standard / Formula | Operational Meaning |
+| Metric | Current Placeholder Value | Standard / Formula | Meaning |
 |---|---|---|---|
-| **Defect Detection Recall** | **15 / 16 (93.8%)** | $TP / P$ | Catches 15 of 16 physical continuity defects before strike. |
-| **Defect Localisation Accuracy** | **14 / 16 (87.5%)** | $TP_{\text{loc}} / TP_{\text{spatial}}$ ($IoU \ge 0.3$) | Precise bounding box on the defective prop/wardrobe item. |
-| **Control False-Positive Rate** | **1 / 16 (6.25%)** | $FPR = FP / C$ | Characterised empirical rate. Tripped on `pair_017` (key light dim). |
-| **False Passes (Critical Risk)** | **1 / 16 (6.25%)** | $FN = P - TP$ | Missed `pair_016` (subtle set dressing background practical lamp). |
-| **Local Homography Alignment** | **100% (32 / 32)** | Mean inlier error $< 1.2$ px | Perspective warp compensates for camera repositioning. |
-| **Pillar-1 CV Latency** | **82 ms** (p50) | OpenCV / scikit-image | Fast non-AI prefilter outside the expensive model loop. |
-| **Pillar-2 ADK Latency** | **620 ms** (p50) | Gemini 3.8 Flash on Vertex | Multimodal crop adjudication on isolated candidate patches. |
+| **Defect Detection Recall** | **15 / 16 (93.8%)** *(Fixture)* | $TP / P$ | Contract target: 15 of 16 defect pairs caught. |
+| **Defect Localisation Accuracy** | **14 / 16 (87.5%)** *(Fixture)* | $TP_{\text{loc}} / TP_{\text{spatial}}$ ($IoU \ge 0.3$) | Contract target: 14 of 16 localized within ground-truth bbox. |
+| **Control False-Positive Rate** | **1 / 16 (6.25%)** *(Fixture)* | $FPR = FP / C$ | Target demonstration: 1 false alarm (`pair_017` lighting dim). |
+| **False Passes (Critical Risk)** | **1 / 16 (6.25%)** *(Fixture)* | $FN = P - TP$ | Target demonstration: 1 escaped break (`pair_016` subtle practical lamp). |
+| **Pillar-1 CV Latency** | *Pending live run* | OpenCV / scikit-image | Fast classical prefilter latency. |
+| **Pillar-2 ADK Latency** | *Pending live run* | Gemini 3.8 Flash on Vertex | Multimodal crop adjudication latency. |
 
-### Canonical Headline Statement:
-> *"Detected **15** of **16** seeded continuity breaks (**14** localized), with **1** false alarm across **16** control pairs containing legitimate variation ($FPR = 6.25\%$). Tripped control: `pair_017` (dramatic lighting mood shift)."*
+### Canonical Baseline Statement (Fixture Contract Validation):
+> *"Detected **15** of **16** seeded continuity breaks (**14** localized), with **1** false alarm across **16** control pairs containing legitimate variation ($FPR = 6.25\%$). Tripped control: `pair_017` (fixture baseline)."*
 
 ---
 
@@ -55,45 +57,52 @@ Evaluated across the 32-pair held-out benchmark suite (`bench/truth.json`) acros
 | **2** | Ground-Truth Schema & Pydantic Loader | 2.0 | 1.56 | **Complete** | `.bob-transcripts/task2-schema.json` |
 | **3** | Classical CV Alignment & Diff Engine | 4.0 | 2.03 | *In Flight* | `.bob-transcripts/task3-vision.json` |
 | **4** | Google ADK Continuity Agent & Gemini 3.8 | 4.0 | — | Queued | `src/eyeline/agent.py` |
-| **5** | Empirical Evaluation & Scoring Harness | 2.0 | 0.00 | **Complete** | `bench/scorer.py`, `tests/test_scorer.py` |
+| **5** | Empirical Evaluation & Scoring Harness | 2.0 | 1.61 | **Complete** | `.bob-transcripts/task5-scorer.json` |
 | **6** | Veo Generative Cutaway Bridge Tool | 4.0 | — | Queued | Vertex AI Veo pipeline |
-| **TOTAL** | | **19.0** | **5.20** | *44.80 Bobcoins Remaining* | |
+| **TOTAL** | | **19.0** | **6.81** | *43.19 Bobcoins Remaining* | |
 
 ---
 
 ## 4. What's Done
 
-1. **Empirical Scorer & Evaluation Harness (Task 5)**:
-   - Evaluator in `bench/scorer.py` with standalone CLI (`python3 -m bench.scorer`).
+1. **Empirical Scorer & Evaluation Harness (Task 5 — IBM Bob)**:
+   - Authored by IBM Bob (1.61 Bobcoins, 15 tool calls, `.bob-transcripts/task5-scorer.json`).
+   - Standalone CLI evaluator in `bench/scorer.py` (`python3 -m bench.scorer`).
    - Computes Recall ($TP/P$), Spatial Localisation ($TP_{\text{loc}} / TP$), empirical False-Positive Rate ($FP/C$), and False Passes ($FN$).
    - Explicitly catalogues tripped controls rather than demanding zero false alarms.
-   - Zero-dependency baseline predictions fixture in `bench/fixtures/sample_predictions.json`.
+   - Baseline fixture in `bench/fixtures/sample_predictions.json` for zero-dependency contract validation.
    - Complete automated test suite in `tests/test_scorer.py` (10/10 tests passing).
 2. **Pillar 1 Classical CV (Task 3 Scaffold)**: Classical CV engine in `src/eyeline/vision.py` with YCrCb exposure matching, ORB + RANSAC homography, morphological diff masking, and normalized bounding box clustering.
 3. **Pillar 2 Foundation**: Google ADK integration in `src/eyeline/agent.py` declaring `ContinuityAgent` with Vertex AI Reasoning Engine spec in `src/eyeline/agent_builder_spec.json`.
-4. **Pillar 3 Tool Interface**: `generate_veo_pickup` tool contract declaring the verified Vertex AI model endpoint `veo-2.0-generate-001` with synthetic asset watermarking.
+4. **Pillar 3 Tool Interface**: `generate_veo_pickup` tool contract declaring the verified Vertex AI model endpoint `veo-3.1-generate-preview` with synthetic asset watermarking.
 5. **Verified AI Model Identifiers**:
    - Multimodal Reasoner: `gemini-3.8-flash` (verified against `google-genai` and `google-adk`).
-   - Video Generator: `veo-2.0-generate-001` (verified live Vertex AI model ID; avoided 404 shorthand).
-6. **Ground-Truth Dataset (Task 2)**: 32 balanced pairs in `bench/truth.json` validated via Pydantic v2 models in `bench/loader.py`.
-7. **Visual Inspection Dashboard (Task 1)**: Synchronized dual-take player in `ui/index.html` + `ui/app.js` with canvas overlays and fallback fixtures.
+   - Video Generator: `veo-3.1-generate-preview` (verified live Vertex AI model ID; avoided 404 shorthand).
+6. **Ground-Truth Dataset (Task 2 — IBM Bob)**: 32 balanced pairs in `bench/truth.json` validated via Pydantic v2 models in `bench/loader.py` (`.bob-transcripts/task2-schema.json`).
+7. **Visual Inspection Dashboard (Task 1 — IBM Bob)**: Synchronized dual-take player in `ui/index.html` + `ui/app.js` with canvas overlays and fallback fixtures (`.bob-transcripts/task1-ui.json`).
 8. **Judge Index & 30-Second Path**: Dedicated review interface in `ui/judge.html` + `ui/judge.js` featuring interactive presets (defect, control pass, resample), empirical receipt table, and honest limitation disclosures.
 9. **FastMCP Server**: Operational inspection server in `src/eyeline/mcp_server.py` exposing telemetry, discrepancy queries, and empirical control logging over stdio.
 
 ---
 
-## 5. What's In Flight
+## 5. What's In Flight (Critical Path)
 
-1. **Task 3 (Vision Engine Self-Test Fix)**:
+1. **CRITICAL PATH — Benchmark Media Generation (`bench/clips/`)**:
+   - Status: Zero video/image files currently exist in `bench/clips/`.
+   - Goal: Render all 32 take pairs (16 defect pairs with visible, timecoded physical discontinuities + 16 control pairs with camera/light/expression variations) across the 4 scene templates (`t01_diner`, `t02_office`, `t03_kitchen`, `t04_interrogation`).
+   - Impact: Required to feed `vision.py`, generate genuine predictions, give the UI actual video footage to scrub, and film the demo video.
+2. **Detector-to-Benchmark Wiring**:
+   - Wire `src/eyeline/vision.py` + agent pipeline to ingest `bench/clips/` and produce live prediction JSON rather than static fixtures.
+3. **Task 3 (Vision Engine Self-Test Fix)**:
    - File: `src/eyeline/vision.py`
-   - Issue: Synthetic plain-color rectangle in self-test produced insufficient ORB features, causing 0 boxes to be detected in the test block. Needs texture/gradient or direct diff-mask verification.
+   - Issue: Synthetic plain-color rectangle in self-test produced insufficient ORB features; needs textured patches or direct diff-mask verification.
 
 ---
 
 ## 6. What's Next
 
-1. Complete Task 3 vision self-test and unit test coverage.
-2. Implement Task 4 (Google ADK Continuity Agent live multimodal inference loop with fallback).
-3. Implement Task 6 (Veo 2.0 generative cutaway bridge tool with synthetic watermarking).
-4. Run fresh-clone rehearsal in an isolated temporary directory.
-5. Prepare public hosted deployment endpoint for judges.
+1. Implement the media generator script (`bench/generator.py` or synthetic canvas/OpenCV renderer) to synthesize the 32 MP4 take pairs into `bench/clips/`.
+2. Run `vision.py` across `bench/clips/` to emit empirical detections.
+3. Run `bench/scorer.py` on real predictions and record genuine, non-fixture empirical metrics in `docs/STATE.md`.
+4. Update UI with real clip assets for live scrub playback.
+5. Record demo video walk-through.
