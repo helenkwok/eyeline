@@ -1,14 +1,16 @@
 """
-bench/generator.py — Ground-Truth Benchmark Media Generator for Eyeline.
+bench/generator.py — Screening-Grade Benchmark Media Generator for Eyeline.
 
-Synthesizes realistic, deterministic video take pairs for the 32 benchmark pairs
-defined in bench/truth.json across 4 scene templates:
+Synthesizes deterministic video take pairs representing geometric perturbations
+on synthetic 2D scenes for the 32 benchmark pairs defined in bench/truth.json
+across 4 scene templates:
   - t01: Diner Table (Props: Coffee mug, Watch, Notebook, Eyeline)
   - t02: Office Desk (Props: Tumbler, Lapel, Hair Part, Whiteboard)
   - t03: Commercial Kitchen (Props: Knife, Pot Lid, Apron Strap, Axis)
   - t04: Interrogation Room (Props: Blocking, Evidence Folder, Bruise, Lamp)
 
-Complies strictly with Hackathon Rule 7.B (pure classical CV + numpy, zero external AI models).
+Provides a rigorous, reproducible quantitative screening harness for classical CV
+delta isolation under controlled geometric and photometric transformations.
 """
 
 from __future__ import annotations
@@ -393,7 +395,7 @@ def render_clip_to_file(
 
         writer.release()
 
-        # Convert to H.264 MP4 with FFmpeg for universal browser & player playback
+        # Convert to H.264 MP4 with FFmpeg for universal browser & player playback (CRF 18 for visually lossless fidelity)
         cmd = [
             "ffmpeg",
             "-y",
@@ -401,6 +403,10 @@ def render_clip_to_file(
             str(raw_mp4),
             "-c:v",
             "libx264",
+            "-crf",
+            "18",
+            "-preset",
+            "slow",
             "-pix_fmt",
             "yuv420p",
             "-movflags",

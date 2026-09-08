@@ -13,6 +13,7 @@ Standalone invocation:
 from __future__ import annotations
 
 import argparse
+import datetime
 import json
 import sys
 from pathlib import Path
@@ -218,7 +219,7 @@ def main(argv: list[str] | None = None) -> int:
     if not args.quiet:
         print(f"Loading ground-truth: {args.truth}", flush=True)
 
-    dataset: GroundTruthDataset = load_benchmark_dataset(args.truth)
+    dataset: GroundTruthDataset = load_benchmark_dataset(args.truth, verify_media=True)
 
     if not args.quiet:
         positives = len(dataset.get_positive_pairs())
@@ -234,17 +235,29 @@ def main(argv: list[str] | None = None) -> int:
     for pair in dataset.pairs:
         predictions.append(run_pair(pair, quiet=args.quiet))
 
+    # ---- Wrap predictions in provenanced envelope --------------------------
+    provenanced_payload: Dict[str, Any] = {
+        "detector_provenance": {
+            "detector": "src.eyeline.vision:inspect_take_pair",
+            "run_timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            "pipeline_stage": "Pillar-1 Classical CV Delta Isolation",
+            "media_format": "H.264 MP4 (CRF 18)",
+            "total_pairs_evaluated": len(dataset.pairs),
+        },
+        "predictions": predictions,
+    }
+
     # ---- Persist predictions -----------------------------------------------
     pred_out = Path(args.predictions_out)
     pred_out.parent.mkdir(parents=True, exist_ok=True)
-    pred_out.write_text(json.dumps(predictions, indent=2), encoding="utf-8")
+    pred_out.write_text(json.dumps(provenanced_payload, indent=2), encoding="utf-8")
     if not args.quiet:
         print(f"\nPredictions saved → {pred_out}", flush=True)
 
     # ---- Score --------------------------------------------------------------
     scorecard = score_predictions(
         dataset=dataset,
-        predictions=predictions,
+        predictions=provenanced_payload,
         iou_threshold=args.iou_threshold,
         time_tolerance_sec=args.time_tolerance,
     )

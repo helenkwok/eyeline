@@ -94,6 +94,7 @@ class BenchmarkScorecard:
     tripped_controls: List[TrippedControl] = field(default_factory=list)
     missed_defects: List[str] = field(default_factory=list)
     headline_statement: str = ""
+    detector_provenance: Dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         d = asdict(self)
@@ -108,9 +109,55 @@ class BenchmarkScorecard:
 # ---------------------------------------------------------------------------
 
 
+# Provenance tags that indicate a fixture / synthetic payload — never scoreable.
+_MOCK_PROVENANCE_TAGS: frozenset[str] = frozenset({
+    "mock", "fixture", "synthetic", "placeholder", "fake", "dummy", "test_fixture",
+    "sample_predictions",
+})
+
+
+def _extract_provenance(
+    predictions: "List[Dict[str, Any]] | Dict[str, Any]",
+) -> Dict[str, Any]:
+    """
+    Pull detector_provenance out of the predictions payload.
+
+    Accepts two envelope formats:
+      1. Structured envelope: ``{"detector_provenance": {...}, "predictions": [...]}``
+      2. Bare list of prediction records (no envelope) — returns ``{}``.
+
+    Raises ValueError if provenance is missing, empty, or tagged as mock/fixture.
+    """
+    provenance: Dict[str, Any] = {}
+
+    if isinstance(predictions, dict):
+        provenance = predictions.get("detector_provenance") or {}
+    # Bare list → no provenance block by definition → stays {}
+
+    if not provenance:
+        raise ValueError(
+            "Predictions payload lacks valid detector_provenance. "
+            "The scoring harness refuses to score unprovenanced or synthetic "
+            "fixture predictions."
+        )
+
+    # Reject explicitly mock/fixture provenance
+    detector_val = str(provenance.get("detector", "")).lower()
+    pipeline_val = str(provenance.get("pipeline_stage", "")).lower()
+    combined = detector_val + " " + pipeline_val
+    if any(tag in combined for tag in _MOCK_PROVENANCE_TAGS):
+        raise ValueError(
+            "Predictions payload lacks valid detector_provenance. "
+            "The scoring harness refuses to score unprovenanced or synthetic "
+            "fixture predictions."
+        )
+
+    return provenance
+
+
 def score_predictions(
     dataset: GroundTruthDataset,
-    predictions: List[Dict[str, Any]] | Dict[str, Dict[str, Any]],
+    predictions: "List[Dict[str, Any]] | Dict[str, Any]",
     iou_threshold: float = 0.3,
     time_tolerance_sec: float = 0.5,
 ) -> BenchmarkScorecard:
@@ -119,22 +166,36 @@ def score_predictions(
 
     Args:
         dataset: Loaded GroundTruthDataset (e.g. from bench/truth.json).
-        predictions: List of dicts or dict mapping pair_id -> prediction dict.
+        predictions: Either a structured envelope dict
+            ``{"detector_provenance": {...}, "predictions": [...]}``
+            or a bare list of prediction dicts (legacy; provenance required).
         iou_threshold: Minimum spatial IoU for localized TP (default 0.3).
         time_tolerance_sec: Max allowed discrepancy in seconds (default 0.5).
 
     Returns:
         Fully populated BenchmarkScorecard with exact empirical metrics.
+
+    Raises:
+        ValueError: if detector_provenance is absent, empty, or flagged mock/fixture.
     """
+    # --- Validate and extract provenance ------------------------------------
+    provenance = _extract_provenance(predictions)
+
+    # --- Unwrap prediction records from envelope ----------------------------
+    pred_records: List[Dict[str, Any]]
+    if isinstance(predictions, dict) and "predictions" in predictions:
+        pred_records = predictions["predictions"]
+    elif isinstance(predictions, list):
+        pred_records = predictions
+    else:
+        pred_records = []
+
     # Normalize predictions into pair_id mapping
     pred_map: Dict[str, Dict[str, Any]] = {}
-    if isinstance(predictions, dict):
-        pred_map = predictions
-    elif isinstance(predictions, list):
-        for p in predictions:
-            pid = p.get("pair_id")
-            if pid:
-                pred_map[pid] = p
+    for p in pred_records:
+        pid = p.get("pair_id")
+        if pid:
+            pred_map[pid] = p
 
     p_count = 0
     c_count = 0
@@ -218,6 +279,7 @@ def score_predictions(
         tripped_controls=tripped,
         missed_defects=missed,
         headline_statement=headline,
+        detector_provenance=provenance,
     )
 
 
@@ -231,6 +293,18 @@ def format_table(scorecard: BenchmarkScorecard) -> str:
         "=" * 72,
         "  EYELINE EMPIRICAL CONTINUITY BENCHMARK SCORECARD",
         "=" * 72,
+    ]
+
+    # Provenance block
+    if scorecard.detector_provenance:
+        prov = scorecard.detector_provenance
+        lines.append(f"  Detector                    : {prov.get('detector', '—')}")
+        lines.append(f"  Pipeline Stage              : {prov.get('pipeline_stage', '—')}")
+        lines.append(f"  Run Timestamp               : {prov.get('run_timestamp', '—')}")
+        lines.append(f"  Media Format                : {prov.get('media_format', '—')}")
+        lines.append("-" * 72)
+
+    lines.extend([
         f"  Total Pairs Evaluated       : {scorecard.total_pairs} ({scorecard.defect_pairs_total} Defect + {scorecard.control_pairs_total} Control)",
         f"  True Positives (TP)         : {scorecard.true_positives} / {scorecard.defect_pairs_total} (Recall: {scorecard.recall * 100:.1f}%)",
         f"  Spatial Localisation (IoU)  : {scorecard.localized_true_positives} / {scorecard.spatial_defects_total} ({scorecard.localisation_accuracy * 100:.1f}%)",
@@ -238,7 +312,7 @@ def format_table(scorecard: BenchmarkScorecard) -> str:
         f"  Control False Alarms (FP)   : {scorecard.false_positives} / {scorecard.control_pairs_total} (FPR: {scorecard.control_false_positive_rate * 100:.1f}%)",
         "-" * 72,
         "  Tripped Controls Catalog:",
-    ]
+    ])
     if scorecard.tripped_controls:
         for t in scorecard.tripped_controls:
             conf_str = f" [conf={t.confidence:.2f}]" if t.confidence is not None else ""
@@ -276,8 +350,8 @@ def main() -> None:
     )
     parser.add_argument(
         "--predictions",
-        default="bench/fixtures/sample_predictions.json",
-        help="Path to predictions JSON (default: bench/fixtures/sample_predictions.json)",
+        required=True,
+        help="Path to provenanced predictions JSON (required; produced by bench/run_benchmark.py)",
     )
     parser.add_argument(
         "--iou-threshold",
@@ -307,15 +381,18 @@ def main() -> None:
     if not pred_path.exists():
         sys.exit(f"Error: Predictions file not found: {pred_path.resolve()}")
 
-    dataset = load_benchmark_dataset(str(truth_path))
+    dataset = load_benchmark_dataset(str(truth_path), verify_media=False)
     predictions_raw = json.loads(pred_path.read_text(encoding="utf-8"))
 
-    scorecard = score_predictions(
-        dataset=dataset,
-        predictions=predictions_raw,
-        iou_threshold=args.iou_threshold,
-        time_tolerance_sec=args.time_tolerance,
-    )
+    try:
+        scorecard = score_predictions(
+            dataset=dataset,
+            predictions=predictions_raw,
+            iou_threshold=args.iou_threshold,
+            time_tolerance_sec=args.time_tolerance,
+        )
+    except ValueError as exc:
+        sys.exit(f"Error: {exc}")
 
     if args.json:
         print(json.dumps(scorecard.to_dict(), indent=2))

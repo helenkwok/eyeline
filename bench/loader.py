@@ -140,12 +140,20 @@ class GroundTruthDataset(BaseModel):
 
 def load_benchmark_dataset(
     truth_path: str = "bench/truth.json",
+    verify_media: bool = True,
 ) -> GroundTruthDataset:
     """
     Load and validate bench/truth.json, returning a fully-typed GroundTruthDataset.
 
+    Args:
+        truth_path: Path to the ground-truth JSON file.
+        verify_media: When True, assert that every pair's reference_clip and
+            target_clip physically exist on disk.  Raises FileNotFoundError
+            naming the missing path and pair_id on the first missing clip.
+
     Raises:
-        FileNotFoundError: if *truth_path* does not exist.
+        FileNotFoundError: if *truth_path* does not exist, or (when
+            verify_media=True) if any clip path is missing.
         pydantic.ValidationError: if any entry fails schema or constraint validation.
     """
     path = Path(truth_path)
@@ -153,7 +161,21 @@ def load_benchmark_dataset(
         raise FileNotFoundError(f"Ground-truth file not found: {path.resolve()}")
 
     raw = json.loads(path.read_text(encoding="utf-8"))
-    return GroundTruthDataset.model_validate(raw)
+    dataset = GroundTruthDataset.model_validate(raw)
+
+    if verify_media:
+        for pair in dataset.pairs:
+            for clip_attr, clip_path in (
+                ("reference_clip", pair.reference_clip),
+                ("target_clip", pair.target_clip),
+            ):
+                if not Path(clip_path).exists():
+                    raise FileNotFoundError(
+                        f"[pair_id={pair.pair_id!r}] {clip_attr} not found on disk: "
+                        f"{clip_path!r}"
+                    )
+
+    return dataset
 
 
 # ---------------------------------------------------------------------------
