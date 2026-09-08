@@ -78,10 +78,11 @@ In pure classical CV (Pillar 1), camera angle rotations and focal length zooms c
 | **1** | Visual Diff UI Shell & Fixture Player | 3.0 | 1.61 | **Complete** | `.bob-transcripts/task1-ui.json` |
 | **2** | Ground-Truth Schema & Pydantic Loader | 2.0 | 1.56 | **Complete** | `.bob-transcripts/task2-schema.json` |
 | **3** | Classical CV Alignment & Diff Engine | 4.0 | 2.03 | **Complete** | `.bob-transcripts/task3-vision.json` |
+| **4** | Pillar 2 Multimodal Adjudicator & Runner | 3.5 | 2.46 | **Complete** | `.bob-transcripts/task4-adjudicator.json` |
 | **5** | Empirical Evaluation & Scoring Harness | 2.0 | 1.61 | **Complete** | `.bob-transcripts/task5-scorer.json` |
 | **7** | Benchmark Evaluation Runner CLI | 2.5 | 1.55 | **Complete** | `.bob-transcripts/task7-runner.json` |
 | **8** | Anti-Circularity Forcing Functions | 3.0 | 1.88 | **Complete** | `.bob-transcripts/task8-forcing-functions.json` |
-| **TOTAL** | | **16.5** | **10.24** | *39.76 Bobcoins Remaining* | |
+| **TOTAL** | | **20.0** | **12.70** | *37.30 Bobcoins Remaining* | |
 
 All transcripts preserved in `.bob-transcripts/` as verifiable proof of development provenance for the IBM Partner Track.
 

@@ -1,0 +1,3 @@
+{"type":"error","timestamp":"2026-09-08T07:59:01.807Z","severity":"error","message":"Maximum turns limit reached: 14 (task: f23515ae713d4f6da40791c1e680eecb)"}
+{"type":"error","timestamp":"2026-09-08T07:59:01.808Z","severity":"error","message":"Maximum turns limit reached: 14 (task: f23515ae713d4f6da40791c1e680eecb)"}
+{"type":"result","timestamp":"2026-09-08T07:59:01.814Z","status":"success","stats":{"task_id":"f23515ae713d4f6da40791c1e680eecb","duration_ms":135179,"session_costs":2.4634599999999995,"max_cost":3,"tool_calls":20},"last_message":"Default model: gemini-2.0-flash\nadjudicator.py imports OK — all assertions passed ✓"}

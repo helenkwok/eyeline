@@ -31,10 +31,12 @@ bob run \
 |---|---|---|---|---|
 | **1** | Visual Diff UI Shell & Fixture Player | 3.0 | 1.61 | **Complete** |
 | **2** | Ground-Truth Schema & Benchmark Loader | 2.0 | 1.56 | **Complete** |
-| **3** | Deterministic Frame Alignment & Diff Engine | 4.0 | — | Queued |
-| **4** | Gemini Multimodal Continuity Classifier | 4.0 | — | Queued |
-| **5** | Empirical Evaluation & Scoring Harness | 2.0 | 0.00 | **Complete** |
+| **3** | Classical CV Alignment & Diff Engine | 4.0 | 2.03 | **Complete** |
+| **4** | Pillar 2 Multimodal Adjudicator & Runner | 3.5 | 2.46 | **Complete** |
+| **5** | Empirical Evaluation & Scoring Harness | 2.0 | 1.61 | **Complete** |
 | **6** | Veo Generative Cutaway Generator | 4.0 | — | Queued |
+| **7** | Benchmark Evaluation Runner CLI | 2.5 | 1.55 | **Complete** |
+| **8** | Anti-Circularity Forcing Functions | 3.0 | 1.88 | **Complete** |
 
 ---
 
