@@ -14,7 +14,7 @@ On any professional film production, a script supervisor sits beside the directo
 - How much liquid was left in the mug at line 4?
 - Was the jacket lapel flipped before the reverse-shot coverage?
 
-Between "Cut!" and "Moving on!", the script supervisor has a narrow **2-minute window** while lighting and cameras reset. If a continuity defect escapes that window and the production wraps, the standing set is struck. Once the set is struck, fixing a continuity break requires re-hiring cast and crew, re-rigging lighting, and rebuilding the set—often costing **$30,000 to $80,000 for a single reshoot day**, or forcing an awkward editorial crop.
+Between "Cut!" and "Moving on!", the script supervisor has a narrow **2-minute window** while lighting and cameras reset. If a continuity defect escapes that window and the production wraps, the standing set is struck. A pickup day costs **$18,000–$30,000 in crew labour alone** for a lean 25–35 person crew (needacrew, 2026), and an average studio day runs to **~$500,000** (Careers in Film). Eyeline moves verification into the 2-minute window between takes, while the set is still standing.
 
 Eyeline was built to solve this exact bottleneck: an autonomous, real-time continuity copilot that ingests camera takes side-by-side, deterministically isolates physical pixel discrepancies in sub-100ms, adjudicates intentional creative choices vs. accidental defects with Gemini 3.8 Flash, and generates synthetic B-roll cutaway pickups with Google Cloud Veo 3.1 if an unresolved defect is caught post-strike.
 

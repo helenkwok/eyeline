@@ -1,6 +1,6 @@
 # Eyeline: Autonomous On-Set Continuity Copilot
 
-> **Eyeline catches physical continuity breaks while the set is still standing, so a break costs one more take instead of a $50,000 reshoot.**
+> **A pickup day costs $18,000–$30,000 in crew labour alone for a lean 25–35 person crew (needacrew, 2026), and an average studio day runs to ~$500,000 (Careers in Film). Eyeline moves verification into the 2-minute window between takes, while the set is still standing.**
 
 Built for the **Agentic Cinema Hackathon** (**IBM Partner Track**) combining **IBM Bob**, **Google ADK (`google-adk`)**, **Google Cloud Agent Builder**, **Gemini 3.8 Flash**, and **Google Cloud Veo 3.1**.
 
