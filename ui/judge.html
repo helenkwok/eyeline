@@ -141,7 +141,7 @@
     /* 30-Second Path Preset Cards */
     .preset-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 16px;
       margin-bottom: 24px;
     }
@@ -415,6 +415,14 @@
         <p>Take 3 vs Ref Take 1: Actor lapel flipped. Sub-patch zoom & temporal resample applied.</p>
         <div class="preset-action">Execute Resample →</div>
       </div>
+
+      <!-- Preset 4: Generative Pickup -->
+      <div class="preset-card" id="btn-preset-veo">
+        <span class="preset-badge" style="background:rgba(218,119,242,0.15); color:var(--accent-purple);">Pillar 3: Veo 3.1</span>
+        <h4>Set Struck: B-Roll Pickup</h4>
+        <p>Post-strike fallback: Generates ~4s macro insert cutaway to bridge continuity mismatch.</p>
+        <div class="preset-action" style="color:var(--accent-purple);">Preview Veo Insert →</div>
+      </div>
     </div>
 
     <!-- Live Stage Player -->
@@ -426,6 +434,7 @@
       <div class="mini-well">
         <div class="well-tag" id="tag-cur">Current Take (Take 4)</div>
         <canvas id="canvas-cur" width="480" height="270"></canvas>
+        <video id="video-veo-pickup" src="assets/veo_pickup_clock.mp4" controls autoplay loop playsinline style="display:none; width:100%; height:270px; border-radius:4px; object-fit:contain; background:#000;"></video>
       </div>
     </div>
 

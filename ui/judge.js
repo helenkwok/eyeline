@@ -64,6 +64,26 @@ const PRESETS = {
       drawKitchenScene(ctxCur, w, h, true);
       drawBoundingBox(ctxCur, [0.35, 0.46, 0.52, 0.58], "#ef4444", "WARDROBE: LAPEL INVERTED [RESAMPLED]", w, h);
     }
+  },
+  veo: {
+    id: "preset_veo_pickup",
+    name: "Set Struck: B-Roll Pickup",
+    category: "Pillar 3 Generative Cutaway: Macro B-Roll Insert",
+    badgeClass: "prov-generated",
+    pillClass: "prov-generated",
+    pillText: "GENERATED: VEO 3.1",
+    confidence: "100% Watermarked",
+    bbox: null,
+    desc: "Production set was struck after wrap; discovered unscripted prop discrepancy on the timeline. Eyeline invoked Google Cloud Veo 3.1 to synthesize a 4.0-second macro B-roll insert shot, stamped with the SYNTHETIC CONTINUITY INSERT disclosure watermark, allowing editorial to bridge the cut without an expensive reshoot.",
+    latency: "2.10s (Veo 3.1 Synthesis)",
+    remediation: "Editorial Cutaway Bridge (Approved)",
+    refLabel: "Defect Take (Diner - Set Struck)",
+    curLabel: "Veo 3.1 Generative Pickup (4.0s Video)",
+    isVideo: true,
+    draw: (ctxRef, ctxCur, w, h) => {
+      drawDinerScene(ctxRef, w, h, 0.80);
+      drawBoundingBox(ctxRef, [0.68, 0.44, 0.88, 0.54], "#ef4444", "DEFECT UNRESOLVED (SET STRUCK)", w, h);
+    }
   }
 };
 
@@ -237,9 +257,27 @@ function loadPreset(key) {
   document.getElementById("verdict-lat").textContent = p.latency;
   document.getElementById("verdict-remedy").textContent = p.remediation;
 
-  // Redraw canvases
+  // Handle canvas vs video playback
   const cRef = document.getElementById("canvas-ref");
   const cCur = document.getElementById("canvas-cur");
+  const vVeo = document.getElementById("video-veo-pickup");
+
+  if (p.isVideo) {
+    if (cCur) cCur.style.display = "none";
+    if (vVeo) {
+      vVeo.style.display = "block";
+      vVeo.currentTime = 0;
+      vVeo.play().catch(() => {});
+    }
+  } else {
+    if (vVeo) {
+      vVeo.pause();
+      vVeo.style.display = "none";
+    }
+    if (cCur) cCur.style.display = "block";
+  }
+
+  // Redraw canvases
   if (cRef && cCur) {
     const ctxRef = cRef.getContext("2d");
     const ctxCur = cCur.getContext("2d");
@@ -252,6 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btn-preset-defect")?.addEventListener("click", () => loadPreset("defect"));
   document.getElementById("btn-preset-control")?.addEventListener("click", () => loadPreset("control"));
   document.getElementById("btn-preset-resample")?.addEventListener("click", () => loadPreset("resample"));
+  document.getElementById("btn-preset-veo")?.addEventListener("click", () => loadPreset("veo"));
 
   // Default to defect
   loadPreset("defect");

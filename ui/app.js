@@ -229,9 +229,27 @@ function buildCard(item, isIncident) {
         <span class="confidence-pct">${pct}%</span>
       </div>
       <div class="card-summary">${item.summary}</div>
+      <div style="margin-top:8px; display:flex; justify-content:flex-end;">
+        <button class="btn-veo-pickup" data-id="${item.id}" style="font-size:10px; font-weight:600; color:#da77f2; background:rgba(218,119,242,0.12); border:1px solid rgba(218,119,242,0.3); padding:3px 8px; border-radius:4px; cursor:pointer;">
+          ⚡ Veo 3.1 Pickup
+        </button>
+      </div>
     `;
     card.addEventListener('click', () => seekToIncident(item));
     card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') seekToIncident(item); });
+
+    const veoBtn = card.querySelector('.btn-veo-pickup');
+    if (veoBtn) {
+      veoBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const modal = document.getElementById('veo-modal');
+        const v = document.getElementById('veo-modal-video');
+        if (modal) {
+          modal.showModal();
+          if (v) { v.currentTime = 0; v.play().catch(() => {}); }
+        }
+      });
+    }
   } else {
     card.innerHTML = `
       <div class="card-row">
@@ -834,6 +852,14 @@ async function init() {
     renderList();
     drawOverlay(0);
   }
+
+  // Modal close listener
+  document.getElementById('close-veo-modal')?.addEventListener('click', () => {
+    const modal = document.getElementById('veo-modal');
+    const v = document.getElementById('veo-modal-video');
+    if (v) v.pause();
+    modal?.close();
+  });
 
   // Start RAF loop
   rafId = requestAnimationFrame(animationLoop);
