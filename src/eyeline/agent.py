@@ -6,6 +6,7 @@ Google Cloud Agent Builder (Vertex AI Agent Builder reasoning engines and OpenAP
 
 from typing import Any, Dict, List, Optional
 import json
+import os
 from pydantic import BaseModel, Field
 
 try:
@@ -83,17 +84,47 @@ def generate_veo_pickup(
     scene_context: str,
     defect_description: str,
     shot_type: str = "macro_insert",
-    duration_sec: float = 2.0,
+    duration_sec: int = 4,
 ) -> Dict[str, Any]:
-    """Google Cloud Veo generative cutaway tool: synthesizes a 2-second B-roll pickup shot on Vertex AI."""
-    return {
-        "status": "synthesized",
-        "engine": "veo-3.1-generate-preview",
-        "duration_sec": duration_sec,
-        "shot_type": shot_type,
-        "watermark": "SYNTHETIC_CONTINUITY_INSERT",
-        "summary": f"Generated {shot_type} bridging '{defect_description}' in '{scene_context}'.",
-    }
+    """Google Cloud Veo generative cutaway tool: synthesizes a B-roll pickup shot via Pillar 3."""
+    from eyeline.veo import generate_veo_insert  # local import avoids circular deps
+
+    # Build a descriptive cinematic prompt from ADK tool parameters
+    prompt = (
+        f"{shot_type.replace('_', ' ').title()} insert shot: "
+        f"{defect_description}. Scene context: {scene_context}. "
+        "Cinematic, film-quality lighting, steady camera."
+    )
+
+    # Clamp to nearest valid Veo duration (4, 6, 8)
+    valid = (4, 6, 8)
+    clamped = min(valid, key=lambda d: abs(d - max(4, int(duration_sec))))
+
+    try:
+        result = generate_veo_insert(
+            prompt=prompt,
+            duration_sec=clamped,
+            out_path="ui/assets/veo_pickup.mp4",
+        )
+        return {
+            "status": result["status"],
+            "engine": result["model"],
+            "duration_sec": result["duration_sec"],
+            "shot_type": shot_type,
+            "watermark": result["watermark"],
+            "file": result["file"],
+            "summary": f"Generated {shot_type} bridging '{defect_description}' in '{scene_context}'.",
+        }
+    except (ValueError, RuntimeError) as exc:
+        # Graceful degradation — return informative stub when credentials are absent
+        return {
+            "status": "unavailable",
+            "engine": "veo-3.1-generate-preview",
+            "duration_sec": clamped,
+            "shot_type": shot_type,
+            "watermark": "SYNTHETIC CONTINUITY INSERT * VEO 3.1",
+            "summary": f"Veo insert pending credentials: {exc}",
+        }
 
 
 def get_default_tools() -> List[Any]:

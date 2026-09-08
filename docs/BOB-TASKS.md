@@ -34,7 +34,7 @@ bob run \
 | **3** | Classical CV Alignment & Diff Engine | 4.0 | 2.03 | **Complete** |
 | **4** | Pillar 2 Multimodal Adjudicator & Runner | 3.5 | 2.46 | **Complete** |
 | **5** | Empirical Evaluation & Scoring Harness | 2.0 | 1.61 | **Complete** |
-| **6** | Veo Generative Cutaway Generator | 4.0 | — | Queued |
+| **6** | Veo Generative Cutaway Generator | 4.0 | 2.14 | **Complete** |
 | **7** | Benchmark Evaluation Runner CLI | 2.5 | 1.55 | **Complete** |
 | **8** | Anti-Circularity Forcing Functions | 3.0 | 1.88 | **Complete** |
 

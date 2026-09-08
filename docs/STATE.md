@@ -83,9 +83,10 @@ Localisation accuracy is 37.5% (6 / 16 localized at $IoU \ge 0.3$). Pixel-contai
 | **3** | Classical CV Alignment & Diff Engine | 4.0 | 2.03 | **Complete** | `.bob-transcripts/task3-vision.json` |
 | **4** | Pillar 2 Multimodal Adjudicator & Runner | 3.5 | 2.46 | **Complete** | `.bob-transcripts/task4-adjudicator.json` |
 | **5** | Empirical Evaluation & Scoring Harness | 2.0 | 1.61 | **Complete** | `.bob-transcripts/task5-scorer.json` |
+| **6** | Pillar 3 Veo Generative Cutaway Generator | 4.0 | 2.14 | **Complete** | `.bob-transcripts/task6-veo.json` |
 | **7** | Benchmark Evaluation Runner CLI | 2.5 | 1.55 | **Complete** | `.bob-transcripts/task7-runner.json` |
 | **8** | Anti-Circularity Forcing Functions | 3.0 | 1.88 | **Complete** | `.bob-transcripts/task8-forcing-functions.json` |
-| **TOTAL** | | **20.0** | **12.70** | *37.30 Bobcoins Remaining* | |
+| **TOTAL** | | **24.0** | **14.84** | *35.16 Bobcoins Remaining* | |
 
 All transcripts preserved in `.bob-transcripts/` as verifiable proof of development provenance for the IBM Partner Track.
 
@@ -122,14 +123,20 @@ All transcripts preserved in `.bob-transcripts/` as verifiable proof of developm
    - Multi-frame and candidate crop extraction via OpenCV; structured Pydantic schema (`ContinuityAdjudication`).
    - CLI runner comparing Pillar 1 alone vs Pillar 1 + Pillar 2 with full before/after ablation metrics.
    - Graceful API error handling when running in dry-run mode without credentials.
-8. **Interactive On-Set Review Station (`ui/index.html`, `ui/app.js`, `ui/style.css`)**:
+8. **Pillar 3 Veo Generative Cutaway Pipeline (`src/eyeline/veo.py`)**:
+   - Authored by IBM Bob (2.14 Bobcoins, Task 6).
+   - Generates contextual B-roll insert clips using Google Cloud Veo 3.1 (`veo-3.1-generate-preview`) via official `google-genai` SDK.
+   - Downloads generated media and burns in mandatory `SYNTHETIC CONTINUITY INSERT * VEO 3.1` disclosure watermark onto every frame.
+   - Integrated with Google ADK Agent tool `generate_veo_pickup` in `src/eyeline/agent.py`.
+   - Generated live 720p 24fps MP4 assets: `ui/assets/veo_pickup_clock.mp4` and `ui/assets/veo_pickup_clock_6s.mp4`.
+9. **Interactive On-Set Review Station (`ui/index.html`, `ui/app.js`, `ui/style.css`)**:
    - Side-by-side synchronized HTML5 video players (`#video-ref`, `#video-cur`).
    - Take Pair dropdown selector previewing all 32 benchmark pairs.
    - Canvas overlay rendering detected bounding boxes at accurate timecodes.
    - Frame stepping, scrub bar, incident cards with confidence and category tags.
-   - Zero-dependency client logic with fallback to `measured_predictions.json` and `sample_diff.json`.
-9. **Judge Portal (`ui/judge.html`, `ui/judge.js`)**:
-   - 30-second path with 3 live presets (Defect, Control Pass, Resample).
+   - Zero-dependency client logic with fallback to `adjudicated_predictions.json` and `measured_predictions.json`.
+10. **Judge Portal (`ui/judge.html`, `ui/judge.js`)**:
+   - 30-second path with live presets (Defect, Control Pass, Resample, Veo Generative Pickup).
    - Provenance pills and verified AI model identifiers (`gemini-3.8-flash`, `veo-3.1-generate-preview`).
    - Empirical Receipt Table and Honest Limitations disclosure.
 
@@ -137,16 +144,13 @@ All transcripts preserved in `.bob-transcripts/` as verifiable proof of developm
 
 ## 5. What's In Flight & Next Up
 
-1. **Execute Live Pillar 2 Adjudication**:
-   - Run `GEMINI_API_KEY=$(cat ~/.google/apikey) python3 -m bench.run_adjudication` once the user writes their AI Studio API key to `~/.google/apikey`.
-   - Measure the exact empirical reduction in Control False-Positive Rate (filtering the 7 false alarms on camera angles and focal length).
-   - Programmatically sync new scorecard to `STATE.md`.
-2. **Pillar 3 Veo Generative Cutaways**:
-   - Check live Vertex model ID for Veo 3.1 (`veo-3.1-generate` / `veo-3.1`).
-   - Generate photorealistic hero pairs and ~2-second B-roll insert (`SYNTHETIC_CONTINUITY_INSERT`).
-3. **Demo Video Recording**:
+1. **Wire Veo Video Player into UI**:
+   - In `ui/index.html` and `ui/judge.html`, add a one-click modal/drawer to preview the Veo generative pickup video (`ui/assets/veo_pickup_clock.mp4`).
+2. **Review Station Visual Polish & Testing Verification**:
+   - Verify that all presets in `ui/judge.html` play smoothly.
+3. **Demo Video Walkthrough**:
    - Record 2-minute walkthrough showing:
      - 30-second judge path on live UI
      - Switching take pairs on real MP4 footage
      - Terminal verification with `python3 -m bench.run_benchmark` and `bench.run_adjudication`
-     - Veo generative cutaway bridge
+     - Veo generative cutaway bridge with watermark display
