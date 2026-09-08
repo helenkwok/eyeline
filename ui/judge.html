@@ -4,15 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Eyeline — Judge Index & Verification Receipt</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 30 30%22><circle cx=%2215%22 cy=%2215%22 r=%2214%22 stroke=%22%23f59e0b%22 stroke-width=%222%22 fill=%22none%22/><circle cx=%2215%22 cy=%2215%22 r=%223.5%22 fill=%22%23f59e0b%22/></svg>" />
+  <link rel="stylesheet" href="style.css?v=2.0" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    body {
+    html, body {
+      overflow-x: hidden !important;
       overflow-y: auto !important;
       height: auto !important;
+      min-height: 100vh !important;
       background: #0d0f14;
+      scroll-behavior: smooth;
     }
     .judge-container {
       max-width: 1080px;
@@ -329,13 +333,92 @@
       color: #6a9955;
     }
 
-    @media (max-width: 800px) {
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 12px;
+      border-radius: var(--radius-sm);
+    }
+
+    @media (max-width: 900px) {
+      .judge-container {
+        padding: 24px 16px 80px;
+      }
+      .judge-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 8px;
+      }
+      .nav-link {
+        font-size: 11px;
+        padding: 6px 10px;
+      }
+      .hero-title {
+        font-size: 24px;
+        line-height: 1.25;
+      }
+      .hero-subtitle {
+        font-size: 14px;
+        margin-bottom: 24px;
+      }
+      .provenance-pill-row {
+        gap: 6px;
+        margin-bottom: 28px;
+      }
+      .prov-pill {
+        font-size: 10px;
+        padding: 3px 8px;
+      }
       .preset-grid {
         grid-template-columns: 1fr;
+        gap: 12px;
       }
       .mini-stage {
         grid-template-columns: 1fr;
         height: auto;
+        gap: 10px;
+        background: transparent;
+      }
+      .mini-well {
+        aspect-ratio: 16 / 9;
+        height: auto;
+        min-height: 220px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border);
+      }
+      .verdict-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .verdict-meta {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .metrics-table th, .metrics-table td {
+        padding: 8px 10px;
+        font-size: 11px;
+        white-space: nowrap;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 20px;
+      }
+      .preset-card {
+        padding: 12px;
+      }
+      .code-block {
+        font-size: 11px;
+        padding: 12px;
       }
     }
   </style>
@@ -374,11 +457,11 @@
       <span class="prov-pill prov-measured">MEASURED: Classical CV</span>
       <span class="prov-pill prov-adjudicated">ADJUDICATED: Google ADK / Gemini 3.8</span>
       <span class="prov-pill prov-generated">GENERATED: Google Cloud Veo 3.1</span>
-      <span class="prov-pill prov-verified">EMPIRICAL: 15/16 Breaks (93.8%) · 8/16 Control FPR</span>
+      <span class="prov-pill prov-verified">EMPIRICAL: 15/16 Breaks (93.8%) · 3/16 Control FPR (Gemini 3.8 Adjudicated)</span>
     </div>
     <h1 class="hero-title">Catch continuity breaks before the set is struck.</h1>
     <p class="hero-subtitle">
-      In film and television production, visual continuity breaks discovered post-wrap in the edit suite force a costly emergency pickup reshoot (~$50,000+) or a visibly compromised cut. Eyeline moves this verification into the <strong>2-minute window between takes while the set is still standing</strong>.
+      A pickup day costs $18,000–$30,000 in crew labour alone for a lean 25–35 person crew (needacrew, 2026), and an average studio day runs to ~$500,000 (Careers in Film). Eyeline moves verification into the <strong>2-minute window between takes, while the set is still standing</strong>.
     </p>
   </header>
 
@@ -388,8 +471,11 @@
       <span class="section-title">The 30-Second Path</span>
       <span class="section-tag">Zero Upload · Zero Credentials · Instant Presets</span>
     </div>
+    <div class="honest-warning" style="margin-top:0; margin-bottom:18px; border-left-color:var(--accent-blue); background:rgba(59, 130, 246, 0.06); color:var(--text-secondary);">
+      <strong>Methodological Distinction:</strong> The 30-second interactive presets below demonstrate Eyeline's on-set UI and adjudication workflow using photorealistic 35mm film stills. The quantitative benchmark scorecard in <em>The Receipt</em> section below was empirically measured across 32 controlled pairs rendered with synthetic geometric perturbations.
+    </div>
     <p style="color:var(--text-secondary); margin-bottom:18px; font-size:13px;">
-      Click any of the three bundled seed takes below to run the live comparison, render normalized bounding boxes, and inspect the issued continuity certificate:
+      Click any of the presets below to run the live comparison, render normalized bounding boxes, and inspect the issued continuity certificate:
     </p>
 
     <div class="preset-grid">
@@ -452,7 +538,7 @@
         Coffee mug liquid height increased by ~55% volume between Take 1 (reference, level 25%) and Take 4 (current, level 80%). Physical consumption discontinuity detected across coverage.
       </div>
       <div class="verdict-meta">
-        <span>BOUNDING BOX: <strong id="verdict-bbox">[0.68, 0.44, 0.88, 0.54]</strong></span>
+        <span>BOUNDING BOX: <strong id="verdict-bbox">[0.55, 0.26, 0.86, 0.46]</strong></span>
         <span>LATENCY: <strong id="verdict-lat">82ms (CV) + 620ms (ADK)</strong></span>
         <span>REMEDIATION: <strong id="verdict-remedy" style="color:var(--accent-amber);">Immediate Retake</strong></span>
       </div>
@@ -470,60 +556,62 @@
       <span class="section-tag">Cross-Checked Against bench/truth.json & .bob-transcripts/</span>
     </div>
 
-    <table class="metrics-table">
-      <thead>
-        <tr>
-          <th>Execution Stage</th>
-          <th>Engine & Technology</th>
-          <th>Provenance</th>
-          <th>p50 Latency</th>
-          <th>p95 Latency</th>
-          <th>Accuracy / Invariance</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Pillar 1: Alignment & Diff</strong></td>
-          <td>OpenCV-headless / scikit-image</td>
-          <td><span class="prov-pill prov-measured">MEASURED</span></td>
-          <td class="num-col">0.082 s</td>
-          <td class="num-col">0.114 s</td>
-          <td>100% Homography alignment</td>
-        </tr>
-        <tr>
-          <td><strong>Pillar 2: Multimodal Adjudication</strong></td>
-          <td>Google ADK & Gemini 3.8-Flash</td>
-          <td><span class="prov-pill prov-adjudicated">ADJUDICATED</span></td>
-          <td class="num-col">0.620 s</td>
-          <td class="num-col">0.810 s</td>
-          <td><strong>15/16 Recall (93.8%) · 3/16 Control FPR (18.8%)</strong></td>
-        </tr>
-        <tr>
-          <td><strong>Negative Control Evaluation (P1 Alone)</strong></td>
-          <td>Pillar-1 CV Delta Isolation</td>
-          <td><span class="prov-pill prov-measured">MEASURED</span></td>
-          <td class="num-col">0.024 s</td>
-          <td class="num-col">0.031 s</td>
-          <td><strong>7/16 Control FPR (43.8%) — Tripped Controls Cataloged</strong></td>
-        </tr>
-        <tr>
-          <td><strong>Pillar 3: Generative Pickup</strong></td>
-          <td>Google Cloud Veo 3.1</td>
-          <td><span class="prov-pill prov-generated">GENERATED</span></td>
-          <td class="num-col">2.100 s</td>
-          <td class="num-col">2.850 s</td>
-          <td>Watermarked 2s B-roll cutaway</td>
-        </tr>
-        <tr>
-          <td><strong>Autonomous Authoring</strong></td>
-          <td>IBM Bob (Task Queue & Modes)</td>
-          <td><span class="prov-pill prov-bob">IBM BOB</span></td>
-          <td class="num-col">N/A</td>
-          <td class="num-col">N/A</td>
-          <td>12.70 Bobcoins spent across 7 tasks (.bob-transcripts/)</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="metrics-table">
+        <thead>
+          <tr>
+            <th>Execution Stage</th>
+            <th>Engine & Technology</th>
+            <th>Provenance</th>
+            <th>p50 Latency</th>
+            <th>p95 Latency</th>
+            <th>Accuracy / Invariance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Pillar 1: Alignment & Diff</strong></td>
+            <td>OpenCV-headless / scikit-image</td>
+            <td><span class="prov-pill prov-measured">MEASURED</span></td>
+            <td class="num-col">0.082 s</td>
+            <td class="num-col">0.114 s</td>
+            <td>100% Homography alignment</td>
+          </tr>
+          <tr>
+            <td><strong>Pillar 2: Multimodal Adjudication</strong></td>
+            <td>Google ADK & Gemini 3.8-Flash</td>
+            <td><span class="prov-pill prov-adjudicated">ADJUDICATED</span></td>
+            <td class="num-col">0.620 s</td>
+            <td class="num-col">0.810 s</td>
+            <td><strong>15/16 Recall (93.8%) · 3/16 Control FPR (18.8%)</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Negative Control Evaluation (P1 Alone)</strong></td>
+            <td>Pillar-1 CV Delta Isolation</td>
+            <td><span class="prov-pill prov-measured">MEASURED</span></td>
+            <td class="num-col">0.024 s</td>
+            <td class="num-col">0.031 s</td>
+            <td><strong>7/16 Control FPR (43.8%) — Tripped Controls Cataloged</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Pillar 3: Generative Pickup</strong></td>
+            <td>Google Cloud Veo 3.1</td>
+            <td><span class="prov-pill prov-generated">GENERATED</span></td>
+            <td class="num-col">2.100 s</td>
+            <td class="num-col">2.850 s</td>
+            <td>Watermarked 2s B-roll cutaway</td>
+          </tr>
+          <tr>
+            <td><strong>Autonomous Authoring</strong></td>
+            <td>IBM Bob (Task Queue & Modes)</td>
+            <td><span class="prov-pill prov-bob">IBM BOB</span></td>
+            <td class="num-col">N/A</td>
+            <td class="num-col">N/A</td>
+            <td>14.84 Bobcoins spent across 8 tasks (.bob-transcripts/)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <div class="honest-warning" style="margin-top:20px; border-left-color:var(--accent-blue);">
       <strong>Empirical Baseline & Ablation:</strong> Evaluated on 64 rendered MP4 clips across 32 pairs. In Pillar 1 (Classical CV), lighting and color grading yield 0% false alarms, while camera angle and focal zoom shifts produce an empirical 43.8% control FPR (7/16). In Pillar 2 (Gemini 3.8 Flash), multimodal adjudication retracts false alarms on lighting dims, focal length zooms, and camera angles, reducing the Control FPR to <strong>18.8% (3/16)</strong> while maintaining <strong>93.8% Recall (15/16)</strong>.

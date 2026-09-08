@@ -159,14 +159,22 @@ All transcripts preserved in `.bob-transcripts/` as verifiable proof of developm
      - All 4 judge presets executed with zero errors and zero warnings in console.
      - Pair switching validated across 32 benchmark pairs with real H.264 MP4 HTTP 206 byte-range streaming.
      - Lighthouse Audit on live Cloud Run: **Best Practices: 100**, **Accessibility: 85**. Zero 404 network requests.
+16. **Responsive Layouts, Photorealistic 35mm Presets & Industry Cost Metrics**:
+   - Resolved root scroll lock (`overflow-y: auto !important; height: auto !important;`) on `judge.html`.
+   - Added responsive flex/grid layouts with zero horizontal scroll across mobile (390px), tablet (768px), and desktop (1440px) on both `judge.html` and `index.html`.
+   - Generated and integrated 6 photorealistic 35mm film stills for Judge Portal presets 1–3 (`ui/assets/preset_*.jpg`), replacing crude primitives with cinematic imagery differing by exactly one controlled parameter.
+   - Preserved clear methodological distinction in UI between qualitative photorealistic UI illustration and the empirical 32-pair quantitative benchmark.
+   - Integrated verified industry crew labour figures ($18,000–$30,000/day lean crew; ~$500,000 studio day).
+   - Added SVG data-URI favicons eliminating browser 404s.
+   - Remote origin configured to `https://github.com/helenkwok/eyeline.git`.
 
 ---
 
 ## 5. What's In Flight & Next Up
 
-1. **Submission Video Upload**:
-   - Upload `docs/demo/eyeline_walkthrough.mp4` to YouTube/Vimeo/Devpost video field.
-2. **Final Devpost Form Submission**:
-   - Copy fields from `docs/DEVPOST.md` to the Devpost submission portal before the hackathon deadline.
-3. **Repository Sync**:
-   - Push final verified commits to remote GitHub origin.
+1. **Remote Git Push**:
+   - Push verified branch to `https://github.com/helenkwok/eyeline.git`.
+2. **Cloud Run Redeploy**:
+   - Redeploy updated container with photorealistic stills to `https://eyeline-akewulk3vq-uc.a.run.app/`.
+3. **Final Devpost Form Submission**:
+   - Submit Devpost form with live Cloud Run URLs and video demo link.

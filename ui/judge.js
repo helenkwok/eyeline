@@ -3,6 +3,35 @@
  * Provides instant execution of bundled seed presets without upload or credentials.
  */
 
+// Image cache for photorealistic presets
+const IMAGE_CACHE = {};
+
+function getOrLoadImage(src, onLoad, onError) {
+  if (IMAGE_CACHE[src] && IMAGE_CACHE[src].complete && IMAGE_CACHE[src].naturalWidth > 0) {
+    onLoad(IMAGE_CACHE[src]);
+    return;
+  }
+  const img = IMAGE_CACHE[src] || new Image();
+  IMAGE_CACHE[src] = img;
+  img.onload = () => onLoad(img);
+  img.onerror = () => { if (onError) onError(); };
+  if (!img.src) img.src = src;
+}
+
+// Pre-warm photorealistic stills
+[
+  "assets/preset_diner_ref.jpg",
+  "assets/preset_diner_cur.jpg",
+  "assets/preset_office_ref.jpg",
+  "assets/preset_office_cur.jpg",
+  "assets/preset_kitchen_ref.jpg",
+  "assets/preset_kitchen_cur.jpg"
+].forEach(src => {
+  const img = new Image();
+  img.src = src;
+  IMAGE_CACHE[src] = img;
+});
+
 // Presets data
 const PRESETS = {
   defect: {
@@ -13,16 +42,27 @@ const PRESETS = {
     pillClass: "prov-adjudicated",
     pillText: "ADJUDICATED",
     confidence: "94% Confidence",
-    bbox: [0.68, 0.44, 0.88, 0.54],
+    bbox: [0.55, 0.26, 0.86, 0.46],
     desc: "Coffee mug liquid height increased by ~55% volume between Take 1 (reference, level 25%) and Take 4 (current, level 80%). Physical consumption discontinuity detected across coverage.",
     latency: "82ms (CV) + 620ms (ADK)",
     remediation: "Immediate Retake",
     refLabel: "Reference Take 1 (Liquid 25%)",
     curLabel: "Current Take 4 (Liquid 80%)",
     draw: (ctxRef, ctxCur, w, h) => {
-      drawDinerScene(ctxRef, w, h, 0.25);
-      drawDinerScene(ctxCur, w, h, 0.80);
-      drawBoundingBox(ctxCur, [0.68, 0.44, 0.88, 0.54], "#f59e0b", "PROP STATE: MUG LEVEL (+55%)", w, h);
+      getOrLoadImage("assets/preset_diner_ref.jpg",
+        (img) => ctxRef.drawImage(img, 0, 0, w, h),
+        () => drawDinerScene(ctxRef, w, h, 0.25)
+      );
+      getOrLoadImage("assets/preset_diner_cur.jpg",
+        (img) => {
+          ctxCur.drawImage(img, 0, 0, w, h);
+          drawBoundingBox(ctxCur, [0.55, 0.26, 0.86, 0.46], "#f59e0b", "PROP STATE: MUG LEVEL (+55%)", w, h);
+        },
+        () => {
+          drawDinerScene(ctxCur, w, h, 0.80);
+          drawBoundingBox(ctxCur, [0.55, 0.26, 0.86, 0.46], "#f59e0b", "PROP STATE: MUG LEVEL (+55%)", w, h);
+        }
+      );
     }
   },
   control: {
@@ -40,9 +80,20 @@ const PRESETS = {
     refLabel: "Reference Take 1 (Key Light 100%)",
     curLabel: "Current Take 2 (Key Light 35% - Mood Dim)",
     draw: (ctxRef, ctxCur, w, h) => {
-      drawOfficeScene(ctxRef, w, h, 1.0);
-      drawOfficeScene(ctxCur, w, h, 0.4);
-      drawControlPassBanner(ctxCur, w, h);
+      getOrLoadImage("assets/preset_office_ref.jpg",
+        (img) => ctxRef.drawImage(img, 0, 0, w, h),
+        () => drawOfficeScene(ctxRef, w, h, 1.0)
+      );
+      getOrLoadImage("assets/preset_office_cur.jpg",
+        (img) => {
+          ctxCur.drawImage(img, 0, 0, w, h);
+          drawControlPassBanner(ctxCur, w, h);
+        },
+        () => {
+          drawOfficeScene(ctxCur, w, h, 0.4);
+          drawControlPassBanner(ctxCur, w, h);
+        }
+      );
     }
   },
   resample: {
@@ -53,16 +104,27 @@ const PRESETS = {
     pillClass: "prov-adjudicated",
     pillText: "RESAMPLED + ADJUDICATED",
     confidence: "91% Confidence (Calibrated)",
-    bbox: [0.35, 0.46, 0.52, 0.58],
+    bbox: [0.32, 0.52, 0.45, 0.63],
     desc: "Initial delta confidence was borderline (54%) due to actor head turn motion. Agent automatically triggered temporal resample (±12 frames @ 60fps) and 2x sub-patch zoom, confirming persistent lapel flip.",
     latency: "110ms (Resample) + 710ms (ADK)",
     remediation: "Veo Generative Pickup (Stove Insert)",
     refLabel: "Reference Take 1 (Lapel Flat)",
     curLabel: "Current Take 3 (Lapel Flipped + Resampled)",
     draw: (ctxRef, ctxCur, w, h) => {
-      drawKitchenScene(ctxRef, w, h, false);
-      drawKitchenScene(ctxCur, w, h, true);
-      drawBoundingBox(ctxCur, [0.35, 0.46, 0.52, 0.58], "#ef4444", "WARDROBE: LAPEL INVERTED [RESAMPLED]", w, h);
+      getOrLoadImage("assets/preset_kitchen_ref.jpg",
+        (img) => ctxRef.drawImage(img, 0, 0, w, h),
+        () => drawKitchenScene(ctxRef, w, h, false)
+      );
+      getOrLoadImage("assets/preset_kitchen_cur.jpg",
+        (img) => {
+          ctxCur.drawImage(img, 0, 0, w, h);
+          drawBoundingBox(ctxCur, [0.32, 0.52, 0.45, 0.63], "#ef4444", "WARDROBE: LAPEL INVERTED [RESAMPLED]", w, h);
+        },
+        () => {
+          drawKitchenScene(ctxCur, w, h, true);
+          drawBoundingBox(ctxCur, [0.32, 0.52, 0.45, 0.63], "#ef4444", "WARDROBE: LAPEL INVERTED [RESAMPLED]", w, h);
+        }
+      );
     }
   },
   veo: {
@@ -81,8 +143,16 @@ const PRESETS = {
     curLabel: "Veo 3.1 Generative Pickup (4.0s Video)",
     isVideo: true,
     draw: (ctxRef, ctxCur, w, h) => {
-      drawDinerScene(ctxRef, w, h, 0.80);
-      drawBoundingBox(ctxRef, [0.68, 0.44, 0.88, 0.54], "#ef4444", "DEFECT UNRESOLVED (SET STRUCK)", w, h);
+      getOrLoadImage("assets/preset_diner_cur.jpg",
+        (img) => {
+          ctxRef.drawImage(img, 0, 0, w, h);
+          drawBoundingBox(ctxRef, [0.55, 0.26, 0.86, 0.46], "#ef4444", "DEFECT UNRESOLVED (SET STRUCK)", w, h);
+        },
+        () => {
+          drawDinerScene(ctxRef, w, h, 0.80);
+          drawBoundingBox(ctxRef, [0.55, 0.26, 0.86, 0.46], "#ef4444", "DEFECT UNRESOLVED (SET STRUCK)", w, h);
+        }
+      );
     }
   }
 };
