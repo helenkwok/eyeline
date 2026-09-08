@@ -166,8 +166,8 @@ All transcripts preserved in `.bob-transcripts/` as verifiable proof of developm
    - Preserved clear methodological distinction in UI between qualitative photorealistic UI illustration and the empirical 32-pair quantitative benchmark.
    - Integrated verified industry crew labour figures ($18,000–$30,000/day lean crew; ~$500,000 studio day).
    - Added SVG data-URI favicons eliminating browser 404s.
-   - Remote origin configured to `https://github.com/helenkwok/eyeline.git` and fully synchronized on `main`.
-   - Redeployed live container to Cloud Run revision `eyeline-00003-9n4` serving 100% of traffic. Verified via Chrome DevTools MCP: zero console errors, zero 404s, full photorealistic asset loading.
+   - Restored canonical 202-line Apache-2.0 LICENSE including APPENDIX section; GitHub license detector actively recognizes `Apache-2.0`.
+   - Redeployed live container to Cloud Run revision `eyeline-00004-vgq` serving 100% of traffic. Verified via Chrome DevTools MCP: zero console errors, zero 404s, full photorealistic asset loading, and updated pickup cost citations.
 
 ---
 
