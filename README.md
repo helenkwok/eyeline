@@ -1,134 +1,177 @@
-# Eyeline: Autonomous Continuity Copilot for Live Sets
+# Eyeline: Autonomous On-Set Continuity Copilot
 
-> **Eyeline watches continuity while the set is still standing, so a break costs one more take instead of a reshoot.**
+> **Eyeline catches physical continuity breaks while the set is still standing, so a break costs one more take instead of a $50,000 reshoot.**
 
-Built for the **Agentic Cinema Hackathon** (IBM Partner Track) combining **IBM Bob**, **Google ADK (`google-adk`)**, **Google Cloud Agent Builder**, and **Vertex AI** (Gemini 3.8 Flash & Veo).
+Built for the **Agentic Cinema Hackathon** (**IBM Partner Track**) combining **IBM Bob**, **Google ADK (`google-adk`)**, **Google Cloud Agent Builder**, **Gemini 3.8 Flash**, and **Google Cloud Veo 3.1**.
 
----
-
-## 🎬 The Core Problem
-
-In film and episodic television production, physical continuity across takes, camera setups, and lighting setups is manually tracked by a script supervisor. When a continuity error escapes notice on set:
-- **Discovered on set (set standing)**: Costs ~2 minutes for an immediate retake.
-- **Discovered in the edit bay (set struck)**: Requires an emergency reshoot, expensive digital paint/VFX cleanup, or a compromised cut.
-
-Eyeline acts as an automated visual continuity copilot that inspects consecutive takes against reference setups in real time.
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![Hackathon](https://img.shields.io/badge/Agentic_Cinema_Hackathon-IBM_Partner_Track-purple.svg)](https://devpost.com)
+[![Models](https://img.shields.io/badge/Models-Gemini_3.8_Flash_%2B_Veo_3.1-4285F4.svg)](docs/ARCHITECTURE.md)
+[![IBM Bob Provenance](https://img.shields.io/badge/IBM_Bob-14.84_Coins_Spent-052FAD.svg)](.bob-transcripts/)
 
 ---
 
-## 🏛️ Architecture: The Three Pillars
+## 📺 2-Minute Demo Video Walkthrough
 
-Eyeline enforces a strict three-part architecture ceiling to prevent feature bloat and ensure production-grade reliability:
+> **[▶ Watch the Full 1080p Walkthrough Video](docs/demo/eyeline_walkthrough.mp4)**  
+> *(Also bundled and playable directly inside the web UI at `ui/assets/eyeline_walkthrough.mp4`)*
 
-1. **Live Setup Comparison**: Deterministic frame alignment and candidate change segmentation paired with an agentic multimodal inspection loop to detect physical discrepancies (props, wardrobe, blocking) between takes.
-2. **Seeded Ground-Truth Benchmark**: An un-gameable empirical evaluation protocol balancing positive defect pairs with negative control pairs containing legitimate cinematic variations (lighting drift, focal changes, natural actor performance).
-3. **Veo Generative Pickups**: A Vertex AI Veo fallback pipeline synthesizing ~2-second contextual insert cutaways to bridge unavoidable continuity breaks caught after striking the set.
-
----
-
-## 🤖 Core Technologies: IBM Bob, Google ADK & Agent Builder
-
-| Technology | Layer | Role in Eyeline | Eligibility & Provenance |
-|---|---|---|---|
-| **IBM Bob** | Autonomous Development | Authors core modules across cost-capped tasks; non-interactive turn logs and provenance preserved in [`.bob-transcripts/`](.bob-transcripts/). | **IBM Partner Track Mandate**: Complete transcripts recorded and linked. |
-| **Google ADK (`google-adk`)** | Agent Architecture & Orchestration | Implements `ContinuityAgent` via `google.adk.agents.Agent`, binding classical CV tools and driving the multi-step verification loop. | **Google Cloud Ecosystem**: Runtime package imported and executed. |
-| **Google Cloud Agent Builder** | Enterprise Agent Hosting | Enterprise deployment target providing managed agent execution, Cloud IAM security, and session state. | **Google Cloud Ecosystem**: Production agent runtime platform. |
-| **Gemini 3.8 Flash on Vertex AI** | Multimodal Reasoning | Evaluates candidate regions to distinguish legitimate cinematographic variation from accidental defects. | **Sole AI Model Vendor**: 100% compliant with Rule 7.B. |
-| **Veo on Vertex AI** | Generative Cutaway Bridge | Generates ~2s contextual insert pickups for late-caught continuity errors. | **Google Cloud Generative Media**: Integrated via Vertex AI. |
-| **Classical CV Stack** | Deterministic Preprocessing | `scenedetect` (take boundaries), `opencv-python-headless` (homography/alignment), `scikit-image` (SSIM diff), `imagehash` (filtering). | **Permissive Open Source**: Apache-2.0 / BSD, zero non-Google AI models. |
+A comprehensive 102-second walk-through demonstrating:
+1. **The 2-Minute On-Set Window**: Why post-strike reshoots cost $50k and how script supervisors use Eyeline.
+2. **Interactive On-Set Review Station**: Dual synchronized 24fps HTML5 video players scrubbing real MP4 takes with canvas bounding boxes.
+3. **30-Second Judge Path**: Instant evaluation of bundled Defect, Control Pass, and Resample presets.
+4. **Pillar 2 False Alarm Retraction**: Live Gemini 3.8 Flash adjudication cutting control false alarms from 43.8% down to 18.8%.
+5. **Pillar 3 Veo 3.1 Pickup**: Real macro insert cutaway with burned-in `SYNTHETIC CONTINUITY INSERT` disclosure watermark.
 
 ---
 
-## 🦾 Built with IBM Bob (IBM Partner Track)
+## ⚡ 30-Second Judge Quickstart (Zero-Credential Guarantee)
 
-Eyeline leverages **IBM Bob** not just as a one-off code generator, but as a fully tailored, project-specific development and inspection environment:
+Eyeline requires **zero API keys and zero cloud configuration** to evaluate the entire benchmark dataset, run the detector, and scrub live clips in the interactive review station:
 
-- **Custom Project Mode** ([`.bob/custom_modes.yaml`](.bob/custom_modes.yaml)): Configures the dedicated `continuity-supervisor` persona equipped with tool groups (`read`, `edit`, `execute`, `mcp`, `skill`, `todo`, `subagent`) and script supervisor domain knowledge.
-- **Anthropic-Format Project Skill** ([`.bob/skills/continuity-reviewer/SKILL.md`](.bob/skills/continuity-reviewer/SKILL.md)): Embeds domain-specific inspection procedures, coordinate normalization (`[ymin, xmin, ymax, xmax]`), and negative-control verification rules.
-- **Project Rules & Instructions** ([`AGENTS.md`](AGENTS.md), [`.bob/rules/continuity-standards.md`](.bob/rules/continuity-standards.md), [`.bob/rules-continuity-supervisor/workflow.md`](.bob/rules-continuity-supervisor/workflow.md)): Enforces strict Hackathon Rule 7.B compliance (Google Cloud AI only, no third-party object detectors) and negative control invariance across all agent interactions.
-- **Model Context Protocol (MCP) Server** ([`.bob/mcp.json`](.bob/mcp.json) & [`src/eyeline/mcp_server.py`](src/eyeline/mcp_server.py)): Exposes native `eyeline-inspector` tools (`get_take_telemetry`, `inspect_discrepancies`, `verify_negative_control`) directly to Bob and external agents over stdio.
-- **Provenance Records**: Full non-interactive command transcripts and turn logs are preserved in [`.bob-transcripts/`](.bob-transcripts/).
-- **Task Queue & Budgets**: Detailed task breakdowns and Bobcoin cost caps are tracked in [`docs/BOB-TASKS.md`](docs/BOB-TASKS.md).
-- **Task 1 Milestone**: Root commit [`1cbff58`](file:///Users/helen/workspace/eyeline) authored by IBM Bob delivering the visual diff UI inspection dashboard (`ui/`) for **1.61 Bobcoins** across 10 tool calls (see [`.bob-transcripts/task1-ui.json`](.bob-transcripts/task1-ui.json)).
-
----
-
-## 🧠 Google ADK & Agent Builder Pipeline
-
-The `ContinuityAgent` is instantiated in Python using **Google ADK (`google-adk`)**:
-
-```python
-from google.adk.agents import Agent
-from google.adk.models.google_llm import Gemini
-from eyeline.tools import (
-    align_setup_frames,
-    extract_candidate_regions,
-    measure_structural_ssim,
-    generate_veo_pickup,
-)
-
-# Root continuity review agent orchestrated with Google ADK
-continuity_agent = Agent(
-    name="eyeline_continuity_agent",
-    description="Inspects film takes against reference setups to identify physical continuity errors.",
-    model=Gemini(model="gemini-3.8-flash"),
-    tools=[
-        align_setup_frames,
-        extract_candidate_regions,
-        measure_structural_ssim,
-        generate_veo_pickup,
-    ],
-    instruction="""
-    Analyze candidate frame discrepancies between the Reference Setup and Current Take.
-    Distinguish legitimate camera/lighting/performance variation from genuine continuity defects.
-    Emit structured classification, bounding box, confidence, and recommended remediation.
-    """,
-)
-```
-
-The agent is deployable directly to **Google Cloud Agent Builder** / Vertex AI Agent Engine for enterprise production serving. The concrete exported manifest is tracked in [`src/eyeline/agent_builder_spec.json`](src/eyeline/agent_builder_spec.json), detailing reasoning engine configuration, tool schemas, and Rule 7.B compliance metadata. Full architectural specifications can be found in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
-
----
-
-## 🔬 Benchmark & Control Pairs
-
-A continuity detector evaluated only on positive defect pairs is trivial to game by flagging every frame. Eyeline evaluates across both:
-- **Positive Pairs ($P$)**: Seeded with exactly one specific continuity defect across 7 classes.
-- **Control Pairs ($C$)**: Containing only legitimate camera, lighting, and performance drift where the detector must stay completely silent.
-
-Read the full protocol and metrics formula in [`docs/BENCHMARK.md`](docs/BENCHMARK.md).
-
----
-
-## 🚀 Quickstart
-
-### Prerequisites
-- Node.js 18+ and Python 3.10+
-- FFmpeg (for video frame extraction)
-
-### Setup & Run
 ```bash
-# Clone repository
+# 1. Clone repository
 git clone https://github.com/helenkwok/eyeline.git
 cd eyeline
 
-# Launch the visual diff UI (demo fixture mode)
-npx serve ui/
+# 2. Validate the 32-pair ground-truth benchmark (16 defect + 16 control)
+python3 -m bench.loader
+
+# 3. Run the Classical CV detector across all 64 real H.264 MP4 clips
+python3 -m bench.run_benchmark
+
+# 4. Launch the On-Set Review Station & Judge Index
+python3 -m http.server 8080 -d ui/
+```
+- Open **`http://localhost:8080/`** for the **On-Set Review Station** (real video playback, 32-pair selector, timecodes, incident inspector).
+- Open **`http://localhost:8080/judge.html`** for the **Judge Index & Verification Receipts** (30-second preset path, live Veo playback, empirical receipts).
+
+---
+
+## 📊 Live Empirical Scoreboard (Measured on Real MP4 Video)
+
+> [!NOTE]
+> **EMPIRICALLY MEASURED ON RENDERED VIDEO FOOTAGE — ZERO HAND-WRITTEN METRICS**  
+> Evaluated across all 64 H.264 MP4 video clips in `bench/clips/` (CRF 18). Predictions in `bench/fixtures/measured_predictions.json`; scorecard in `bench/fixtures/scorecard.json`. Synchronized via `bench/sync_state.py`.
+
+| Metric | Pillar 1 (Classical CV Alone) | Pillar 1 + Pillar 2 (Gemini 3.8 Adjudicated) | Delta / Impact | Meaning |
+|---|---|---|---|---|
+| **Defect Recall** | **15 / 16 (93.8%)** | **15 / 16 (93.8%)** | **100% Retained** | Seeded breaks detected (escaped: `pair_007`). |
+| **Control False-Positive Rate** | **7 / 16 (43.8%)** | **3 / 16 (18.8%)** | **-25.0 pp (-57% relative)** | False alarms on intentional camera/lighting changes. |
+| **Spatial Localisation** ($IoU \ge 0.3$) | **6 / 16 (37.5%)** | **6 / 16 (37.5%)** | Baseline preserved | Classical CV isolates exact pixel-delta sliver. |
+| **Average Detection Latency** | **27.4 ms** (CPU) | **27.4ms** (CV) + **580ms** (Gemini) | Real-time ready | Executes well within the 2-minute on-set window. |
+
+### Statistical Disclosure & Retracted Controls
+Across 16 paired negative control setups, Gemini 3.8 Flash adjudication retracted **4 of 7 false alarms with 0 regressions** (one-sided exact McNemar $p = 0.0625$, $n=16$; 95% CI $[4.0\%, 45.6\%]$).
+- **Retracted False Alarms**: `pair_018` (lighting dim), `pair_019` (zoom), `pair_026` (camera angle), `pair_031` (zoom).
+- **Surviving Tripped Controls**: `pair_017` (camera angle), `pair_022` (camera angle), `pair_023` (focal length).
+
+### Spatial Localisation ($IoU \ge 0.3$) Containment Analysis
+In **10 of 16 defect pairs**, the detector bounding box is **93.1% to 100% contained** inside the ground-truth region (`Inter / Pred_Area` $\approx 1.0$). Standard IoU falls below 0.3 because ground-truth boxes delineate the **entire semantic entity** (e.g. full actor body for blocking), whereas classical CV isolates the **exact displaced pixel sliver** ($\text{Area}_{\text{delta}} \ll \text{Area}_{\text{entity}}$).
+
+---
+
+## 🏛️ System Architecture: The Strict 3-Pillar Ceiling
+
+Eyeline adheres strictly to **Rule 7.B** of the Agentic Cinema Hackathon: **strictly Google Cloud Gemini & Veo on Vertex AI, zero third-party object detectors (no YOLO, SAM, or GroundingDINO)**.
+
+```
+                  ┌─────────────────────────────────────────┐
+                  │          Take Pair Video Feeds          │
+                  │   Reference Setup  vs.  Current Take    │
+                  └────────────────────┬────────────────────┘
+                                       │
+        ┌──────────────────────────────┴──────────────────────────────┐
+        │                                                             │
+        ▼                                                             │
+┌────────────────────────────────────────────────────────┐            │
+│ PILLAR 1: Deterministic Alignment & Delta Isolation     │            │
+│ Classical CV (OpenCV-headless, scikit-image)           │            │
+│ • YCrCb illumination & histogram normalization         │            │
+│ • ORB keypoint matching + RANSAC homography alignment  │            │
+│ • Multi-channel max difference masking & opening       │            │
+│ • Sub-100ms candidate bounding box extraction          │            │
+└──────────────────────────────┬─────────────────────────┘            │
+                               │                                      │
+                               │ Candidate Crops & Metadata           │
+                               ▼                                      │
+┌────────────────────────────────────────────────────────┐            │
+│ PILLAR 2: Multimodal Continuity Adjudication           │            │
+│ Google ADK Agent & Gemini 3.8 Flash on Vertex AI       │            │
+│ • Inspects cropped delta against scene context         │            │
+│ • Discriminates intentional camera/lighting changes    │            │
+│ • Retracts false alarms (-25.0 pp FPR reduction)       │            │
+└──────────────────────────────┬─────────────────────────┘            │
+                               │                                      │
+                               │ Continuity Certificate               │
+                               ▼                                      │
+         ┌───────────────────────────────────────────┐                │
+         │         Script Supervisor Verdict         │                │
+         │  [Pass]   [Borderline Resample]   [Retake]│                │
+         └─────────────────────┬─────────────────────┘                │
+                               │ (If Set Struck & Unresolved)         │
+                               ▼                                      │
+┌────────────────────────────────────────────────────────┐            │
+│ PILLAR 3: Generative Emergency Pickup Tool             │            │
+│ Google Cloud Veo 3.1 (`veo-3.1-generate-preview`)      │◄───────────┘
+│ • Synthesizes 4.0s–6.0s macro insert cutaway B-roll   │
+│ • Matches scene lighting, color temperature & props    │
+│ • Mandatory `SYNTHETIC CONTINUITY INSERT` watermark    │
+└────────────────────────────────────────────────────────┘
 ```
 
-For full setup details and the fresh-clone rehearsal protocol, see [`docs/SUBMISSION-CHECKLIST.md`](docs/SUBMISSION-CHECKLIST.md).
+---
+
+## 🦾 Built with IBM Bob (IBM Partner Track Provenance)
+
+Substantive modular components of Eyeline were authored using **IBM Bob** in headless execution mode. Transcripts for all 8 development tasks are permanently preserved in [`.bob-transcripts/`](.bob-transcripts/):
+
+**Total Budget: 50.0 Bobcoins | Actual Spend: 14.84 Bobcoins | Remaining: 35.16 Bobcoins**
+
+| Task # | Subsystem Description | Budget Cap | Actual Cost | Status | Transcript Artifact |
+|---|---|---|---|---|---|
+| **1** | Visual Diff UI Shell & Fixture Player | 3.0 | 1.61 | **Complete** | [`.bob-transcripts/task1-ui.json`](.bob-transcripts/task1-ui.json) |
+| **2** | Ground-Truth Schema & Pydantic Loader | 2.0 | 1.56 | **Complete** | [`.bob-transcripts/task2-schema.json`](.bob-transcripts/task2-schema.json) |
+| **3** | Classical CV Alignment & Diff Engine | 4.0 | 2.03 | **Complete** | [`.bob-transcripts/task3-vision.json`](.bob-transcripts/task3-vision.json) |
+| **4** | Pillar 2 Multimodal Adjudicator & Runner | 3.5 | 2.46 | **Complete** | [`.bob-transcripts/task4-adjudicator.json`](.bob-transcripts/task4-adjudicator.json) |
+| **5** | Empirical Evaluation & Scoring Harness | 2.0 | 1.61 | **Complete** | [`.bob-transcripts/task5-scorer.json`](.bob-transcripts/task5-scorer.json) |
+| **6** | Pillar 3 Veo Generative Cutaway Generator | 4.0 | 2.14 | **Complete** | [`.bob-transcripts/task6-veo.json`](.bob-transcripts/task6-veo.json) |
+| **7** | Benchmark Evaluation Runner CLI | 2.5 | 1.55 | **Complete** | [`.bob-transcripts/task7-runner.json`](.bob-transcripts/task7-runner.json) |
+| **8** | Anti-Circularity Forcing Functions | 3.0 | 1.88 | **Complete** | [`.bob-transcripts/task8-forcing-functions.json`](.bob-transcripts/task8-forcing-functions.json) |
 
 ---
 
-## 📄 Documentation
+## 🐳 Docker & Google Cloud Run Deployment
 
-- [`docs/CONCEPT.md`](docs/CONCEPT.md): System concept, user persona, and bounded model architecture.
-- [`docs/BENCHMARK.md`](docs/BENCHMARK.md): Evaluation metrics, control pair taxonomy, and scoring equations.
-- [`docs/BOB-TASKS.md`](docs/BOB-TASKS.md): IBM Bob task queue and cost tracking.
-- [`docs/SUBMISSION-CHECKLIST.md`](docs/SUBMISSION-CHECKLIST.md): Zero-failure submission gates and rehearsal tests.
+Eyeline includes a production-grade `Dockerfile` using `nginx:alpine` configured with byte-range streaming for HTML5 video seeking:
+
+```bash
+# Build the standalone container locally
+docker build -t eyeline:latest .
+
+# Run container (serves UI, clips, and receipts on port 8080)
+docker run -p 8080:8080 eyeline:latest
+```
+
+### Turnkey Cloud Run Deploy:
+```bash
+# Deploy with unauthenticated access for hackathon judges
+./deploy/deploy_cloud_run.sh
+```
 
 ---
 
-## ⚖️ License
+## 📜 Full Documentation Suite
 
-Distributed under the [Apache 2.0 License](LICENSE).
+- [`docs/STATE.md`](docs/STATE.md): Living project state, active numbers, and sync status.
+- [`docs/DEVPOST.md`](docs/DEVPOST.md): Complete Devpost submission text and project narrative.
+- [`docs/BENCHMARK.md`](docs/BENCHMARK.md): 32-pair benchmark protocol, metrics, and negative control design.
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md): Technical architecture specification and tool bindings.
+- [`docs/BOB-TASKS.md`](docs/BOB-TASKS.md): Detailed task breakdown, costs, and tool accounting for IBM Bob.
+
+---
+
+## ⚖️ License & Rule 7.B Compliance
+
+- **Code License**: [Apache 2.0 License](LICENSE).
+- **Rule 7.B Compliance**: Permitted AI generative and inference models are strictly **Google Cloud Gemini & Google Cloud Veo on Vertex AI**. Zero third-party deep learning object detectors were used or included.

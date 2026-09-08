@@ -24,3 +24,8 @@ bench/media/*.png
 # System & transcripts
 .DS_Store
 .bob-transcripts/*.raw
+
+# Demo assembly intermediates
+docs/demo/scene*.mp4
+docs/demo/*_concat.txt
+docs/demo/audio/

@@ -139,18 +139,29 @@ All transcripts preserved in `.bob-transcripts/` as verifiable proof of developm
    - 30-second path with live presets (Defect, Control Pass, Resample, Veo Generative Pickup).
    - Provenance pills and verified AI model identifiers (`gemini-3.8-flash`, `veo-3.1-generate-preview`).
    - Empirical Receipt Table and Honest Limitations disclosure.
+   - One-click link to 2-minute demo walkthrough video.
+11. **Production Containerization & Cloud Run (`Dockerfile`, `deploy/`)**:
+   - Production `Dockerfile` on `nginx:alpine` with dynamic `$PORT` envsubst, byte-range streaming for HTML5 video seeking, and minimal `.dockerignore`.
+   - Verified local build and run (`eyeline:latest`, 39MB).
+   - Turnkey Cloud Run deployment script `deploy/deploy_cloud_run.sh`.
+12. **2-Minute Demo Video Walkthrough (`docs/demo/eyeline_walkthrough.mp4`)**:
+   - 102-second broadcast-ready 1080p 30fps H.264 video with AAC voiceover narration.
+   - Stitches live UI screenshots, dual video player scrubbing, 30-second judge presets, empirical receipt tables, and real Veo 3.1 watermarked MP4 playback.
+   - Bundled directly into the web UI at `ui/assets/eyeline_walkthrough.mp4`.
+13. **Fresh-Clone Rehearsal Verified**:
+   - Executed clean clone in `/tmp/eyeline-rehearsal`.
+   - Verified `python3 -m bench.loader` and `python3 -m bench.run_benchmark` pass with zero errors, zero missing files, and 100% functionality without any credentials.
+14. **Devpost Submission Packaging (`docs/DEVPOST.md`, `README.md`)**:
+   - Authored complete submission package in `docs/DEVPOST.md` covering the 2-minute on-set window, IBM Bob provenance accounting, Rule 7.B compliance statement, McNemar paired testing disclosure, and localisation analysis.
+   - Full `README.md` overhaul with video link, empirical scoreboard, and quickstart.
 
 ---
 
 ## 5. What's In Flight & Next Up
 
-1. **Wire Veo Video Player into UI**:
-   - In `ui/index.html` and `ui/judge.html`, add a one-click modal/drawer to preview the Veo generative pickup video (`ui/assets/veo_pickup_clock.mp4`).
-2. **Review Station Visual Polish & Testing Verification**:
-   - Verify that all presets in `ui/judge.html` play smoothly.
-3. **Demo Video Walkthrough**:
-   - Record 2-minute walkthrough showing:
-     - 30-second judge path on live UI
-     - Switching take pairs on real MP4 footage
-     - Terminal verification with `python3 -m bench.run_benchmark` and `bench.run_adjudication`
-     - Veo generative cutaway bridge with watermark display
+1. **Deploy to Google Cloud Run (User Action / Live Deploy)**:
+   - Run `./deploy/deploy_cloud_run.sh` with the user's GCP project ID to obtain the final public live URL for Devpost submission.
+2. **Final Devpost Form Submission**:
+   - Copy fields from `docs/DEVPOST.md` to the Devpost submission portal before the hackathon deadline.
+3. **Submission Video Upload**:
+   - Upload `docs/demo/eyeline_walkthrough.mp4` to YouTube/Vimeo/Devpost video field.
