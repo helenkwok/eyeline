@@ -9,7 +9,7 @@
 
 Eyeline is an autonomous on-set continuity copilot for film script supervisors competing in the **Agentic Cinema Hackathon** (**IBM Partner Track**).
 
-- **Core Mission**: Catch physical continuity breaks (props, wardrobe, blocking, consumables) while the set is still standing (2-minute window) to prevent five-figure reshoots after set strike.
+- **Core Mission**: Catch physical continuity breaks (props, wardrobe, blocking, consumables) while the set is still standing (2-minute window), so a break costs one more take instead of a pickup day — $18,000–$30,000 in crew labour alone for a lean 25–35 person crew (needacrew, 2026), up to ~$500,000 for a studio day (Careers in Film).
 - **Zero-Credential Guarantee**: All schemas, 32 benchmark pairs, baseline prediction fixtures, and the interactive Judge UI run completely offline with zero API keys or cloud dependencies.
 - **30-Second Verification**:
   ```bash

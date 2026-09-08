@@ -1,6 +1,6 @@
 # Eyeline: Autonomous On-Set Continuity Copilot
 
-> **A pickup day costs $18,000–$30,000 in crew labour alone for a lean 25–35 person crew (needacrew, 2026), and an average studio day runs to ~$500,000 (Careers in Film). Eyeline moves verification into the 2-minute window between takes, while the set is still standing.**
+> **Eyeline catches physical continuity breaks while the set is still standing, so a break costs one more take instead of a pickup day — $18,000–$30,000 in crew labour alone for a lean 25–35 person crew (needacrew, 2026), up to ~$500,000 for a studio day (Careers in Film).**
 
 Built for the **Agentic Cinema Hackathon** (**IBM Partner Track**) combining **IBM Bob**, **Google ADK (`google-adk`)**, **Google Cloud Agent Builder**, **Gemini 3.8 Flash**, and **Google Cloud Veo 3.1**.
 
@@ -27,7 +27,7 @@ Hackathon judges can immediately test Eyeline directly in the browser with **zer
 > *(Also bundled and playable directly inside the web UI at `ui/assets/eyeline_walkthrough.mp4`)*
 
 A comprehensive 102-second walk-through demonstrating:
-1. **The 2-Minute On-Set Window**: Why post-strike reshoots cost $50k and how script supervisors use Eyeline.
+1. **The 2-Minute On-Set Window**: How catching breaks on-set saves a pickup day — $18,000–$30,000 in crew labour alone for a lean 25–35 person crew (needacrew, 2026), up to ~$500,000 for a studio day (Careers in Film).
 2. **Interactive On-Set Review Station**: Dual synchronized 24fps HTML5 video players scrubbing real MP4 takes with canvas bounding boxes.
 3. **30-Second Judge Path**: Instant evaluation of bundled Defect, Control Pass, and Resample presets.
 4. **Pillar 2 False Alarm Retraction**: Live Gemini 3.8 Flash adjudication cutting control false alarms from 43.8% down to 18.8%.
