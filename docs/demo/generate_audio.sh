@@ -4,7 +4,7 @@ set -e
 mkdir -p docs/demo/audio
 
 say -v Samantha -r 170 -o docs/demo/audio/part1.aiff \
-"In film production, script supervisors have just two minutes between takes to catch physical continuity breaks before the set is struck. Once struck, a missed prop or wardrobe error costs tens of thousands of dollars to reshoot. Eyeline is an autonomous continuity copilot built under the strict Agentic Cinema Hackathon guidelines."
+"In film production, script supervisors have just two minutes between takes to catch physical continuity breaks before the set is struck. A pickup day costs eighteen to thirty thousand dollars in crew labour alone, up to half a million dollars for a studio day. Eyeline is an autonomous continuity copilot built under the strict Agentic Cinema Hackathon guidelines."
 
 say -v Samantha -r 170 -o docs/demo/audio/part2.aiff \
 "Pillar 1 performs sub-pixel perspective alignment and exposure normalization using classical computer vision. Within 80 milliseconds, it flags physical changes like this mug fill level jump, isolating candidate bounding boxes with zero external deep learning object detectors, fully compliant with Rule 7.B."
