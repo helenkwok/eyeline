@@ -176,10 +176,14 @@ All transcripts preserved in `.bob-transcripts/` as verifiable proof of developm
 
 ---
 
-## 5. What's In Flight & Next Up
+## 5. Submission Status & Final Links
 
-1. **Final Devpost Form Submission**:
-   - Copy fields from `docs/DEVPOST.md` to Devpost submission portal before the hackathon deadline.
-   - Video link populated: `https://youtu.be/T6W_apEthdA`.
-   - Live URL populated: `https://eyeline-akewulk3vq-uc.a.run.app/`.
-   - GitHub repo populated: `https://github.com/helenkwok/eyeline`.
+🎉 **OFFICIALLY SUBMITTED TO DEVPOST (AGENTIC CINEMA HACKATHON — IBM PARTNER TRACK)**
+
+- **Devpost Project Page**: [https://devpost.com/software/eyeline-autonomous-on-set-continuity-copilot](https://devpost.com/software/eyeline-autonomous-on-set-continuity-copilot)
+- **YouTube Walkthrough (1080p)**: [https://youtu.be/T6W_apEthdA](https://youtu.be/T6W_apEthdA)
+- **Live Google Cloud Run Review Station**: [https://eyeline-akewulk3vq-uc.a.run.app/](https://eyeline-akewulk3vq-uc.a.run.app/)
+- **Live Judge Portal (30-Second Path)**: [https://eyeline-akewulk3vq-uc.a.run.app/judge.html](https://eyeline-akewulk3vq-uc.a.run.app/judge.html)
+- **GitHub Repository**: [https://github.com/helenkwok/eyeline](https://github.com/helenkwok/eyeline)
+- **IBM Bob Provenance Pack**: [`eyeline-bob-provenance.zip`](../eyeline-bob-provenance.zip) / [`docs/BOB-PROVENANCE.md`](BOB-PROVENANCE.md)
+- **License**: Apache-2.0 (Canonical 202 lines, active badge detected on GitHub)

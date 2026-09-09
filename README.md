@@ -5,7 +5,7 @@
 Built for the **Agentic Cinema Hackathon** (**IBM Partner Track**) combining **IBM Bob**, **Google ADK (`google-adk`)**, **Google Cloud Agent Builder**, **Gemini 3.8 Flash**, and **Google Cloud Veo 3.1**.
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-[![Hackathon](https://img.shields.io/badge/Agentic_Cinema_Hackathon-IBM_Partner_Track-purple.svg)](https://devpost.com)
+[![Devpost](https://img.shields.io/badge/Devpost-Submission_Page-003E54.svg?logo=devpost&logoColor=white)](https://devpost.com/software/eyeline-autonomous-on-set-continuity-copilot)
 [![YouTube Demo](https://img.shields.io/badge/YouTube-2--Min_Demo-FF0000.svg?logo=youtube&logoColor=white)](https://youtu.be/T6W_apEthdA)
 [![Live Cloud Run](https://img.shields.io/badge/Live_Demo-Cloud_Run-34A853.svg)](https://eyeline-akewulk3vq-uc.a.run.app/)
 [![Judge Portal](https://img.shields.io/badge/Judge_Portal-Live_Receipts-F59E0B.svg)](https://eyeline-akewulk3vq-uc.a.run.app/judge.html)

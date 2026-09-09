@@ -8,6 +8,7 @@
 **Live Demo**: https://eyeline-akewulk3vq-uc.a.run.app/  
 **Judge Portal**: https://eyeline-akewulk3vq-uc.a.run.app/judge.html  
 **GitHub Repository**: https://github.com/helenkwok/eyeline  
+**Devpost Submission**: https://devpost.com/software/eyeline-autonomous-on-set-continuity-copilot  
 
 ---
 
