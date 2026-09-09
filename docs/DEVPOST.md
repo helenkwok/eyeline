@@ -3,7 +3,11 @@
 **Competition**: Agentic Cinema Hackathon  
 **Track**: IBM Partner Track  
 **Project Title**: Eyeline — Autonomous On-Set Continuity Copilot  
-**Tagline**: Autonomous multimodal continuity copilot for film script supervisors: catches prop, wardrobe, and blocking breaks in the 2-minute on-set window, backed by Gemini 3.8 Flash adjudication and Veo 3.1 emergency pickups.
+**Tagline**: Autonomous multimodal continuity copilot for film script supervisors: catches prop, wardrobe, and blocking breaks in the 2-minute on-set window, backed by Gemini 3.8 Flash adjudication and Veo 3.1 emergency pickups.  
+**Video URL**: https://youtu.be/T6W_apEthdA  
+**Live Demo**: https://eyeline-akewulk3vq-uc.a.run.app/  
+**Judge Portal**: https://eyeline-akewulk3vq-uc.a.run.app/judge.html  
+**GitHub Repository**: https://github.com/helenkwok/eyeline  
 
 ---
 
@@ -124,6 +128,6 @@ python3 -m http.server 8080 -d ui/
 - **Live Google Cloud Run Review Station**: [https://eyeline-akewulk3vq-uc.a.run.app/](https://eyeline-akewulk3vq-uc.a.run.app/)
 - **Live Judge Portal (30-Second Path)**: [https://eyeline-akewulk3vq-uc.a.run.app/judge.html](https://eyeline-akewulk3vq-uc.a.run.app/judge.html)
 - **GitHub Repository**: [helenkwok/eyeline](https://github.com/helenkwok/eyeline)
-- **Live Demo Video (2-min)**: `docs/demo/eyeline_walkthrough.mp4` (also playable in UI)
+- **YouTube Demo Video (1080p Walkthrough)**: [https://youtu.be/T6W_apEthdA](https://youtu.be/T6W_apEthdA)
 - **Docker Image**: `eyeline:latest` (built on `nginx:alpine` for Google Cloud Run)
 - **Provenance Transcripts**: Preserved in `.bob-transcripts/` (Tasks 1–8)

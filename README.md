@@ -6,6 +6,7 @@ Built for the **Agentic Cinema Hackathon** (**IBM Partner Track**) combining **I
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Hackathon](https://img.shields.io/badge/Agentic_Cinema_Hackathon-IBM_Partner_Track-purple.svg)](https://devpost.com)
+[![YouTube Demo](https://img.shields.io/badge/YouTube-2--Min_Demo-FF0000.svg?logo=youtube&logoColor=white)](https://youtu.be/T6W_apEthdA)
 [![Live Cloud Run](https://img.shields.io/badge/Live_Demo-Cloud_Run-34A853.svg)](https://eyeline-akewulk3vq-uc.a.run.app/)
 [![Judge Portal](https://img.shields.io/badge/Judge_Portal-Live_Receipts-F59E0B.svg)](https://eyeline-akewulk3vq-uc.a.run.app/judge.html)
 [![Models](https://img.shields.io/badge/Models-Gemini_3.8_Flash_%2B_Veo_3.1-4285F4.svg)](docs/ARCHITECTURE.md)
@@ -23,7 +24,7 @@ Hackathon judges can immediately test Eyeline directly in the browser with **zer
 
 ## 📺 2-Minute Demo Video Walkthrough
 
-> **[▶ Watch the Full 1080p Walkthrough Video](docs/demo/eyeline_walkthrough.mp4)**  
+> **[▶ Watch the Full 1080p Walkthrough Video on YouTube](https://youtu.be/T6W_apEthdA)**  
 > *(Also bundled and playable directly inside the web UI at `ui/assets/eyeline_walkthrough.mp4`)*
 
 A comprehensive 102-second walk-through demonstrating:

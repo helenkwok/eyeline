@@ -144,10 +144,11 @@ All transcripts preserved in `.bob-transcripts/` as verifiable proof of developm
    - Production `Dockerfile` on `nginx:alpine` with dynamic `$PORT` envsubst, byte-range streaming for HTML5 video seeking, and minimal `.dockerignore`.
    - Verified local build and run (`eyeline:latest`, 39MB).
    - Turnkey Cloud Run deployment script `deploy/deploy_cloud_run.sh`.
-12. **2-Minute Demo Video Walkthrough (`docs/demo/eyeline_walkthrough.mp4`)**:
-   - 102-second broadcast-ready 1080p 30fps H.264 video with AAC voiceover narration.
+12. **2-Minute Demo Video Walkthrough (`https://youtu.be/T6W_apEthdA`)**:
+   - 103-second broadcast-ready 1080p 30fps H.264 video with AAC voiceover narration and custom 16:9 thumbnail.
    - Stitches live UI screenshots, dual video player scrubbing, 30-second judge presets, empirical receipt tables, and real Veo 3.1 watermarked MP4 playback.
-   - Bundled directly into the web UI at `ui/assets/eyeline_walkthrough.mp4`.
+   - Publicly uploaded to YouTube: [https://youtu.be/T6W_apEthdA](https://youtu.be/T6W_apEthdA).
+   - Also bundled and playable directly inside the web UI at `ui/assets/eyeline_walkthrough.mp4`.
 13. **Fresh-Clone Rehearsal Verified**:
    - Executed clean clone in `/tmp/eyeline-rehearsal`.
    - Verified `python3 -m bench.loader` and `python3 -m bench.run_benchmark` pass with zero errors, zero missing files, and 100% functionality without any credentials.
@@ -167,13 +168,14 @@ All transcripts preserved in `.bob-transcripts/` as verifiable proof of developm
    - Integrated verified industry crew labour figures ($18,000–$30,000/day lean crew; ~$500,000 studio day).
    - Added SVG data-URI favicons eliminating browser 404s.
    - Restored canonical 202-line Apache-2.0 LICENSE including APPENDIX section; GitHub license detector actively recognizes `Apache-2.0`.
-   - Redeployed live container to Cloud Run revision `eyeline-00004-vgq` serving 100% of traffic. Verified via Chrome DevTools MCP: zero console errors, zero 404s, full photorealistic asset loading, and updated pickup cost citations.
+   - Redeployed live container to Cloud Run serving 100% of traffic. Verified via Chrome DevTools MCP: zero console errors, zero 404s, full photorealistic asset loading, and updated pickup cost citations.
 
 ---
 
 ## 5. What's In Flight & Next Up
 
-1. **Submission Video Upload**:
-   - Upload `docs/demo/eyeline_walkthrough.mp4` to YouTube/Vimeo/Devpost video link field.
-2. **Final Devpost Form Submission**:
+1. **Final Devpost Form Submission**:
    - Copy fields from `docs/DEVPOST.md` to Devpost submission portal before the hackathon deadline.
+   - Video link populated: `https://youtu.be/T6W_apEthdA`.
+   - Live URL populated: `https://eyeline-akewulk3vq-uc.a.run.app/`.
+   - GitHub repo populated: `https://github.com/helenkwok/eyeline`.
