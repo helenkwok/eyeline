@@ -169,6 +169,10 @@ All transcripts preserved in `.bob-transcripts/` as verifiable proof of developm
    - Added SVG data-URI favicons eliminating browser 404s.
    - Restored canonical 202-line Apache-2.0 LICENSE including APPENDIX section; GitHub license detector actively recognizes `Apache-2.0`.
    - Redeployed live container to Cloud Run serving 100% of traffic. Verified via Chrome DevTools MCP: zero console errors, zero 404s, full photorealistic asset loading, and updated pickup cost citations.
+17. **IBM Bob Provenance Pack & Index (`eyeline-bob-provenance.zip`)**:
+   - Assembled and verified self-contained provenance archive for IBM Partner Track judges.
+   - Includes single-table `INDEX.md`, all 8 raw JSON execution transcripts (`.bob-transcripts/`), custom domain configuration (`custom_modes.yaml`, 706B `continuity-supervisor` mode), and both empirical scorecards (`scorecard.json` and `adjudicated_scorecard.json` demonstrating the 43.8% → 18.8% FPR ablation).
+   - Bundled as `eyeline-bob-provenance.zip` (15 KB) and mirrored at `docs/BOB-PROVENANCE.md`.
 
 ---
 
